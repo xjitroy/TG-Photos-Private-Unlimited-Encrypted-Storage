@@ -2,7 +2,7 @@
 
 | Area | Cases | Status |
 |---|---|---|
-| Source policy | branding, four tabs/overflow Settings, no permission/provider/endpoints/telemetry/logging, XML/catalog/module graph, disabled auth/vault, failed backup, no APK, packaging guard | 12 checks passed; source-only |
+| Source policy | branding, four tabs/overflow Settings, no media/network permissions/endpoints/telemetry/logging; reviewed non-exported startup policy, XML/catalog/module graph, disabled auth/vault, failed backup, no APK, packaging guard | 12 checks passed; source-only |
 | JVM deletion safety | every backup state, exact file/version, incomplete restore, corrupt hash, unauthenticated manifest/chunk, local-only evidence, empty file | 3 JUnit methods pass in Android CI |
 | JVM unavailable crypto | encryption never returns fake ciphertext; decryption never returns unauthenticated bytes | 2 JUnit methods pass in Android CI |
 | Compile | app and all Android/JVM modules, Room KSP/schema export | Android/Room KSP compilation passes; newer media/native source pending |

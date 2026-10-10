@@ -9,11 +9,12 @@ import java.util.concurrent.LinkedBlockingQueue
 import java.util.concurrent.TimeUnit
 
 class TdLibRequestSessionTest {
-    private class Driver : TdJsonDriver {
+    private class Driver(private val loggingResult: String? = "{\"@type\":\"ok\"}") : TdJsonDriver {
         val outbound = LinkedBlockingQueue<JsonObject>()
         val inbound = LinkedBlockingQueue<String>()
-        override fun createClient() = 7
-        override fun execute(request: String) = "{\"@type\":\"ok\"}"
+        var createdClients = 0
+        override fun createClient(): Int { createdClients++; return 7 }
+        override fun execute(request: String) = loggingResult
         override fun receive(timeoutSeconds: Double): String? = inbound.poll(100, TimeUnit.MILLISECONDS)
         override fun send(clientId: Int, request: String) {
             val json = Json.parseToJsonElement(request).jsonObject
@@ -37,6 +38,17 @@ class TdLibRequestSessionTest {
         }
     }
     private fun request() = TdLibRequests.simple("getAuthorizationState")
+
+    @Test fun absentOrUnexpectedLoggingAcknowledgementPreventsClientCreation() {
+        for (result in listOf(null, "{\"@type\":\"error\",\"message\":\"private fixture\"}", "{\"@type\":\"unknown\"}")) {
+            val driver = Driver(result)
+            try { TdLibRequestSession(driver); fail("Unconfirmed log suppression accepted") }
+            catch (failure: IllegalStateException) {
+                assertEquals(0, driver.createdClients)
+                assertFalse(failure.message.orEmpty().contains("private fixture"))
+            }
+        }
+    }
 
     @Test fun responsesCorrelateWhenReceivedOutOfOrder() = runBlocking {
         val driver = Driver(); val session = TdLibRequestSession(driver)

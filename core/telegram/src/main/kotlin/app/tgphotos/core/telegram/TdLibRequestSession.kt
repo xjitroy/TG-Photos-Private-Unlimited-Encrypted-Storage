@@ -49,7 +49,7 @@ class TdLibRequestSession(private val driver: TdJsonDriver, private val timeoutM
         try {
             for (request in listOf(TdLibRequests.noLogStream(), TdLibRequests.noVerboseLogs())) {
                 val result = driver.execute(request.toString())
-                check(result == null || Json.parseToJsonElement(result).jsonObject["@type"]?.jsonPrimitive?.content != "error") {
+                check(result != null && Json.parseToJsonElement(result).jsonObject["@type"]?.jsonPrimitive?.content == "ok") {
                     "TDLib logging suppression failed"
                 }
             }

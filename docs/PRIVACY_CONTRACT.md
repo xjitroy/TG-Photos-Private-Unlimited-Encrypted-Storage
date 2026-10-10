@@ -22,7 +22,9 @@ credentials, files or metadata to be delivered to the source application's serve
 
 ## Present evidence and limits
 
-Phase 1 source has no internet/storage permissions, provider, runtime URL, network client or telemetry SDK.
+Phase 1 preview source has no internet/storage permissions, runtime URL, network client or telemetry SDK.
+Its non-exported AndroidX startup provider retains local lifecycle/profile initialization; manifest source
+removes automatic EmojiCompat font initialization. The actual merged-manifest check must confirm this.
 Only theme/dynamic-color preferences are saved, using private preferences. No real user data is loaded.
 The source policy checks are useful prevention checks; they do not prove the merged manifest, third-party
 binaries, Android OS or final runtime has no leak. Dependency resolution/compilation now pass in GitHub CI; resolved-binary privacy analysis and device

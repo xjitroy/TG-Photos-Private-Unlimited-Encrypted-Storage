@@ -22,6 +22,8 @@ public final class AuthenticatedRangeReader implements AutoCloseable {
     private final byte[] key;
     private final CiphertextSource source;
     private final AeadEnvelope cipher = new AeadEnvelope();
+    private final Object reads = new Object();
+    private final Object state = new Object();
     private byte[] buffer;
     private int bufferedIndex = -1;
     private boolean closed;
@@ -43,28 +45,50 @@ public final class AuthenticatedRangeReader implements AutoCloseable {
     }
 
     /** Returns at most the remainder of one fully authenticated chunk, 0 for zero length, -1 at EOF. */
-    public synchronized int readAt(long position, byte[] destination, int offset, int count)
+    public int readAt(long position, byte[] destination, int offset, int count)
             throws IOException, GeneralSecurityException {
-        if (closed) throw new IllegalStateException("Authenticated media source is closed");
-        if (destination == null || offset < 0 || count < 0 || offset > destination.length - count ||
-                position < 0 || position > totalBytes) throw new IllegalArgumentException("Invalid media read range");
-        if (count == 0) return 0;
-        if (position == totalBytes) return -1;
-        if (Thread.currentThread().isInterrupted()) throw new InterruptedIOException("Media read cancelled");
-        int index = Arrays.binarySearch(offsets, position);
-        if (index < 0) index = -index - 2;
-        if (index != bufferedIndex) {
-            wipeBuffer();
-            int maximum = lengths[index] + AeadEnvelope.ENVELOPE_OVERHEAD_BYTES;
-            byte[] envelope = source.fetch(index, maximum);
-            if (envelope == null || envelope.length != maximum) throw new IOException("Invalid encrypted media chunk length");
-            byte[] authenticated = cipher.open(key, envelope,
-                    new ChunkContext(fileId, version, index, lengths[index], ChunkContext.Scope.FILE).encode());
-            if (Thread.currentThread().isInterrupted()) {
-                Arrays.fill(authenticated, (byte) 0); throw new InterruptedIOException("Media read cancelled");
+        synchronized (reads) {
+            int index;
+            byte[] operationKey;
+            synchronized (state) {
+                requireOpen();
+                if (destination == null || offset < 0 || count < 0 || offset > destination.length - count ||
+                        position < 0 || position > totalBytes) throw new IllegalArgumentException("Invalid media read range");
+                if (count == 0) return 0;
+                if (position == totalBytes) return -1;
+                if (Thread.currentThread().isInterrupted()) throw new InterruptedIOException("Media read cancelled");
+                index = Arrays.binarySearch(offsets, position);
+                if (index < 0) index = -index - 2;
+                if (index == bufferedIndex) return copy(position, index, destination, offset, count);
+                wipeBuffer();
+                operationKey = key.clone();
             }
-            buffer = authenticated; bufferedIndex = index;
+            byte[] authenticated = null;
+            try {
+                int maximum = lengths[index] + AeadEnvelope.ENVELOPE_OVERHEAD_BYTES;
+                byte[] envelope = source.fetch(index, maximum);
+                synchronized (state) { requireOpen(); }
+                if (envelope == null || envelope.length != maximum) throw new IOException("Invalid encrypted media chunk length");
+                authenticated = cipher.open(operationKey, envelope,
+                        new ChunkContext(fileId, version, index, lengths[index], ChunkContext.Scope.FILE).encode());
+                synchronized (state) {
+                    requireOpen();
+                    if (Thread.currentThread().isInterrupted()) throw new InterruptedIOException("Media read cancelled");
+                    buffer = authenticated; authenticated = null; bufferedIndex = index;
+                    return copy(position, index, destination, offset, count);
+                }
+            } finally {
+                Arrays.fill(operationKey, (byte) 0);
+                if (authenticated != null) Arrays.fill(authenticated, (byte) 0);
+            }
         }
+    }
+
+    private void requireOpen() {
+        if (closed) throw new IllegalStateException("Authenticated media source is closed");
+    }
+
+    private int copy(long position, int index, byte[] destination, int offset, int count) {
         int within = (int) (position - offsets[index]);
         int available = Math.min(count, buffer.length - within);
         System.arraycopy(buffer, within, destination, offset, available);
@@ -77,8 +101,9 @@ public final class AuthenticatedRangeReader implements AutoCloseable {
     }
 
     /** Caller must close all readers on vault lock/account lock/background policy before releasing previews. */
-    @Override public synchronized void close() {
-        wipeBuffer(); Arrays.fill(key, (byte) 0); closed = true;
+    @Override public void close() {
+        // Never wait for a blocked remote fetch. An in-flight operation cannot publish bytes after closure.
+        synchronized (state) { wipeBuffer(); Arrays.fill(key, (byte) 0); closed = true; }
     }
     @Override public String toString() { return "AuthenticatedRangeReader(redacted)"; }
 }

@@ -27,6 +27,11 @@ for node in application:
     guard = node.get(android + 'permission', '')
     if exported and name not in {'.MainActivity', 'app.tgphotos.android.MainActivity'} and guard != 'android.permission.DUMP':
         raise SystemExit('Unreviewed exported APK component')
+    if node.tag == 'provider':
+        initializers = {child.get(android + 'name', '') for child in node.findall('meta-data')}
+        if name != 'androidx.startup.InitializationProvider' or exported or initializers - {
+            'androidx.lifecycle.ProcessLifecycleInitializer', 'androidx.profileinstaller.ProfileInstallerInitializer'}:
+            raise SystemExit('Unreviewed APK initializer/provider')
     components.append({'kind': node.tag, 'name': name, 'exported': exported, 'permission': guard,
                        'initializers': [child.get(android + 'name', '') for child in node.findall('meta-data')]})
 report = {'scope': 'Actual development APK merged manifest; no runtime network/security audit implied',

@@ -107,6 +107,26 @@ public final class AuthenticatedRangeChecks {
                 require(reader.totalBytes == 0); require(reader.readAt(0, new byte[1], 0, 1) == -1);
             }
         });
+        check("Vault/account closure does not wait for a fetch and prevents late plaintext publication", () -> {
+            var entered = new java.util.concurrent.CountDownLatch(1);
+            var release = new java.util.concurrent.CountDownLatch(1);
+            byte[] destination = new byte[] {99,99,99,99};
+            AuthenticatedRangeReader reader = new AuthenticatedRangeReader(id, 1, new int[] {4}, key, (index, maximum) -> {
+                entered.countDown();
+                try { if (!release.await(2, java.util.concurrent.TimeUnit.SECONDS)) throw new IOException("Fixture fetch stalled"); }
+                catch (InterruptedException interrupted) { Thread.currentThread().interrupt(); throw new InterruptedIOException("Fixture cancelled"); }
+                return envelopes[0].clone();
+            });
+            var executor = java.util.concurrent.Executors.newFixedThreadPool(2);
+            try {
+                var pending = executor.submit(() -> { rejects(() -> reader.readAt(0, destination, 0, 4)); return true; });
+                require(entered.await(2, java.util.concurrent.TimeUnit.SECONDS));
+                var close = executor.submit(() -> { reader.close(); return true; });
+                require(close.get(500, java.util.concurrent.TimeUnit.MILLISECONDS));
+                release.countDown(); require(pending.get(2, java.util.concurrent.TimeUnit.SECONDS));
+                require(Arrays.equals(destination, new byte[] {99,99,99,99}));
+            } finally { release.countDown(); reader.close(); executor.shutdownNow(); }
+        });
         Arrays.fill(key, (byte) 0);
         System.out.println("RESULT " + passed + " checks passed. JCA range fixtures; real decoder/device streaming pending.");
     }

@@ -36,8 +36,19 @@ class SourcePolicyChecks(unittest.TestCase):
         app = manifest.find("application")
         self.assertEqual("false", app.get(ANDROID + "allowBackup"))
         self.assertEqual("false", app.get(ANDROID + "usesCleartextTraffic"))
-        self.assertEqual([], app.findall("provider"))
+        providers = app.findall("provider")
+        self.assertEqual(1, len(providers))
+        provider = providers[0]
+        self.assertEqual("androidx.startup.InitializationProvider", provider.get(ANDROID + "name"))
+        self.assertEqual("false", provider.get(ANDROID + "exported"))
+        self.assertEqual("${applicationId}.androidx-startup", provider.get(ANDROID + "authorities"))
+        metadata = provider.findall("meta-data")
+        self.assertEqual(1, len(metadata))
+        self.assertEqual("androidx.emoji2.text.EmojiCompatInitializer", metadata[0].get(ANDROID + "name"))
+        self.assertEqual("remove", metadata[0].get("{http://schemas.android.com/tools}node"))
         for component in list(app):
+            if component.tag == "provider":
+                continue
             self.assertEqual("activity", component.tag)
             self.assertEqual(".MainActivity", component.get(ANDROID + "name"))
 

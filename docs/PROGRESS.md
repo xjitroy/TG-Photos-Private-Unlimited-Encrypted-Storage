@@ -90,7 +90,7 @@ schema/rejection tests pass in source run 38068420902; its total JVM summary is 
 
 AuthenticatedRangeReader authenticates a complete bounded chunk before copying any requested range to a
 consumer; seek mapping uses trusted chunk-length offsets, one in-memory plaintext chunk is retained, and
-replacement/close wipes the owned buffer/key. Eight offline JCA fixture checks pass for sequential/seek reads,
+replacement/close wipes the owned buffer/key. Nine offline JCA fixture checks pass for sequential/seek reads,
 replay/reordering/corruption, immutable destination on auth failure, truncation, invalid ranges, cancellation,
 close and empty files. All active readers must be closed on vault/account lock; automatic lifecycle wiring
 is pending. CiphertextSource is a bounded/deadline/interruption transport contract, not a live downloader.
@@ -124,3 +124,27 @@ failed before installation because platform-tools/adb was not on the CI PATH. No
 The workflow now explicitly provisions platform-tools, adds its directory to the next steps' PATH, bounds
 wait-for-device and preserves account-free emulator startup logs. The debug APK was removed in cleanup;
 no APK artifact was uploaded or delivered. The rerun will verify actual installation/navigation.
+
+## Observed binary/manifest evidence and privacy fixes
+
+Source run 38069536270 passed the dependency-inventory task: seven configurations and 142 external
+packages were recorded; 138 have direct cached POM license declarations. Four Guava/failureaccess entries
+require inherited-license/source review. This is inventory evidence, not clearance or a vulnerability scan.
+Downloaded evidence ZIP hashes match GitHub artifact digests.
+
+Native run 38067274352 completed x86_64 compilation/16KB checks. Downloaded artifacts were independently
+inspected with GNU readelf locally: ELF64 x86_64 ABI, unversioned Android SONAMEs, allowed dependencies,
+required public C/JNI symbols and 16KB-aligned/congruent LOAD segments pass. The original producer
+provenance is preserved separately from local ELF review. Native binary names are already correct on
+Android; no upstream SONAME patch is needed or applied. Arm64 result and new JNI bounds build are pending.
+
+The actual QA APK manifest exposed Compose tooling's exported PreviewActivity. A debug manifest overlay
+removes it. Main manifest removes automatic EmojiCompat font-provider initialization while retaining the
+non-exported reviewed local lifecycle/profile startup. The audit keeps its strict export/initializer checks;
+next QA run must confirm the merged manifest and then run the emulator. Earlier QA never installed the app.
+
+Media reader close now invalidates/wipes owned state without waiting for a blocked remote fetch. A ninth
+fault test confirms a late fetch cannot publish plaintext after closure; transport operation copies are wiped
+when the in-flight call finishes. UI/player-held bytes and decoder state still need explicit lifecycle clearing.
+Native client creation now requires positive logging-suppression acknowledgements; a new rejection test
+awaits CI. Null/unknown acknowledgements can no longer start a client with unconfirmed logging policy.
