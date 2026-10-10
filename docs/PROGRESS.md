@@ -277,3 +277,22 @@ overall UI run FAILED. Artifact 11681748569 ZIP SHA256
 The harness now preserves every raw hierarchy response, retries three times after transitions, and
 collects crash/window diagnostics even after failure. Assertions and Vault screenshot protection remain
 intact. This harness change needs a new emulator run; no complete UI or live-feature acceptance claimed.
+
+## Full current-source QA build and preview runtime pass
+
+Source 3bf7faab1705bd6c3b57b113159537f259ae402e passes source run 38087302893
+(Android/Room/test-source compilation, 24 JVM tests, both lints; build 4m 8s), and runtime run
+38087302897 (temporary debug APK build 4m 53s, actual merged manifest, native fixture integrity,
+six Android tests with no failures/errors/skips, 4.286s, and 11 preview UI checks).
+Photos first dump reports `ERROR: null root node returned by UiTestAutomationBridge.`; the bounded
+retry obtains its real hierarchy. All screen assertions pass, and the crash buffer is empty.
+Actual screenshots show original Photos illustrations/four bottom tabs and persisted Dark Settings.
+Locked preview Vault window FLAG_SECURE is confirmed without capturing a protected screenshot.
+This resolves the observed accessibility transition failure, not every possible UI/device fault.
+
+Artifact 11683400355 digest 7ad966999c71fa2c90705bd0b44fe9ff3e3e1170a59420b0a80c6a085d3a2ddd
+matches the downloaded archive. Named results and screenshot hashes are retained in
+`docs/evidence/android-preview-runtime.json`; private raw evidence expires 2026-10-24.
+No account/media/production key/API registration is used; QA APKs are removed, not distributed.
+Full live feature integration, supported-device/accessibility/performance/network/fault testing,
+recovery, independent human review and production signed APK gates remain open.

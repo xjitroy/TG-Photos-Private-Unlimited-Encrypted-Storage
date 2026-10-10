@@ -1,0 +1,56 @@
+{
+  "scope": "Labelled design-preview UI on Android emulator; not live Telegram/backup/vault/player acceptance",
+  "source_commit": "3bf7faab1705bd6c3b57b113159537f259ae402e",
+  "source_run": 38087302893,
+  "runtime_run": 38087302897,
+  "runtime_conclusion": "success",
+  "device": "Android 35 x86_64 emulator; not physical hardware",
+  "jvm": {
+    "tests": 24,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "android": {
+    "tests": 6,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "preview_ui_passed": [
+    "login",
+    "photos-light",
+    "albums",
+    "files",
+    "private-vault",
+    "vault-secure-window",
+    "settings-light",
+    "settings-dark",
+    "settings-dark-restart",
+    "theme-process-persistence",
+    "home-after-settings"
+  ],
+  "crash_buffer_empty": true,
+  "transient_ui_issue": "Photos first accessibility dump returned null root; bounded retry returned real hierarchy and all assertions passed.",
+  "artifact": {
+    "id": 11683400355,
+    "sha256": "7ad966999c71fa2c90705bd0b44fe9ff3e3e1170a59420b0a80c6a085d3a2ddd",
+    "expires_at": "2026-10-24T21:32:33Z"
+  },
+  "screenshots": {
+    "albums.png": "634077c9b1a9025dd7dbd6cd6680883f87044a8c1f88c1a6bab5b7fd0723d3b8",
+    "files.png": "e627a32c08b188b3b1b3ca79eb2903372fd91e431a06143a9da2921c4b61b6a8",
+    "home-after-settings.png": "3112674631c125c8a5896c048408c45d029d1ae3e93a57c0ac24fe30053ee616",
+    "login.png": "4a91d77668e7ee7903a165f86234e7461cc5e1d6286662aadc1e48f12311c541",
+    "photos-light.png": "5f5d9d14a6e5af529134832396f855878b2e4318d758fdcb4132a6ccd561bc7a",
+    "settings-dark-restart.png": "8212be3feddc12b79e2d677b2fd46f1ef94a7f18ba5bfa2c810eceb9af9acbc2",
+    "settings-dark.png": "f9bcd4d1fef0d344b2a504bce0171b4ce236e3ac2424c54b28fa3eb5e7c0824e",
+    "settings-light.png": "758b7efd878594a701b5dd02f5664d37e53460ca02b837310a97a89d4e5926ef"
+  },
+  "limits": [
+    "No account, owner API registration, OTP, passphrase, production key or personal media used.",
+    "No live Telegram/backup/restore/player/Vault-auth acceptance or independent security approval.",
+    "No protected Vault screenshot captured; window FLAG_SECURE was checked.",
+    "No APK artifact uploaded or production APK delivered."
+  ]
+}

@@ -88,3 +88,17 @@ QA APK assembly BUILD SUCCESSFUL in 5m 2s; public Gradle cache restored.
 UI overall FAILED: login PASS, Photos hierarchy unavailable. Full UI acceptance NOT established.
 Evidence artifact 11681748569 SHA256 2cd4717b7c005a6e393294df7a18fee099ab1e8d604b6d7184d7dbb964be449b.
 No owner credentials/account/media used; no production APK delivered.
+
+Verified diagnostic-harness source 3bf7faab1705bd6c3b57b113159537f259ae402e
+Source run 38087302893: Android/Room/test-source compilation, 24 JVM tests (zero failures/errors/skips), Debug/Release lint PASS.
+BUILD SUCCESSFUL in 4m 8s; source workflow creates no APK/AAB.
+Source policy + four complete-range CI classifier regressions + original ZIP/image checks PASS.
+Runtime/UI run 38087302897 remains a separate acceptance check.
+
+Runtime run 38087302897 for source 3bf7faab1705bd6c3b57b113159537f259ae402e: overall PASS.
+QA debug APK BUILD SUCCESSFUL in 4m 53s; actual manifest/native fixture integrity PASS.
+Six Android 35 provider/native tests: zero failures/errors/skips, 4.286s.
+11 labelled-preview UI checks PASS; locked Vault secure-window flag verified; theme persists after process restart.
+Photos initial accessibility null root resolved by bounded retry of the actual UI tree; crash buffer empty.
+Artifact 11683400355 SHA256 7ad966999c71fa2c90705bd0b44fe9ff3e3e1170a59420b0a80c6a085d3a2ddd verified.
+See android-preview-runtime.json. No live-feature/hardware/security-review acceptance or production APK implied.

@@ -60,7 +60,7 @@ Do not use its MTProto IPs/public keys as hardcoded client configuration; offici
 
 1. Source b7befe23 passes Android compilation, Room KSP, 24 JVM tests and Debug/Release lint in
    run 38074390463. Native rebuild 38071501341 passes both ABIs with fresh bounded JNI. Check newer
-   runs before claiming changed-source compatibility; Android native load/UTF-8/bounds pass; immediate reownership fix passes all six Android tests in run 38074390506 attempt 2. UI acceptance still fails at Photos hierarchy acquisition; inspect the next diagnostics run.
+   runs before claiming changed-source compatibility; Android native load/UTF-8/bounds pass; immediate reownership fix passes all six Android tests in run 38074390506 attempt 2. New source 3bf7faa passes all 11 preview UI checks plus six Android tests in run 38087302897; source run 38087302893 also passes 24 JVM tests/lints. Read docs/evidence/android-preview-runtime.json for scope/hashes; broader live/device acceptance remains open.
 2. Review AeadEnvelope, ChunkContext, Argon2id/HKDF/root wrappers and the backup protocol. Finish encrypted
    root/recovery persistence and key version handling. Independent vault lock is implemented as a primitive,
    but authentication, automatic locking and wiping consumer-held keys/previews are not app-wired.

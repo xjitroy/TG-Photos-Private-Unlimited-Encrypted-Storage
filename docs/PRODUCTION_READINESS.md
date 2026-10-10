@@ -10,7 +10,7 @@ The existing account-free QA APKs are temporary development/test packages and ar
 - Offline suites: 31 crypto/key hierarchy, 13 backup protocol, 10 encrypted disk cache and 9 authenticated
   media range checks. These verify individual primitives/test fixtures, not the complete application.
 - Official pinned TDLib/OpenSSL and original bounded JNI compile for arm64-v8a and x86_64. Hashes,
-  ELF exports/dependencies and 16KB alignment are checked; Android native load/Unicode/bounds check passes; receiver reownership fix passes all six Android 35 tests in run 38074390506 attempt 2. Full UI acceptance still fails at Photos hierarchy acquisition; diagnosis continues.
+  ELF exports/dependencies and 16KB alignment are checked; Android native load/Unicode/bounds check passes; receiver reownership fix passes all six Android 35 tests in run 38074390506 attempt 2. Source 3bf7faa also passes all 11 preview UI checks and six Android tests in run 38087302897; live/device production acceptance remains open.
 - Four isolated Android 35 Keystore provider tests pass: fresh-instance recovery, concurrent creation,
   corrupt-envelope rejection and missing-wrapper rejection without resetting the session.
 - Actual preview APK manifest has no Internet/media/storage permissions and removes the exported
