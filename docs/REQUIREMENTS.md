@@ -1,7 +1,7 @@
 # TG Photos complete requirements checklist
 
 Source: owner request, latest branding/privacy clarification and all master-plan sections.
-**Source** means code exists but is not compiled/device-verified. **Preview** means labeled sample UI only.
+**Source** means code exists; compilation/runtime evidence must be checked per named commit. **Preview** means labeled sample UI only.
 **Pending** means no live implementation; no production feature completion is claimed.
 
 | ID | Requirement | Module / phase | Current status |
@@ -12,11 +12,11 @@ Source: owner request, latest branding/privacy clarification and all master-plan
 | F04 | Play title TG Photos: Private Backup, 30-character compliance | branding / P0 | documented, 25 characters |
 | F05 | Preserve extended preferred name, no unverified unlimited claim | branding / P0 | documented |
 | F06 | No official Telegram affiliation claim | auth/About/branding / P1 | Source |
-| F07 | Native Kotlin/Compose, Material 3 Expressive/Material You | app/designsystem / P1 | Source; compatibility unverified |
+| F07 | Native Kotlin/Compose, Material 3 Expressive/Material You | app/designsystem / P1 | Source; Android compilation/lint verified; runtime visual acceptance pending |
 | F08 | Dark/Light/System + persistent preference + dynamic colors | designsystem/app/settings / P1 | Source |
 | F09 | Four tabs: Photos (Cloud), Albums, Files, Private Vault | app / P1 | Source |
 | F10 | Settings from top-right overflow; no fifth tab | app / P1 | Source |
-| F11 | Media3, Room, WorkManager, Android Keystore | core / P1–P6 | first three declared/foundation; Keystore pending |
+| F11 | Media3, Room, WorkManager, Android Keystore | core / P1–P6 | first three declared/foundation; Keystore envelope draft compiled; Android provider tests pending |
 | F12 | Original polished UI inspired by 14 reference images | features / P1 | Preview source; runtime review pending |
 | F13 | Accessibility/48dp/large font/RTL/error-empty-loading states | features / P1–P7 | source baseline/empty-unavailable states; Android compile/lint passed; device QA pending |
 | A01 | Telegram phone authentication through official TDLib | telegram/auth / P2 | Preview; adapter unavailable |
@@ -24,7 +24,7 @@ Source: owner request, latest branding/privacy clarification and all master-plan
 | A03 | Authoritative OTP delivery type/length/resend | telegram/auth / P2 | UI preview only; no fabricated OTP |
 | A04 | Open Telegram shortcut, never secretly scrape OTP | auth / P1–P2 | Source shortcut; no data passed/read |
 | A05 | Telegram 2FA distinctly separate from encryption password | auth / P1–P2 | Separate previews; authentication pending |
-| A06 | Email/email-code authorization branches when requested | telegram / P2 | State contract; live handlers pending |
+| A06 | Email/email-code authorization branches when requested | telegram / P2 | official schema/reducer/gateway drafts and JVM tests pass; live handlers/UI pending |
 | A07 | Protected session, expiration/logout and secure lifecycle | telegram / P2 | Pending; no live session |
 | A08 | Own API ID/hash, secure local/CI setup, no hardcoded secrets | telegram / P2 | owner registration stored in ignored private configuration; runtime deployment pending |
 | E01 | Random 256-bit root; never a short-password direct media key | crypto / P2 | random 256-bit generator/root wrappers implemented; full setup/recovery flow pending |
@@ -36,7 +36,7 @@ Source: owner request, latest branding/privacy clarification and all master-plan
 | E07 | Encrypted names/path/EXIF/metadata/search index | crypto/database / P2–P4 | encrypted-envelope schema source only |
 | E08 | Encrypted thumbnails/persistent cache, in-memory decode only | crypto/cache / P3–P5 | authenticated disk-cache primitive + 10 offline fault tests; thumbnail/viewer integration pending |
 | E09 | Passphrase wrap + offline recovery + separate recovery wrap | crypto/auth / P2 | root/recovery wrap primitives pass; passphrase-backed tests prepared; export/UI pending |
-| E10 | Keystore local convenience wrapper; second-device recovery | crypto / P2 | Pending |
+| E10 | Keystore local convenience wrapper; second-device recovery | crypto / P2 | session database wrapper draft compiled; isolated Android tests prepared; media/root recovery remains pending |
 | E11 | Password rotation/key versions/cross-device restore | crypto / P2–P6 | Pending |
 | E12 | No plaintext private keys/passwords uploaded | crypto/transport / all | required boundary; no uploads yet |
 | E13 | Corruption/wrong password/duplicate/missing/reordered chunks fail closed | crypto/backup/media / P2–P5 | wrong-key/corruption/reorder/truncation primitive checks pass; live/device integration pending |
@@ -65,7 +65,7 @@ Source: owner request, latest branding/privacy clarification and all master-plan
 | V02 | Horizontal/vertical video navigation and quality playback | media/photos / P5 | Pending |
 | V03 | Multiple audio/subtitle tracks/external subtitles/speed | media / P5 | Pending |
 | V04 | Resume per file/version; next-video prebuffer | media/database/cache / P5 | playback contract only |
-| V05 | Adaptive seekable encrypted streaming and bounded caching | media/crypto/cache / P5 | authenticated range-reader + Media3 adapter drafts; 8 offline fault checks pass; player/device integration pending |
+| V05 | Adaptive seekable encrypted streaming and bounded caching | media/crypto/cache / P5 | authenticated range-reader + Media3 adapter drafts; 9 offline fault checks pass; player/device integration pending |
 | V06 | Authenticate chunks before decoder; respect power/network budget | media/cache / P5 | full-chunk authenticated range primitive; app player/budget lifecycle pending |
 | V07 | Basic video trim/crop/rotate/speed/export and audio cut/fade/volume | media / P5 | Media3 Transformer declared; pending |
 | V08 | Codec/4K/HDR graceful fallback; optional VLC audited separately | media / P5 | Pending; no universal-format claim |
@@ -89,12 +89,12 @@ Source: owner request, latest branding/privacy clarification and all master-plan
 | S05 | App-private encrypted persistent media/session/cache, OS backup excluded | app/core / all | backup exclusions source + Keystore/cache drafts; app wiring and device tests pending |
 | O01 | Verify 14 referenced repositories/licenses before reuse | docs / P0 | license/README screening done; exact reuse/native dependency audit pending |
 | O02 | Prefer permissive audited components, respect GPL/AGPL/LGPL obligations | all / all | clean-room app; no copyleft source copied |
-| O03 | Attributions/NOTICE/resolved SBOM/build provenance/pinned dependencies | gradle/docs / all | declared inventory/source hashes; resolved SBOM pending |
+| O03 | Attributions/NOTICE/resolved SBOM/build provenance/pinned dependencies | gradle/docs / all | resolved JVM/Android inventory and native provenance exist; full SBOM/license/advisory review pending |
 | O04 | Feature branch/local commits, preserve original documents/code | repo / all | local feature commits; original master ZIP and all 14 UI references preserved in private GitHub |
 | O05 | No hardcoded keys/credentials, sensitive logs or plaintext shared staging | all / all | no such source; runtime tests pending |
 | O06 | Independent security review and verified recovery before production claims | all / P2–P7 | mandatory pending gate |
 | O07 | Available checks/tests/format/lint/device/performance/security with honest logs | scripts/docs / all | 12 source + 31 crypto + 13 backup checks pass; Android compile/JVM/lint pass in GitHub CI; device/audit pending |
-| O08 | No APK creation until explicit owner approval; no Play publishing | build/repo / all | latest owner authorizes eventual APK delivery after production gates; no artifacts/Play publication |
+| O08 | No APK creation until explicit owner approval; no Play publishing | build/repo / all | latest owner authorizes eventual APK delivery after production gates; temporary account-free QA debug APK built and removed; no delivered production APK or Play publication |
 | O09 | Bengali progress communication, English identifiers/files/code | delivery / all | applied |
 | O10 | Report changed files/completed source/results/remaining tasks | docs/status / all | documented |
 

@@ -191,3 +191,14 @@ concurrent creation agreement, corrupted envelope rejection and missing wrapper 
 No owner account/key/storage is used. Their compile/runtime results are pending. Hardware backing,
 locked-device/reboot/invalidation/API-matrix/cross-device tests and live session wiring remain pending.
 The runtime workflow creates/deletes test APKs and uploads only account-free QA evidence.
+
+## Account-free JNI runtime fixture prepared
+
+Two additional Android tests load the exact x86_64 rebuilt libraries, exercise official synchronous JSON
+Unicode round-trip/native request bounds, and start/close two sequential owners before any TDLib parameters
+are provided. The fixture is bound to reviewed JNI source hashes and binary hashes from native run
+38071501341. Only androidTest packages receive the binary fixture; app production native enablement
+remains absent. An integrity/source mismatch fails instead of loading a stale/unreviewed JNI build.
+The artifact expires after 30 days; rebuild and review/update fixture metadata when it expires or source
+changes. No account, API registration, setTdlibParameters, personal files or live login is used.
+Fixture preparation passes locally; actual native loading/session closure still requires Android CI.

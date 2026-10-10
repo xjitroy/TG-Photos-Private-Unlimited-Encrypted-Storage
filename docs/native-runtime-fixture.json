@@ -1,0 +1,28 @@
+{
+  "scope": "Account-free Android instrumentation fixture only; not app production/native enablement",
+  "runId": 38071501341,
+  "artifactName": "tgphotos-tdlib-x86_64",
+  "builderSourceCommit": "13eccdd6a1e62764db18c02b32096604e82d4130",
+  "abi": "x86_64",
+  "tdlib": "c15d3f5a5de6e3ba5839822c451152e5e18bb700",
+  "openssl": "45e844fa2a14ec92d146bd8f5778ac130b6625fb",
+  "ndk": "28.2.13676358",
+  "android_api": 26,
+  "libraries": [
+    {
+      "path": "jniLibs/x86_64/libtdjson.so",
+      "sha256": "dc6e2b2debc9b65190d5a028bd4dda2a3ffc00405526e132c7d3d2dc31764d5d",
+      "bytes": 21956976
+    },
+    {
+      "path": "jniLibs/x86_64/libtgphotos_tdjson.so",
+      "sha256": "10896efd726f7803cb4fe5bc8db1c157eb2dc99b933233e301bc4de562cf2b80",
+      "bytes": 261664
+    }
+  ],
+  "sourceSha256": {
+    "core/telegram/src/main/cpp/tdjson_jni.cpp": "2f40eafb11638686cd0c0087072728d4555bdb934738772f0bf59860459e967a",
+    "core/telegram/src/main/cpp/CMakeLists.txt": "a450905ad4705c2fc929eaf84a8979054e622900f99d106ae2959ff9bd5d12a3",
+    "core/telegram/src/main/java/app/tgphotos/core/telegram/NativeTdJson.java": "196ffd95ff32825b0839eba5b412fb4cbd8e43a8593aa3f1f7380c15ad551836"
+  }
+}

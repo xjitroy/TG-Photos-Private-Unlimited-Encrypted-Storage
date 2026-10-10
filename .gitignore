@@ -12,3 +12,6 @@ local.properties
 __pycache__/
 *.pyc
 docs/evidence/raw/
+
+# Binary fixture is copied only on an account-free CI runner after exact-hash verification.
+app/src/androidTest/jniLibs/

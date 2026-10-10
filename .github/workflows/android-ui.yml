@@ -8,16 +8,20 @@ on:
       - 'feature/**'
       - 'core/designsystem/**'
       - 'gradle/libs.versions.toml'
+      - 'core/telegram/**'
+      - 'docs/native-runtime-fixture.json'
+      - 'scripts/prepare_native_runtime_fixture.py'
       - 'scripts/check_android_ui.py'
       - '.github/workflows/android-ui.yml'
   workflow_dispatch:
 
 permissions:
   contents: read
+  actions: read
 
 concurrency:
   group: android-ui-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   preview-ui:
@@ -65,7 +69,16 @@ jobs:
           adb -s emulator-5554 shell settings put global transition_animation_scale 0
           adb -s emulator-5554 shell settings put global animator_duration_scale 0
           adb -s emulator-5554 install app/build/outputs/apk/debug/app-debug.apk
-      - name: Verify isolated Android Keystore session envelope with instrumentation
+      - name: Retrieve exact reviewed native fixture from this private repository
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333
+        with:
+          name: tgphotos-tdlib-x86_64
+          run-id: 38071501341
+          github-token: ${{ github.token }}
+          path: .toolchain/native-runtime-fixture
+      - name: Verify binary integrity and copy only to instrumentation-native source set
+        run: python3 scripts/prepare_native_runtime_fixture.py .toolchain/native-runtime-fixture
+      - name: Verify isolated Android Keystore and account-free native session with instrumentation
         run: ./gradlew --no-daemon :app:connectedDebugAndroidTest -PapkBuildApproved=true
       - name: Drive app using UI-tree coordinates and capture labelled-preview evidence
         run: python3 scripts/check_android_ui.py
@@ -84,6 +97,7 @@ jobs:
         if: always()
         run: |
           find app/build/outputs/apk -type f -name '*.apk' -delete
+          rm -rf app/src/androidTest/jniLibs
           adb -s emulator-5554 emu kill || true
 
 # Owner authorized APK creation. This is a temporary QA debug package, never a production delivery.

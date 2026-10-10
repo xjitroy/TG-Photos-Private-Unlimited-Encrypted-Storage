@@ -15,18 +15,18 @@ feature is complete. Detailed per-feature implementation status is in `REQUIREME
 | 04 Gallery/file actions | G01–G07, B01–B14, M01–M08: cloud/local availability, folders, consent and queue gates |
 | 05 Viewers/vault/settings | V01–V08, P01–P05, S01, F08/F13: ratios/tracks/secure screens/appearance/accessibility |
 | 06 Information architecture | F09/F10, S01; exactly four tabs and overflow Settings |
-| 07 Module architecture | ARCHITECTURE, 16 existing modules, Kotlin/Compose/Room/WorkManager/Media3; native backend pending |
+| 07 Module architecture | ARCHITECTURE, 16 existing modules, Kotlin/Compose/Room/WorkManager/Media3; TDLib/JNI both ABI compile pass; live integration pending |
 | 08 Telegram contract/schema | A01/A07/A08, E06/E07, B06/B10/B13, TDLib drafts; opaque ciphertext transport only |
 | 09 Keys/threats | E01–E13, P02/P04, THREAT_MODEL; separate roots/HKDF drafts and tested AEAD; independent review gate |
 | 10 Automatic backup/deletion | B01–B14, LocalDeletionGate/coordinator tests; no deletion or successful scheduled mock worker |
-| 11 Cache/prefetch | E08, G07, V04–V06, P04/P05; contracts only, no plaintext disk cache |
+| 11 Cache/prefetch | E08, G07, V04–V06, P04/P05; authenticated disk cache/range reader drafts and fault checks; app prefetch/lifecycle pending |
 | 12 Files/editors | G06, V03/V07/V08, M01–M08; document/archive safety, codecs and nondestructive editors remain pending |
 | 13 Source projects | O01–O03, LICENSING/upstream records; no copied GPL/AGPL app source/backend |
 | 14 Licensing | NOTICE, declared inventory; resolved SBOM/security scan and distribution obligations remain gates |
 | 15 Agent workflow | AGENTS/HANDOFF; feature branch, real test logs, no secrets, no synthetic success, review before merge |
 | 16 Phases/acceptance | PLAN/TEST_MATRIX; P1 exit still requires Android/device checks; later gates remain open |
 | 17 Historical prompts | Retained in MASTER_PLAN; latest owner overrides take precedence; not permission to package/publish |
-| 18 Setup/repository | Wrapper verified; private GitHub source uploaded; pinned source-only CI added, no APK/AAB/signing |
+| 18 Setup/repository | Wrapper verified; private GitHub source uploaded; pinned source-only CI plus temporary emulator test APKs; no release APK/signing/publication |
 | 19 API references | Original links retained; official TDLib/native/API references checked before drafting |
 
 ## Latest owner overrides applied
@@ -38,7 +38,7 @@ feature is complete. Detailed per-feature implementation status is in `REQUIREME
   values, registration screenshots, user files and keys. Referenced application servers receive no app data.
 - The owner's latest instruction authorizes eventual APK creation/delivery after requirements/design and
   production gates pass. Play publication remains unapproved. Source-only compile/lint/test CI continues
-  without packaging; no APK has yet been built.
+  without packaging; a separate account-free QA workflow builds/removes temporary debug APKs. No production APK is delivered.
 - Do not mark previews or tested individual primitives as completed live login, backup, vault or audited E2EE.
 
 ## Explicit detail checks still required

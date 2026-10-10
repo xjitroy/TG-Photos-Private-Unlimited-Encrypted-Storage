@@ -45,4 +45,7 @@ dependencies {
     debugImplementation(libs.compose.tooling)
     androidTestImplementation(libs.android.test.runner)
     androidTestImplementation(libs.android.test.junit)
+    androidTestImplementation(project(":core:telegram"))
+    androidTestImplementation(libs.coroutines.core)
+    androidTestImplementation(libs.serialization.json)
 }
