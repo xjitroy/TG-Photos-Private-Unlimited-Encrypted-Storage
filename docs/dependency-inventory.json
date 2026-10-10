@@ -169,14 +169,14 @@
       "module": "androidx.test:runner",
       "version": "1.6.2",
       "license": "Apache-2.0",
-      "status": "instrumentation-only; upstream android/android-test LICENSE verified 2026-10-10; exact resolution/POM/device tests pending"
+      "status": "instrumentation-only; resolved POM Apache-2.0 and test source compile verified in run 38072657847; transitive/source/advisory review remains pending"
     },
     {
       "alias": "android-test-junit",
       "module": "androidx.test.ext:junit",
       "version": "1.2.1",
       "license": "Apache-2.0",
-      "status": "instrumentation-only; upstream android/android-test LICENSE verified 2026-10-10; exact resolution/POM/device tests pending"
+      "status": "instrumentation-only; resolved POM Apache-2.0 and test source compile verified in run 38072657847; transitive/source/advisory review remains pending"
     }
   ],
   "build_plugins": {

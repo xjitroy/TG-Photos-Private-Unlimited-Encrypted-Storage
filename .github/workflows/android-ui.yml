@@ -81,7 +81,11 @@ jobs:
       - name: Verify isolated Android Keystore and account-free native session with instrumentation
         run: ./gradlew --no-daemon :app:connectedDebugAndroidTest -PapkBuildApproved=true
       - name: Drive app using UI-tree coordinates and capture labelled-preview evidence
-        run: python3 scripts/check_android_ui.py
+        run: |
+          # Connected-test teardown removes the tested app; restore the exact audited QA APK.
+          adb -s emulator-5554 install -r app/build/outputs/apk/debug/app-debug.apk
+          adb -s emulator-5554 shell cmd package resolve-activity --brief app.tgphotos.android
+          python3 scripts/check_android_ui.py
       - name: Preserve only account-free screenshots and QA evidence in the private repository
         if: always()
         uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f

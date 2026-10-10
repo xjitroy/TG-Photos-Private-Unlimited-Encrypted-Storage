@@ -59,3 +59,15 @@ PASS compilation/Room KSP/Debug and Release lint/inventory.
 JVM test summary: 22 tests, 0 failures, 0 errors, 0 skipped
 BUILD SUCCESSFUL in 5m 8s; no APK/AAB in this source workflow.
 Subsequent cross-instance Keystore synchronization and instrumentation source require new CI.
+
+Verified native-runtime test source compilation: d5b0a62e1e970d92940b2f4bb1a2339a5d0e1f36
+Run: https://github.com/xjitroy/TG-Photos-Private-Unlimited-Encrypted-Storage/actions/runs/38073154327
+PASS :app:compileDebugAndroidTestKotlin plus Android/Room/JVM/lint/inventory; no APK/AAB.
+JVM test summary: 22 tests, 0 failures, 0 errors, 0 skipped
+BUILD SUCCESSFUL in 6m 13s. Actual JNI load test remains separate/pending.
+
+Android 35 provider checks: source a48b8c55639b4c145dec81590f2c60ed6ce74da2
+Run: https://github.com/xjitroy/TG-Photos-Private-Unlimited-Encrypted-Storage/actions/runs/38072657836
+Four LocalSessionKeyStore instrumented tests, 0 failures/errors/skips, 3.035s.
+Overall workflow failed later: UI launch attempted after connected-test teardown removed the tested app.
+No UI acceptance or hardware/lock/reboot proof is implied. Workflow reinstall fix requires a new runtime run.

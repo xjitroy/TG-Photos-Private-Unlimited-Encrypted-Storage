@@ -202,3 +202,25 @@ remains absent. An integrity/source mismatch fails instead of loading a stale/un
 The artifact expires after 30 days; rebuild and review/update fixture metadata when it expires or source
 changes. No account, API registration, setTdlibParameters, personal files or live login is used.
 Fixture preparation passes locally; actual native loading/session closure still requires Android CI.
+
+## Android Keystore provider checks passed; test teardown diagnosed
+
+Source a48b8c55639b4c145dec81590f2c60ed6ce74da2 passes source run 38072657847, including isolated
+Android test compilation, 22 JVM tests, Room KSP and both lints. Eight resolved configurations contain
+149 external package records; runner 1.6.2/ext:junit 1.2.1 POM licenses are Apache-2.0. Five packages
+(Guava/failureaccess and test-only Hamcrest 1.3) lack direct cached declarations and need inherited/source
+review. Evidence archive digest 6f8a29d39ffb1483af14e3cfd0f6bf98d49fae308a54bd5e6ad197b4a62aa773 verified.
+
+Android 35 run 38072657836 actually executes all four Keystore checks with zero failures/errors/skips.
+Fresh-instance recovery, concurrent creation, corrupt-envelope rejection and missing-wrapper rejection
+pass in 3.035 seconds. Private evidence artifact 11678430064 ZIP SHA256
+a88ba67fd6d5d46b38648cb1233b93eb658bb189c110bf2dbec86c40c2b2260d matches the downloaded archive.
+This is emulator-provider validation, not hardware/locked-device/reboot/biometric/API-matrix acceptance.
+
+The following UI script failed at activity start after connected-test teardown removed the tested app.
+The workflow now reinstalls the exact manifest-audited temporary QA APK before UI driving, and adb
+failure output is retained for account-free diagnostics. Full navigation/screenshots remain unverified.
+
+Native runtime test source compiles with source d5b0a62e1e970d92940b2f4bb1a2339a5d0e1f36 in run
+38073154327: 22 JVM tests, Android test Kotlin, Room KSP, Debug/Release lint pass. Actual JNI runtime
+tests are a separate workflow; do not infer runtime success from this compile result.

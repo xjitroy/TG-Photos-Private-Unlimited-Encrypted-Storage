@@ -64,7 +64,7 @@ Do not use its MTProto IPs/public keys as hardcoded client configuration; offici
 2. Review AeadEnvelope, ChunkContext, Argon2id/HKDF/root wrappers and the backup protocol. Finish encrypted
    root/recovery persistence and key version handling. Independent vault lock is implemented as a primitive,
    but authentication, automatic locking and wiping consumer-held keys/previews are not app-wired.
-3. Single-owner receiver, correlation/timeouts and gateway drafts compile; dispatcher tests pass. Run the isolated LocalSessionKeyStore Android instrumentation checks and validate it on devices, connect secure API provisioning and the complete Telegram auth UX.
+3. Single-owner receiver, correlation/timeouts and gateway drafts compile; dispatcher tests pass. Four isolated Keystore checks pass on Android 35 (run 38072657836); validate lock/reboot/hardware/API matrix on devices, connect secure API provisioning and the complete Telegram auth UX.
    No native binary or live client is enabled in the app yet.
 4. Add encrypted durable checkpoints and safe WorkManager orchestration. Handle upload-ack/checkpoint crash
    windows and cancellation; current coordinator resumes test fixtures but is not a durable production queue.

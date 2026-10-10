@@ -16,7 +16,14 @@ passed = []
 
 
 def adb(*args, binary=False):
-    return subprocess.check_output(['adb', '-s', serial, *args], text=not binary, timeout=30)
+    try:
+        return subprocess.check_output(['adb', '-s', serial, *args], text=not binary,
+                                       stderr=subprocess.STDOUT, timeout=30)
+    except subprocess.CalledProcessError as failure:
+        output = failure.output
+        (root / 'adb-failure.txt').write_text(output.decode('utf-8', errors='replace')
+                                            if isinstance(output, bytes) else output)
+        raise
 
 
 def tree(label):
