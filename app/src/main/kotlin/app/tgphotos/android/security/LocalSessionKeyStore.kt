@@ -8,6 +8,7 @@ import android.util.AtomicFile
 import java.io.File
 import java.security.KeyStore
 import java.security.SecureRandom
+import java.util.UUID
 import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
@@ -16,16 +17,17 @@ import javax.crypto.spec.GCMParameterSpec
 class LocalSessionKeyUnavailable(cause: Exception) : Exception("Protected local session key is unavailable", cause)
 
 /** Android binding draft: random TDLib database key, Keystore-wrapped in excluded app-private storage. */
-class LocalSessionKeyStore(context: Context) {
-    private val root = File(context.applicationContext.noBackupFilesDir, "protected-session")
+class LocalSessionKeyStore private constructor(context: Context, directory: String, private val alias: String) {
+    constructor(context: Context) : this(context, "protected-session", "tgphotos.session.wrap.v1")
+
+    private val root = File(context.applicationContext.noBackupFilesDir, directory)
     private val file = File(root, "session-key.enc")
     private val atomic = AtomicFile(file)
-    private val alias = "tgphotos.session.wrap.v1"
     private val header = byteArrayOf(0x54, 0x47, 0x53, 0x4b, 1)
     private val associatedData = "TGPhotos/LocalSession/v1".toByteArray(Charsets.UTF_8)
 
     /** Caller owns/wipes returned mutable key; lock/invalidation fails closed, never silently resets a session. */
-    @Synchronized fun loadOrCreate(): ByteArray {
+    fun loadOrCreate(): ByteArray = synchronized(processLock) {
         try {
             val keyStore = KeyStore.getInstance("AndroidKeyStore").apply { load(null) }
             val persisted = file.exists() || File(root, file.name + ".bak").exists()
@@ -47,7 +49,7 @@ class LocalSessionKeyStore(context: Context) {
                 cipher.updateAAD(header); cipher.updateAAD(associatedData)
                 val plaintext = cipher.doFinal(bytes, 17, 48)
                 if (plaintext.size != 32) { plaintext.fill(0); error("Invalid session key size") }
-                return plaintext
+                return@synchronized plaintext
             }
             check(root.isDirectory || root.mkdirs()) { "Private session directory unavailable" }
             val key = keyStore.getKey(alias, null) as? SecretKey ?: generateWrapper()
@@ -68,11 +70,20 @@ class LocalSessionKeyStore(context: Context) {
                     throw failure
                 }
                 released = true
-                return plaintext
+                return@synchronized plaintext
             } finally { if (!released) plaintext.fill(0) }
         } catch (failure: Exception) {
             throw LocalSessionKeyUnavailable(failure)
         }
+    }
+
+    companion object {
+        // AtomicFile is not a lock. Serialize all stores in this single-process application.
+        private val processLock = Any()
+
+        // Instrumentation fixtures must never overwrite or delete a production alias/directory.
+        internal fun isolatedFixture(context: Context, id: UUID): LocalSessionKeyStore =
+            LocalSessionKeyStore(context, "protected-session-test-$id", "tgphotos.session.test.$id")
     }
 
     private fun generateWrapper(): SecretKey {

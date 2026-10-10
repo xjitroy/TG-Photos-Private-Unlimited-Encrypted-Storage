@@ -170,3 +170,24 @@ The workflow now uses an explicit workspace ANDROID_AVD_HOME and known AVD path/
 Source lint also reported the manifest's runtime-only Startup class missing from compile dependencies;
 Startup 1.1.1 was already resolved in both app runtime variants and is now an explicit implementation
 with the same version, rather than suppressing lint. Both fixes require the next actual CI results.
+
+## Current verified source and native rebuild (17:35 UTC)
+
+Source 13eccdd6a1e62764db18c02b32096604e82d4130 passes run 38071501320: compilation, Room KSP,
+22 JVM tests with zero failures/errors/skips, Debug/Release lint and resolved dependency evidence.
+The strict logging-ack test passes. Native run 38071501341 passes both ABI rebuilds: verified unchanged
+TDLib/OpenSSL baseline plus freshly compiled bounded JNI; ELF checks pass. Native Android loading is
+still untested. This evidence applies to the named source, not subsequent changes automatically.
+
+Preview QA run 38071501334 successfully booted/installed on Android 35 and passed the actual merged
+manifest check, but its first UI assertion failed: Explore was below the scroll viewport. XML evidence
+confirms the scrollable login page. QA now scrolls using UI-tree bounds and checks disabled state through
+Compose ancestors; it does not remove the disabled-auth requirement. Screenshots are saved before
+assertions for failure diagnosis, except protected Vault images. Full UI acceptance remains pending.
+
+LocalSessionKeyStore now serializes creation across instances in this single-process app. Four real
+Android instrumentation checks use random isolated fixture directories/aliases: fresh-instance recovery,
+concurrent creation agreement, corrupted envelope rejection and missing wrapper rejection without reset.
+No owner account/key/storage is used. Their compile/runtime results are pending. Hardware backing,
+locked-device/reboot/invalidation/API-matrix/cross-device tests and live session wiring remain pending.
+The runtime workflow creates/deletes test APKs and uploads only account-free QA evidence.

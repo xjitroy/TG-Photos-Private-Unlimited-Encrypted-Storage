@@ -7,3 +7,11 @@ PASS local GNU readelf ELF64 ABI, unversioned Android SONAMEs, expected C/JNI ex
 The existing-artifact ELF review is separate from original producer provenance. No source patch was needed for SONAMEs.
 NOT RUN native library installation/loading, live Telegram, real device/provider/cross-device recovery or independent security review.
 New JNI bounds/generation/rebuild changes are later source and require their own native CI result.
+
+Verified fresh bounded JNI producer: 13eccdd6a1e62764db18c02b32096604e82d4130
+Run: https://github.com/xjitroy/TG-Photos-Private-Unlimited-Encrypted-Storage/actions/runs/38071501341
+Both arm64-v8a and x86_64 jobs completed SUCCESS using verified pinned TDLib core and current JNI.
+Artifact 11677325015 arm64 ZIP SHA256 ff34b2104e9d959b9bb6b9c55af3b6a3fbd7a33b41164596cd87a92f3cd32818
+Artifact 11677007440 x86_64 ZIP SHA256 1ac9d6489a05ac1e213c608c194024062a6d0f5a49c5d9da71116a30ae1822e3
+Artifacts remain private, expire after 30 days, and contain libraries/notices/provenance, not APKs.
+No Android runtime load or live session acceptance is implied by successful native compilation.

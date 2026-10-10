@@ -162,7 +162,21 @@
       "module": "androidx.startup:startup-runtime",
       "version": "1.1.1",
       "license": "Apache-2.0",
-      "status": "already resolved at runtime; explicit implementation needed for reviewed manifest class; CI pending"
+      "status": "explicit implementation and Android Debug/Release lint verified in run 38071501320"
+    },
+    {
+      "alias": "android-test-runner",
+      "module": "androidx.test:runner",
+      "version": "1.6.2",
+      "license": "Apache-2.0",
+      "status": "instrumentation-only; upstream android/android-test LICENSE verified 2026-10-10; exact resolution/POM/device tests pending"
+    },
+    {
+      "alias": "android-test-junit",
+      "module": "androidx.test.ext:junit",
+      "version": "1.2.1",
+      "license": "Apache-2.0",
+      "status": "instrumentation-only; upstream android/android-test LICENSE verified 2026-10-10; exact resolution/POM/device tests pending"
     }
   ],
   "build_plugins": {

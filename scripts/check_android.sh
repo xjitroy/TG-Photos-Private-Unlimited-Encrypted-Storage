@@ -7,7 +7,7 @@ if [ ! -f gradle/wrapper/gradle-wrapper.jar ]; then
     echo "BLOCKED: verified wrapper JAR is missing; run scripts/bootstrap_wrapper.py on a permitted network." >&2
     exit 2
 fi
-./gradlew --no-daemon :app:compileDebugKotlin :core:backup:compileDebugKotlin :core:backup:compileDebugJavaWithJavac :core:database:compileDebugKotlin :core:media:compileDebugKotlin :core:media:compileDebugJavaWithJavac :core:cache:classes :core:model:test :core:crypto:test :core:telegram:test :app:lintDebug :app:lintRelease :writeResolvedDependencyInventory
+./gradlew --no-daemon :app:compileDebugKotlin :app:compileDebugAndroidTestKotlin :app:compileDebugAndroidTestJavaWithJavac :core:backup:compileDebugKotlin :core:backup:compileDebugJavaWithJavac :core:database:compileDebugKotlin :core:media:compileDebugKotlin :core:media:compileDebugJavaWithJavac :core:cache:classes :core:model:test :core:crypto:test :core:telegram:test :app:lintDebug :app:lintRelease :writeResolvedDependencyInventory
 python3 - <<'PY'
 from pathlib import Path
 import xml.etree.ElementTree as ET

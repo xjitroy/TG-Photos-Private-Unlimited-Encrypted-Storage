@@ -84,3 +84,9 @@ uniformly Boost or omit the bundled SQLCipher notice.
 The verified native-baseline download step uses official actions/download-artifact v8.0.2, MIT,
 source pin 9000827ccba6bdab643e8b6fd33ac0654aef8333. It is build-only, not application runtime.
 Only exact public-source library artifacts from this owner repository are reused after hash/source checks.
+
+Android Keystore instrumentation uses AndroidX Test runner 1.6.2 and ext:junit 1.2.1 only in the
+androidTest APK. android/android-test's Apache-2.0 LICENSE was fetched and retained in
+licensing/upstream/android-test.txt on 2026-10-10. No test-library code is copied into the app. Exact
+resolved binary/POM hashes are included by the test-runtime inventory; CI resolution and device results
+must pass before claiming validation. This does not clear transitive vulnerabilities automatically.

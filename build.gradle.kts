@@ -17,7 +17,7 @@ tasks.register("writeResolvedDependencyInventory") {
     description = "Record app and draft security-module dependencies for license/privacy/advisory review"
     doLast {
         val scopes = linkedMapOf(
-            ":app" to listOf("debugRuntimeClasspath", "releaseRuntimeClasspath"),
+            ":app" to listOf("debugRuntimeClasspath", "releaseRuntimeClasspath", "debugAndroidTestRuntimeClasspath"),
             ":core:crypto" to listOf("runtimeClasspath"),
             ":core:telegram" to listOf("runtimeClasspath"),
             ":core:cache" to listOf("runtimeClasspath"),
