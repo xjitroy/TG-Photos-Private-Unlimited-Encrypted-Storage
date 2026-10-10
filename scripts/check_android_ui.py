@@ -33,23 +33,42 @@ def matches(node, text):
     return any(text == node.get(key, '') for key in ['text', 'content-desc'])
 
 
+def nodes_with_enabled(ui, enabled=True):
+    effective = enabled and ui.get('enabled', 'true') == 'true'
+    if ui.tag == 'node':
+        yield ui, effective
+    for child in ui:
+        yield from nodes_with_enabled(child, effective)
+
+
+def bounds(node):
+    values = list(map(int, re.findall(r'-?\d+', node.get('bounds', ''))))
+    return values if len(values) == 4 and values[2] > values[0] and values[3] > values[1] else None
+
+
 def tap(text, label, scroll=True):
     # Coordinates come exclusively from the UI tree, never from screenshots.
-    for attempt in range(2 if scroll else 1):
+    for attempt in range(4 if scroll else 1):
         ui = tree(label + f'-before-{attempt}')
         candidates = []
-        for node in ui.iter('node'):
-            if matches(node, text) and node.get('enabled') == 'true':
-                numbers = list(map(int, re.findall(r'\d+', node.get('bounds', ''))))
-                if len(numbers) == 4 and numbers[2] > numbers[0] and numbers[3] > numbers[1]:
-                    candidates.append(numbers)
+        for node, enabled in nodes_with_enabled(ui):
+            if matches(node, text) and enabled and bounds(node):
+                candidates.append(bounds(node))
         if candidates:
             x1, y1, x2, y2 = max(candidates, key=lambda b: b[3])
             adb('shell', 'input', 'tap', str((x1 + x2) // 2), str((y1 + y2) // 2))
             time.sleep(0.6)
             return
-        if any(n.get('scrollable') == 'true' for n in ui.iter('node')):
-            adb('shell', 'input', 'swipe', '300', '1400', '300', '650', '350')
+        if scroll and attempt < 3:
+            scroll_regions = [bounds(n) for n in ui.iter('node')
+                              if n.get('scrollable') == 'true' and bounds(n)
+                              and bounds(n)[3] - bounds(n)[1] > bounds(n)[2] - bounds(n)[0]]
+            if not scroll_regions:
+                break
+            x1, y1, x2, y2 = max(scroll_regions, key=lambda b: b[3] - b[1])
+            x = (x1 + x2) // 2
+            adb('shell', 'input', 'swipe', str(x), str(y1 + (y2 - y1) * 4 // 5),
+                str(x), str(y1 + (y2 - y1) // 5), '350')
             time.sleep(0.4)
     raise RuntimeError(f'UI target unavailable: {text}')
 
@@ -57,11 +76,11 @@ def tap(text, label, scroll=True):
 def verify(label, expected, screenshot=True):
     ui = tree(label)
     texts = '\n'.join(n.get('text', '') + ' ' + n.get('content-desc', '') for n in ui.iter('node'))
+    if screenshot:
+        (root / f'{label}.png').write_bytes(adb('exec-out', 'screencap', '-p', binary=True))
     for text in expected:
         if text not in texts:
             raise RuntimeError(f'Missing UI evidence: {label}: {text}')
-    if screenshot:
-        (root / f'{label}.png').write_bytes(adb('exec-out', 'screencap', '-p', binary=True))
     passed.append(label)
     return ui
 
@@ -70,9 +89,10 @@ try:
     adb('logcat', '-c')
     adb('shell', 'am', 'start', '-W', '-n', package + '/.MainActivity')
     time.sleep(1)
-    login = verify('login', ['TG Photos', 'Phone number', 'Explore the app preview'])
-    phone = [n for n in login.iter('node') if matches(n, 'Continue with Telegram')]
-    if not phone or any(n.get('enabled') != 'false' for n in phone):
+    login = verify('login', ['TG Photos', 'Phone number', 'Design preview'])
+    phone = [(n, enabled) for n, enabled in nodes_with_enabled(login)
+             if matches(n, 'Continue with Telegram')]
+    if not phone or any(enabled for _, enabled in phone):
         raise RuntimeError('Preview must not accept Telegram authentication')
     tap('Explore the app preview', 'explore')
     verify('photos-light', ['Photos (Cloud)', 'Connect your private cloud'])
