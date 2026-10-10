@@ -9,7 +9,7 @@
 | Lint | debug/release lint without packaging | Debug/Release lint passes in CI |
 | Dispatcher/schema | bounded correlation, shutdown, positive logging ack, official email OTP shapes | 7 dispatcher + 4 schema JVM tests pass; live/native runtime pending |
 | Android Keystore | isolated fresh/concurrent instances, corrupt envelope, missing alias, no reset | four Android 35 emulator provider checks pass; hardware/lock/reboot/API matrix pending |
-| Native | both ABI build/link/16KB/exports; standard UTF-8/bounds/receiver ownership/closure on Android | both ABI builds pass; account-free runtime fixture prepared, not yet run |
+| Native | both ABI build/link/16KB/exports; standard UTF-8/bounds/receiver ownership/closure on Android | both ABI builds and Android load/UTF-8/bounds check pass; immediate reownership race found, source fix awaiting runtime acceptance |
 | Auth | phone/country/E.164, authoritative delivery/email/2FA, logout/expired session, no logs | P2 integration pending |
 | Recovery/crypto | golden vectors, wrong passphrase, corruption, reordered/missing chunks, fresh-device restore/password rotation, key loss | 31 offline primitives + 6 Argon2id/recovery JVM tests pass; app/Android/fresh-device/rotation acceptance pending |
 | Backup | file types, Unicode/nested/empty/10GB+ where feasible; interruption/restart/duplicate/permission/FloodWait | pending |

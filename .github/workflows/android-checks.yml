@@ -15,7 +15,32 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  source-policy:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      android: ${{ steps.changes.outputs.android }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Verify exclusions, source policy and original documents on every change
+        run: |
+          python3 scripts/check_source.py
+          python3 scripts/check_secrets.py
+          python3 scripts/bootstrap_wrapper.py
+          python3 scripts/extract_references.py
+          python3 scripts/test_ci_classification.py
+      - name: Classify the entire push or pull-request range
+        id: changes
+        env:
+          TGPHOTOS_BASE_SHA: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
+        run: python3 scripts/classify_ci_changes.py
   source-and-android:
+    needs: source-policy
+    if: needs.source-policy.outputs.android == 'true'
+
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     env:
@@ -30,6 +55,15 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
+      - name: Reuse only public dependency and verified wrapper distribution downloads
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0, MIT, Node 24
+        with:
+          path: |
+            .toolchain/gradle/caches/modules-2
+            .toolchain/gradle/wrapper/dists
+          key: ${{ runner.os }}-tgphotos-public-gradle-v1-${{ hashFiles('**/*.gradle.kts', 'gradle/libs.versions.toml', 'gradle/wrapper/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-tgphotos-public-gradle-v1-
       - name: Verify source, wrapper and owner references
         run: |
           python3 scripts/check_source.py

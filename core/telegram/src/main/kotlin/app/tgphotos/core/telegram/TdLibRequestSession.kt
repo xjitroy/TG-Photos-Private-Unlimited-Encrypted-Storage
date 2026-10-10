@@ -3,7 +3,6 @@ package app.tgphotos.core.telegram
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.sync.Semaphore
 import kotlinx.serialization.json.*
 import java.util.UUID
@@ -37,6 +36,7 @@ class TdLibRequestSession(private val driver: TdJsonDriver, private val timeoutM
     private val pending = ConcurrentHashMap<String, CompletableDeferred<JsonObject>>()
     private val slots = Semaphore(64)
     private val closed = AtomicBoolean(false)
+    private val nativeClosed = CompletableDeferred<Unit>()
     private val state = MutableStateFlow<AuthorizationState>(AuthorizationState.Unavailable)
     val authorization: StateFlow<AuthorizationState> = state
     private val clientId: Int
@@ -90,11 +90,15 @@ class TdLibRequestSession(private val driver: TdJsonDriver, private val timeoutM
     }
 
     suspend fun shutdown() {
-        if (state.value == AuthorizationState.Closed) return
-        check(!closed.get()) { "TDLib session failed; native closure is unconfirmed" }
-        try { request(TdLibRequests.simple("close")) }
-        catch (failure: Exception) { if (state.value != AuthorizationState.Closed) throw failure }
-        withTimeout(timeoutMillis) { state.first { it == AuthorizationState.Closed } }
+        if (state.value != AuthorizationState.Closed && !closed.get()) {
+            try { request(TdLibRequests.simple("close")) }
+            catch (failure: Exception) {
+                // The authoritative Closed update may precede the correlated close acknowledgement.
+                if (!closed.get()) throw failure
+            }
+        }
+        // Authorization publication is not a receiver-cleanup barrier. Await confirmed cleanup.
+        withTimeout(timeoutMillis) { nativeClosed.await() }
     }
 
     internal fun outstandingRequests() = pending.size
@@ -107,9 +111,10 @@ class TdLibRequestSession(private val driver: TdJsonDriver, private val timeoutM
                 val update = Json.parseToJsonElement(encoded).jsonObject
                 if (update["@client_id"]?.jsonPrimitive?.intOrNull != clientId) continue
                 // Native updates are applied synchronously in receive order before another receive.
-                TdLibAuthorizationReducer.reduce(update)?.let { state.value = it }
+                val authoritative = TdLibAuthorizationReducer.reduce(update)
+                if (authoritative != null && authoritative != AuthorizationState.Closed) state.value = authoritative
                 update["@extra"]?.jsonPrimitive?.contentOrNull?.let { pending.remove(it)?.complete(update) }
-                if (state.value == AuthorizationState.Closed) {
+                if (authoritative == AuthorizationState.Closed) {
                     terminate(nativeClosureConfirmed = true)
                 }
             }
@@ -127,8 +132,15 @@ class TdLibRequestSession(private val driver: TdJsonDriver, private val timeoutM
         if (!closed.compareAndSet(false, true)) return
         for (response in pending.values) response.completeExceptionally(IllegalStateException("TDLib session closed"))
         pending.clear()
-        if (driver.ownsGlobalReceiver && nativeClosureConfirmed) globalOwner.set(false)
         scope.cancel()
+        if (nativeClosureConfirmed) {
+            if (driver.ownsGlobalReceiver) globalOwner.set(false)
+            // Publish only after no old receiver can continue and its process ownership is released.
+            state.value = AuthorizationState.Closed
+            nativeClosed.complete(Unit)
+        } else {
+            nativeClosed.completeExceptionally(IllegalStateException("TDLib native closure is unconfirmed"))
+        }
     }
 
     override fun toString() = "TdLibRequestSession(redacted)"

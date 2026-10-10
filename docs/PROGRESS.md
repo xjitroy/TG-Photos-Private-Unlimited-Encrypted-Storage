@@ -224,3 +224,33 @@ failure output is retained for account-free diagnostics. Full navigation/screens
 Native runtime test source compiles with source d5b0a62e1e970d92940b2f4bb1a2339a5d0e1f36 in run
 38073154327: 22 JVM tests, Android test Kotlin, Room KSP, Debug/Release lint pass. Actual JNI runtime
 tests are a separate workflow; do not infer runtime success from this compile result.
+
+## Owner-requested faster full-build testing
+
+The current complete source already builds as an account-free QA APK. The same audited APK is reused
+for installation/UI after instrumented-test teardown. New native source is not repeatedly rebuilt when
+the source pins and core library hashes match; only current JNI is rebuilt/checked. This does not make
+unimplemented live features complete.
+
+CI now caches only public dependency/wrapper distribution downloads with pinned official actions/cache
+v6.1.0 (MIT/Node 24). Source/privacy/ZIP checks run on every update; documentation-only ranges skip
+Android recompilation. Complete push ranges are classified so a final documentation commit cannot hide
+an earlier code change. Missing history/new branches/manual runs default to full checks. Four meaningful
+classifier regression tests pass locally. Actual warm-cache speed benefit and workflow syntax/runtime
+acceptance still require CI; no numeric acceleration promise is made.
+
+## Real native receiver-close race reproduced and fixed in source
+
+Run 38073154300 loads the exact native fixture on Android 35. The standard UTF-8/Bengali/emoji/NUL
+round-trip and >4MiB native request rejection pass; all four Keystore checks pass again. The sixth
+test fails when a second owner starts immediately after shutdown: Closed was published before process
+receiver ownership was released. Overall runtime acceptance FAILED, and no UI checks ran. Evidence
+artifact 11678161795 ZIP SHA256 d540c8024e41beb9b77818de03176c0f8af8104d05ccf6c3735a53b007d27945
+is verified. Native load/Unicode success does not make the failed lifecycle test acceptable.
+
+The source now publishes Closed only after cancelling/cleaning the old receiver and releasing confirmed
+ownership, and shutdown awaits a separate native-cleanup completion barrier. Unconfirmed native failure
+still retains process ownership and fails closed until restart; no forced reset/timeout bypass was added.
+Two JVM regressions cover immediate repeated ownership after shutdown and authoritative closure before
+its request acknowledgement. Both new JVM/runtime checks require the corrected source CI result.
+The obsolete pre-fix runtime can be superseded by corrected source; canceled runs are never reported as PASS.

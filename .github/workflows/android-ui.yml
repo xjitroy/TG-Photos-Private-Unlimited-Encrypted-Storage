@@ -21,7 +21,7 @@ permissions:
 
 concurrency:
   group: android-ui-${{ github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   preview-ui:
@@ -39,6 +39,15 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
+      - name: Reuse only public dependency and verified wrapper distribution downloads
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0, MIT, Node 24
+        with:
+          path: |
+            .toolchain/gradle/caches/modules-2
+            .toolchain/gradle/wrapper/dists
+          key: ${{ runner.os }}-tgphotos-public-gradle-v1-${{ hashFiles('**/*.gradle.kts', 'gradle/libs.versions.toml', 'gradle/wrapper/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-tgphotos-public-gradle-v1-
       - name: Check exclusions and compile the owner-authorized development package for QA only
         run: |
           python3 scripts/check_source.py

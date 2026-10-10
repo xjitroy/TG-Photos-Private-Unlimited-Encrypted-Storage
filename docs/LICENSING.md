@@ -90,3 +90,8 @@ androidTest APK. android/android-test's Apache-2.0 LICENSE was fetched and retai
 licensing/upstream/android-test.txt on 2026-10-10. No test-library code is copied into the app. Exact
 resolved binary/POM hashes are included by the test-runtime inventory; CI resolution and device results
 must pass before claiming validation. This does not clear transitive vulnerabilities automatically.
+
+CI-only GitHub actions/cache v6.1.0 is pinned to commit
+55cc8345863c7cc4c66a329aec7e433d2d1c52a9 (Node 24); upstream MIT LICENSE and action definition
+verified on 2026-10-10. It caches public Maven/Gradle distribution downloads only, never app builds,
+APK/AAB/signing keys, owner registration, user data, AVD state or native fixture/session files.

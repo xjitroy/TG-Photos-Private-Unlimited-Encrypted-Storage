@@ -9,7 +9,11 @@ import java.util.concurrent.LinkedBlockingQueue
 import java.util.concurrent.TimeUnit
 
 class TdLibRequestSessionTest {
-    private class Driver(private val loggingResult: String? = "{\"@type\":\"ok\"}") : TdJsonDriver {
+    private class Driver(
+        private val loggingResult: String? = "{\"@type\":\"ok\"}",
+        override val ownsGlobalReceiver: Boolean = false,
+        private val acknowledgeClose: Boolean = true,
+    ) : TdJsonDriver {
         val outbound = LinkedBlockingQueue<JsonObject>()
         val inbound = LinkedBlockingQueue<String>()
         var createdClients = 0
@@ -19,7 +23,7 @@ class TdLibRequestSessionTest {
         override fun send(clientId: Int, request: String) {
             val json = Json.parseToJsonElement(request).jsonObject
             if (json["@type"]?.jsonPrimitive?.content == "close") {
-                reply(json)
+                if (acknowledgeClose) reply(json)
                 auth("authorizationStateClosed")
             } else outbound.add(json)
         }
@@ -48,6 +52,25 @@ class TdLibRequestSessionTest {
                 assertFalse(failure.message.orEmpty().contains("private fixture"))
             }
         }
+    }
+
+    @Test fun confirmedShutdownAllowsImmediateNextReceiverOwner() = runBlocking {
+        repeat(25) {
+            val session = TdLibRequestSession(Driver(ownsGlobalReceiver = true), timeoutMillis = 2000)
+            session.shutdown()
+            assertEquals(AuthorizationState.Closed, session.authorization.value)
+            // Idempotent shutdown must await the same complete cleanup, not just the state flag.
+            session.shutdown()
+        }
+    }
+
+    @Test fun authoritativeClosureBeforeAcknowledgementStillCompletesCleanup() = runBlocking {
+        val session = TdLibRequestSession(Driver(ownsGlobalReceiver = true, acknowledgeClose = false),
+            timeoutMillis = 2000)
+        session.shutdown()
+        assertEquals(AuthorizationState.Closed, session.authorization.value)
+        val next = TdLibRequestSession(Driver(ownsGlobalReceiver = true), timeoutMillis = 2000)
+        next.shutdown()
     }
 
     @Test fun responsesCorrelateWhenReceivedOutOfOrder() = runBlocking {

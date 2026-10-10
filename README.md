@@ -31,6 +31,7 @@ before claiming production encryption or an absence of leaks. See [privacy contr
 
 ## Read the project
 
+- [Production delivery gates and remaining phases](docs/PRODUCTION_READINESS.md)
 - [Requirements checklist](docs/REQUIREMENTS.md)
 - [Implementation plan and roadmap](PLAN.md)
 - [Module architecture](docs/ARCHITECTURE.md)
