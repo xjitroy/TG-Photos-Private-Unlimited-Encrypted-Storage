@@ -8,140 +8,147 @@
       "module": "androidx.compose:compose-bom",
       "version": "2025.09.01",
       "license": "Apache-2.0",
-      "status": "declared, not resolved or downloaded"
+      "status": "declared; transitive Android dependency resolution pending"
     },
     {
       "alias": "compose-ui",
       "module": "androidx.compose.ui:ui",
       "version": "managed by pinned Compose BOM",
       "license": "Apache-2.0",
-      "status": "declared, not resolved or downloaded"
+      "status": "declared; transitive Android dependency resolution pending"
     },
     {
       "alias": "compose-tooling",
       "module": "androidx.compose.ui:ui-tooling",
       "version": "managed by pinned Compose BOM",
       "license": "Apache-2.0",
-      "status": "declared, not resolved or downloaded"
+      "status": "declared; transitive Android dependency resolution pending"
     },
     {
       "alias": "compose-preview",
       "module": "androidx.compose.ui:ui-tooling-preview",
       "version": "managed by pinned Compose BOM",
       "license": "Apache-2.0",
-      "status": "declared, not resolved or downloaded"
+      "status": "declared; transitive Android dependency resolution pending"
     },
     {
       "alias": "compose-foundation",
       "module": "androidx.compose.foundation:foundation",
       "version": "managed by pinned Compose BOM",
       "license": "Apache-2.0",
-      "status": "declared, not resolved or downloaded"
+      "status": "declared; transitive Android dependency resolution pending"
     },
     {
       "alias": "compose-material3",
       "module": "androidx.compose.material3:material3",
       "version": "1.5.0-alpha03",
       "license": "Apache-2.0",
-      "status": "declared, not resolved or downloaded"
+      "status": "declared; transitive Android dependency resolution pending"
     },
     {
       "alias": "compose-icons",
       "module": "androidx.compose.material:material-icons-extended",
       "version": "1.7.8",
       "license": "Apache-2.0",
-      "status": "declared, not resolved or downloaded"
+      "status": "declared; transitive Android dependency resolution pending"
     },
     {
       "alias": "activity-compose",
       "module": "androidx.activity:activity-compose",
       "version": "1.11.0",
       "license": "Apache-2.0",
-      "status": "declared, not resolved or downloaded"
+      "status": "declared; transitive Android dependency resolution pending"
     },
     {
       "alias": "core-ktx",
       "module": "androidx.core:core-ktx",
       "version": "1.17.0",
       "license": "Apache-2.0",
-      "status": "declared, not resolved or downloaded"
+      "status": "declared; transitive Android dependency resolution pending"
     },
     {
       "alias": "core-splashscreen",
       "module": "androidx.core:core-splashscreen",
       "version": "1.0.1",
       "license": "Apache-2.0",
-      "status": "declared, not resolved or downloaded"
+      "status": "declared; transitive Android dependency resolution pending"
     },
     {
       "alias": "lifecycle-runtime",
       "module": "androidx.lifecycle:lifecycle-runtime-ktx",
       "version": "2.9.4",
       "license": "Apache-2.0",
-      "status": "declared, not resolved or downloaded"
+      "status": "declared; transitive Android dependency resolution pending"
     },
     {
       "alias": "coroutines-core",
       "module": "org.jetbrains.kotlinx:kotlinx-coroutines-core",
       "version": "1.10.2",
       "license": "Apache-2.0",
-      "status": "declared, not resolved or downloaded"
+      "status": "declared; transitive Android dependency resolution pending"
+    },
+    {
+      "alias": "serialization-json",
+      "module": "org.jetbrains.kotlinx:kotlinx-serialization-json",
+      "version": "1.9.0",
+      "license": "Apache-2.0",
+      "status": "declared; transitive Android dependency resolution pending"
     },
     {
       "alias": "room-runtime",
       "module": "androidx.room:room-runtime",
       "version": "2.8.1",
       "license": "Apache-2.0",
-      "status": "declared, not resolved or downloaded"
+      "status": "declared; transitive Android dependency resolution pending"
     },
     {
       "alias": "room-ktx",
       "module": "androidx.room:room-ktx",
       "version": "2.8.1",
       "license": "Apache-2.0",
-      "status": "declared, not resolved or downloaded"
+      "status": "declared; transitive Android dependency resolution pending"
     },
     {
       "alias": "room-compiler",
       "module": "androidx.room:room-compiler",
       "version": "2.8.1",
       "license": "Apache-2.0",
-      "status": "declared, not resolved or downloaded"
+      "status": "declared; transitive Android dependency resolution pending"
     },
     {
       "alias": "work-runtime",
       "module": "androidx.work:work-runtime-ktx",
       "version": "2.10.5",
       "license": "Apache-2.0",
-      "status": "declared, not resolved or downloaded"
+      "status": "declared; transitive Android dependency resolution pending"
     },
     {
       "alias": "media3-exoplayer",
       "module": "androidx.media3:media3-exoplayer",
       "version": "1.8.0",
       "license": "Apache-2.0",
-      "status": "declared, not resolved or downloaded"
+      "status": "declared; transitive Android dependency resolution pending"
     },
     {
       "alias": "media3-transformer",
       "module": "androidx.media3:media3-transformer",
       "version": "1.8.0",
       "license": "Apache-2.0",
-      "status": "declared, not resolved or downloaded"
+      "status": "declared; transitive Android dependency resolution pending"
     },
     {
       "alias": "media3-ui",
       "module": "androidx.media3:media3-ui-compose",
       "version": "1.8.0",
       "license": "Apache-2.0",
-      "status": "declared, not resolved or downloaded"
+      "status": "declared; transitive Android dependency resolution pending"
     },
     {
       "alias": "junit",
       "module": "junit:junit",
       "version": "4.13.2",
       "license": "EPL-1.0",
-      "status": "declared, not resolved or downloaded"
+      "status": "declared; transitive Android dependency resolution pending"
     }
   ],
   "build_plugins": {

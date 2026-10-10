@@ -14,6 +14,7 @@ android {
 kotlin { jvmToolchain(17) }
 dependencies {
     implementation(project(":core:model"))
+    implementation(project(":core:crypto"))
     implementation(libs.work.runtime)
     testImplementation(libs.junit)
 }

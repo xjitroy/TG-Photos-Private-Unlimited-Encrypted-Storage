@@ -1,0 +1,14 @@
+PASS Manifest uploaded last after complete chunks
+PASS Complete independent remote authentication and hash
+PASS Content and sensitive filename not sent as plaintext
+PASS Interrupted upload cannot commit manifest
+PASS Resume uses confirmed saved chunk without duplicate upload
+PASS Modified source cannot reuse same version checkpoint
+PASS Truncated source cannot reuse trailing saved checkpoints
+PASS Missing saved remote chunk blocks resumed manifest
+PASS Corrupt ciphertext fails independent remote verification
+PASS Corrupt manifest fails before downloading file chunks
+PASS Wrong file/manifest keys cannot verify
+PASS File and manifest key separation required
+PASS Empty file commits and remotely verifies without phantom chunk
+RESULT 13 checks passed. In-memory fixtures only; TDLib/durable checkpoints/device restore pending.

@@ -6,6 +6,8 @@ import kotlinx.coroutines.flow.StateFlow
 /** Adapter must map official TDLib authorization updates; UI cannot declare Ready. */
 sealed interface AuthorizationState {
     data object Unavailable : AuthorizationState
+    data object WaitParameters : AuthorizationState
+    data class Unsupported(val stateType: String) : AuthorizationState
     data object WaitPhone : AuthorizationState
     data class WaitCode(val deliveryDescription: String, val expectedLength: Int?) : AuthorizationState
     data class WaitPassword(val hint: String) : AuthorizationState

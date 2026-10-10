@@ -12,6 +12,6 @@ test_vault_has_secure_window_and_no_unlock (__main__.SourcePolicyChecks.test_vau
 test_xml_and_catalog_parse (__main__.SourcePolicyChecks.test_xml_and_catalog_parse) ... ok
 
 ----------------------------------------------------------------------
-Ran 12 tests in 0.057s
+Ran 12 tests in 0.061s
 
 OK

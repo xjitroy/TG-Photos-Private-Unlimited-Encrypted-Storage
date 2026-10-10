@@ -1,0 +1,20 @@
+PASS AES-256-GCM known-answer vector (empty plaintext)
+PASS Unicode binary plaintext round trip
+PASS Empty file round trip
+PASS Ciphertext differs from plaintext
+PASS Wrong key fails authentication
+PASS Every envelope byte is authenticated or rejected
+PASS Truncation and trailing-byte injection rejected
+PASS File substitution fails
+PASS Content version replay fails
+PASS Chunk reorder fails
+PASS Vault/gallery purpose substitution fails
+PASS Expected plaintext length is bound
+PASS Repeated encryptions use distinct nonce/ciphertext
+PASS AES-128 and unbounded context rejected
+PASS Oversized plaintext rejected before encryption
+PASS Maximum bounded chunk round trip
+PASS Root key restore using a fresh service instance
+PASS Recovery/password wrap domain separation
+PASS Invalid root length rejected
+RESULT 19 checks passed. Java/JCA only; Android/KDF/full recovery not verified.

@@ -9,6 +9,7 @@ lifecycle = "2.9.4"
 core = "1.17.0"
 splash = "1.0.1"
 coroutines = "1.10.2"
+serialization = "1.9.0"
 room = "2.8.1"
 work = "2.10.5"
 media3 = "1.8.0"
@@ -27,6 +28,7 @@ core-ktx = { module = "androidx.core:core-ktx", version.ref = "core" }
 core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splash" }
 lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle" }
 coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
