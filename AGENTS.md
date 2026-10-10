@@ -1,8 +1,9 @@
 # TG Photos engineering rules
 
 Keep the app name TG Photos. Communicate with the owner in Bengali; use English identifiers.
-Preserve applicationId app.tgphotos.android. No APK/AAB creation, signing, publishing or
-external deployment without explicit owner approval. Compile, lint and JVM tests are allowed.
+Preserve applicationId app.tgphotos.android. The owner authorized eventual APK creation/delivery on
+2026-10-10 after original requirements/design and production gates pass. This is not permission to
+publish to Play or externally deploy. Compile, lint, JVM tests and development toward that APK are allowed.
 No credentials, passphrases, OTPs or production keys in source, logs, saved state or fixtures.
 Phase 1 is a clearly labelled design preview with unavailable transport/crypto adapters.
 Never report an unavailable adapter as successful authentication, backup, restore or unlock.

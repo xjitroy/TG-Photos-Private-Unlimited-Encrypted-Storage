@@ -13,6 +13,8 @@ The repository identifier is the owner's existing name; application branding rem
 4. `docs/PRIVACY_CONTRACT.md`, `docs/THREAT_MODEL.md`, `docs/LICENSING.md` and test evidence.
 5. `docs/MASTER_PLAN.md`: all imported original requirements, with naming/approval overrides.
 6. `docs/reference/README.md`: original PDF/DOCX/Markdown archive and checksum-verified extraction of all 14 UI images.
+7. `docs/MASTER_PLAN_RECONCILIATION.md`: section-by-section ZIP and latest owner-instruction comparison.
+8. `docs/UPSTREAM_REFERENCE_SOURCES.md`: downloaded reference source from all 14 ZIP repositories and restore commands.
 
 `main` holds the Phase 1 foundation. Continued, unmerged security work is on
 `feature/phase-2-security-foundation`. Fetch/switch to this branch before continuing the latest work.
@@ -28,12 +30,16 @@ git switch feature/phase-2-security-foundation
 python3 scripts/check_source.py
 ./scripts/check_crypto_offline.sh
 ./scripts/check_backup_offline.sh
+./scripts/check_cache_offline.sh
 ```
 
 Offline scripts use `java com.sun.tools.javac.Main` if the JDK compiler module exists; they compile Java
 primitive/protocol classes only, with Java 17 source/target, under OpenJDK 21 in the recorded environment.
 They do not compile Kotlin, Android or TDLib and do not create an APK. On a full JDK17/SDK36 setup,
 use `scripts/check_android.sh` for non-packaging compilation/JVM/lint tasks.
+`.github/workflows/android-checks.yml` runs these checks on source pushes on GitHub-hosted runners.
+It has read-only repository permissions, pinned official actions, no account credentials or artifact upload,
+and does not authorize APK/AAB packaging. Check actual run results before claiming Android compatibility.
 
 The official Gradle 8.13 wrapper JAR is now present with verified SHA-256. Its distribution and Android
 SDK still need a permitted download/toolchain. Use a writable `GRADLE_USER_HOME`; do not write into
@@ -51,17 +57,23 @@ Do not use its MTProto IPs/public keys as hardcoded client configuration; offici
 
 ## Concrete next work
 
-1. Finish toolchain provisioning and compile all modules; verify actual dependency/API/native compatibility.
-2. Review `AeadEnvelope`, `ChunkContext`, root wrappers and backup coordinator protocol. Add reviewed Argon2id
-   and HKDF; generate/wrap random root and separate vault keys; finish offline recovery/key version handling.
-3. Implement a single-owner TDLib receive loop, request correlation/timeouts, session Keystore integration,
-   full auth state UX, exact pinned native build and permitted credentials provisioning. JNI/request/reducer
-   foundations are drafts; no binary/live client is enabled.
+1. Android compilation, Room KSP, 17 JVM tests and Debug/Release lint pass for source a3141692 in
+   run 38067274325. Check newer runs before claiming changed-source compatibility. Native TDLib workflow
+   38067274352 is still running; verify both ABI outputs, linked dependencies and runtime compatibility.
+2. Review AeadEnvelope, ChunkContext, Argon2id/HKDF/root wrappers and the backup protocol. Finish encrypted
+   root/recovery persistence and key version handling. Independent vault lock is implemented as a primitive,
+   but authentication, automatic locking and wiping consumer-held keys/previews are not app-wired.
+3. Single-owner receiver, correlation/timeouts and gateway drafts compile; dispatcher tests pass. Validate
+   LocalSessionKeyStore on devices, connect secure API provisioning and the complete Telegram auth UX.
+   No native binary or live client is enabled in the app yet.
 4. Add encrypted durable checkpoints and safe WorkManager orchestration. Handle upload-ack/checkpoint crash
    windows and cancellation; current coordinator resumes test fixtures but is not a durable production queue.
-5. Wire actual MediaStore/SAF gallery/file permissions, encrypted cache, Media3 and separate-key vault only after
+5. Review the ciphertext-only AuthenticatedDiskCache and its Linux fixture checks before wiring it.
+   Wire actual MediaStore/SAF gallery/file permissions, encrypted cache, Media3 and separate-key vault only after
    secure core gates pass. Leave existing design previews honest until real functionality is available.
 6. Run resolved SBOM/manifest/privacy/network/device/accessibility checks and independent security review.
 
-The owner has **not approved any APK/AAB build**, signing, Play publication or deployment.
-Source uploads are authorized; they do not grant APK approval. Communicate progress in Bengali.
+The owner authorized eventual **APK creation and delivery** on 2026-10-10 after requirements/design
+and production gates pass. Do not claim the preview is production-ready. Security review and device/live
+acceptance remain required; Play publication/external deployment are not authorized. Keep the Gradle
+approval guard and use its property only for an owner-authorized packaging step. Communicate in Bengali.
