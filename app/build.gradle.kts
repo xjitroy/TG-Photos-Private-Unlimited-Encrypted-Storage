@@ -39,5 +39,7 @@ dependencies {
     implementation(libs.core.ktx)
     implementation(libs.core.splashscreen)
     implementation(libs.lifecycle.runtime)
+    // The manifest's reviewed local initializer policy needs its class on compile and runtime paths.
+    implementation(libs.startup.runtime)
     debugImplementation(libs.compose.tooling)
 }

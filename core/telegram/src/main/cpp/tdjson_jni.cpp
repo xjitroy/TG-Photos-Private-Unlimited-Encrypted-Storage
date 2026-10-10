@@ -1,18 +1,26 @@
 #include <jni.h>
 #include <algorithm>
+#include <cstring>
 #include <string>
 #include <td/telegram/td_json_client.h>
 
 namespace {
+constexpr size_t max_json_bytes = 4 * 1024 * 1024;
+void reject_json(JNIEnv* env) {
+    jclass exception = env->FindClass("java/lang/IllegalStateException");
+    if (exception != nullptr) env->ThrowNew(exception, "TDLib JSON exceeds safe native bounds");
+}
 // Encode requests and responses as standard UTF-8 explicitly.
 // for returned JSON; JNI's NewStringUTF accepts modified UTF-8 and is not a general UTF-8 decoder.
 jstring utf8_json(JNIEnv* env, const char* json) {
     if (json == nullptr) return nullptr;
+    const size_t length = strnlen(json, max_json_bytes + 1);
+    if (length > max_json_bytes) { reject_json(env); return nullptr; }
     jclass string_class = env->FindClass("java/lang/String");
     if (string_class == nullptr) return nullptr;
     jmethodID constructor = env->GetMethodID(string_class, "<init>", "([BLjava/lang/String;)V");
     if (constructor == nullptr) return nullptr;
-    const std::string bytes(json);
+    const std::string bytes(json, length);
     jbyteArray array = env->NewByteArray(static_cast<jsize>(bytes.size()));
     if (array == nullptr) return nullptr;
     env->SetByteArrayRegion(array, 0, static_cast<jsize>(bytes.size()), reinterpret_cast<const jbyte*>(bytes.data()));
@@ -22,6 +30,7 @@ jstring utf8_json(JNIEnv* env, const char* json) {
     return result;
 }
 std::string utf8_request(JNIEnv* env, jstring request) {
+    if (env->GetStringLength(request) > static_cast<jsize>(max_json_bytes)) { reject_json(env); return {}; }
     jclass string_class = env->FindClass("java/lang/String");
     if (string_class == nullptr) return {};
     jmethodID get_bytes = env->GetMethodID(string_class, "getBytes", "(Ljava/lang/String;)[B");
@@ -30,6 +39,7 @@ std::string utf8_request(JNIEnv* env, jstring request) {
     auto array = static_cast<jbyteArray>(env->CallObjectMethod(request, get_bytes, encoding));
     if (env->ExceptionCheck() || array == nullptr) return {};
     const jsize length = env->GetArrayLength(array);
+    if (length > static_cast<jsize>(max_json_bytes)) { reject_json(env); return {}; }
     std::string result(static_cast<size_t>(length), '\0');
     if (length > 0) env->GetByteArrayRegion(array, 0, length, reinterpret_cast<jbyte*>(&result[0]));
     env->DeleteLocalRef(array); env->DeleteLocalRef(encoding); env->DeleteLocalRef(string_class);

@@ -63,9 +63,11 @@ mkdir -p "$TGPHOTOS_NATIVE_ROOT/output/jniLibs/$TGPHOTOS_ABI" "$TGPHOTOS_NATIVE_
 cp "$TGPHOTOS_NATIVE_ROOT/tdlib-build/td/libtdjson.so" \
   "$TGPHOTOS_NATIVE_ROOT/jni-build/libtgphotos_tdjson.so" "$TGPHOTOS_NATIVE_ROOT/output/jniLibs/$TGPHOTOS_ABI/"
 cp "$TGPHOTOS_NATIVE_ROOT/tdlib-source/LICENSE_1_0.txt" "$TGPHOTOS_NATIVE_ROOT/output/licenses/TDLib.txt"
+cp "$TGPHOTOS_NATIVE_ROOT/tdlib-source/sqlite/sqlite/LICENSE" "$TGPHOTOS_NATIVE_ROOT/output/licenses/TDLib-SQLCipher.txt"
 cp "$TGPHOTOS_NATIVE_ROOT/openssl-source/LICENSE.txt" "$TGPHOTOS_NATIVE_ROOT/output/licenses/OpenSSL.txt"
+printf '%s\n' 'TDLib embeds SQLCipher (Zetetic BSD-3-Clause notice retained). Its GPL-2.0 tl-parser is a host build tool and is not included in these Android libraries. Review full native/source notices before application distribution.' > "$TGPHOTOS_NATIVE_ROOT/output/licenses/BUILD-NOTICE.txt"
 for library in "$TGPHOTOS_NATIVE_ROOT/output/jniLibs/$TGPHOTOS_ABI/"*.so; do
   "$TGPHOTOS_NDK/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-strip" --strip-debug --strip-unneeded "$library"
 done
 python3 "$TGPHOTOS_ROOT/scripts/check_native_artifacts.py" \
-  "$TGPHOTOS_NATIVE_ROOT/output" "$TGPHOTOS_ABI" "$TGPHOTOS_NDK"
+  "$TGPHOTOS_NATIVE_ROOT/output" "$TGPHOTOS_ABI" "$TGPHOTOS_NDK" --record-build

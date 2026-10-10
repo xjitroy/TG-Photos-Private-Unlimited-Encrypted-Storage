@@ -1,0 +1,25 @@
+{
+  "scope": "Verified public-source TDLib/OpenSSL binary baseline, not application release or independent audit",
+  "producerRunId": 38067274352,
+  "producerSourceCommit": "a3141692cedc1d4c391b7bb674732837b4743718",
+  "tdlib": "c15d3f5a5de6e3ba5839822c451152e5e18bb700",
+  "openssl": "45e844fa2a14ec92d146bd8f5778ac130b6625fb",
+  "ndk": "28.2.13676358",
+  "android_api": 26,
+  "abis": {
+    "arm64-v8a": {
+      "artifactName": "tgphotos-tdlib-arm64-v8a",
+      "artifactId": 11676630432,
+      "archiveSha256": "f1c5c20745c0cbba317637ccbf2b52565e51d5c83d494204db720dbc9e2e610f",
+      "tdjsonSha256": "6938f7a1de7596037f21363107b3306512822957ee8e4b6912b8cab378d673fc",
+      "tdjsonBytes": 18765488
+    },
+    "x86_64": {
+      "artifactName": "tgphotos-tdlib-x86_64",
+      "artifactId": 11676372707,
+      "archiveSha256": "ff60949a366565ba98d497858e4bcc40600bfa132ba904f324ffe7de62d75551",
+      "tdjsonSha256": "dc6e2b2debc9b65190d5a028bd4dda2a3ffc00405526e132c7d3d2dc31764d5d",
+      "tdjsonBytes": 21956976
+    }
+  }
+}

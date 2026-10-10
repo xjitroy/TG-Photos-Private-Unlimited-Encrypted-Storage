@@ -80,3 +80,7 @@ in the pinned generate CMake file; it is not linked into the Android libraries. 
 retained separately. This distinction does not complete all generated-source/native/transitive obligations;
 independent distribution/license review is still required. Do not label the complete TDLib source tree
 uniformly Boost or omit the bundled SQLCipher notice.
+
+The verified native-baseline download step uses official actions/download-artifact v8.0.2, MIT,
+source pin 9000827ccba6bdab643e8b6fd33ac0654aef8333. It is build-only, not application runtime.
+Only exact public-source library artifacts from this owner repository are reused after hash/source checks.

@@ -38,3 +38,17 @@ JVM test summary: 21 tests, 0 failures, 0 errors, 0 skipped
 BUILD SUCCESSFUL in 5m 56s
 PASS no APK/AAB created in this source-check run
 Subsequent Media3/range-reader/native/emulator changes require separate checks.
+
+Verified media-source commit: 5bc6e238e489865381a75d64e742a5f2502fadc8
+Run: https://github.com/xjitroy/TG-Photos-Private-Unlimited-Encrypted-Storage/actions/runs/38068966639
+PASS Java authenticated range reader and Kotlin Media3 DataSource compilation; backup Java compilation
+PASS 31 crypto + 13 backup + 10 disk cache + 8 media range fixture checks
+PASS 21 JVM tests, zero failures/errors/skips, Room KSP and Debug/Release lint
+BUILD SUCCESSFUL in 6m 8s
+
+Verified inventory-source commit: b66edc577f88b6047aa941ed4bc69bf8084aabfe
+Run: https://github.com/xjitroy/TG-Photos-Private-Unlimited-Encrypted-Storage/actions/runs/38069536270
+PASS non-packaging compilation/JVM/lint and resolved dependency inventory/metadata artifact generation.
+Seven configurations; 142 external packages; 138 direct cached POM license declarations.
+Remaining/inherited metadata and all artifact/source/vulnerability/privacy reviews remain manual gates.
+Actual preview QA APK build passes, but runtime installation/UI tests have not passed yet.

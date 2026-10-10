@@ -148,3 +148,25 @@ fault test confirms a late fetch cannot publish plaintext after closure; transpo
 when the in-flight call finishes. UI/player-held bytes and decoder state still need explicit lifecycle clearing.
 Native client creation now requires positive logging-suppression acknowledgements; a new rejection test
 awaits CI. Null/unknown acknowledgements can no longer start a client with unconfirmed logging policy.
+
+## Both native ABIs compiled; reproducible JNI rebuild preparation
+
+Baseline run 38067274352 completed successfully for arm64-v8a and x86_64. Both downloaded ZIP digests
+match GitHub metadata; both libraries pass local GNU-readelf ABI, SONAME, dependency, C/JNI export and
+16KB LOAD checks. No native library is yet packaged into the application or tested on-device.
+
+A pinned native-baseline manifest binds source commits, original producer run/source, NDK/API and exact
+TDLib binary hashes. The native workflow may reuse only those verified TDLib/OpenSSL binaries when
+pins match, then rebuild the current original JNI boundary against the official pinned header. Missing/
+expired artifacts or changed pins cause a full public-source rebuild; integrity mismatches fail closed.
+The output retains original producer provenance, fresh JNI provenance and bundled SQLCipher/TDLib/OpenSSL
+notices. This avoids recompiling unchanged public upstream code for every boundary change without claiming
+that new code has already compiled. The new rebuild route and native JSON bounds await CI.
+
+Preview QA run 38070420517 passed the actual merged APK manifest restrictions (only launcher plus
+permission-protected profile receiver exported; no network/media permissions; Emoji initializer absent),
+but emulator startup failed because the SDK avdmanager/emulator did not share an AVD search directory.
+The workflow now uses an explicit workspace ANDROID_AVD_HOME and known AVD path/INI without repurposing HOME.
+Source lint also reported the manifest's runtime-only Startup class missing from compile dependencies;
+Startup 1.1.1 was already resolved in both app runtime variants and is now an explicit implementation
+with the same version, rather than suppressing lint. Both fixes require the next actual CI results.

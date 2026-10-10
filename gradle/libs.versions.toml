@@ -15,6 +15,7 @@ work = "2.10.5"
 media3 = "1.8.0"
 junit = "4.13.2"
 bouncycastle = "1.82"
+startup = "1.1.1"
 
 [libraries]
 compose-bom = { module = "androidx.compose:compose-bom", version.ref = "compose-bom" }
@@ -39,6 +40,7 @@ media3-transformer = { module = "androidx.media3:media3-transformer", version.re
 media3-ui = { module = "androidx.media3:media3-ui-compose", version.ref = "media3" }
 junit = { module = "junit:junit", version.ref = "junit" }
 bouncycastle = { module = "org.bouncycastle:bcprov-jdk18on", version.ref = "bouncycastle" }
+startup-runtime = { module = "androidx.startup:startup-runtime", version.ref = "startup" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

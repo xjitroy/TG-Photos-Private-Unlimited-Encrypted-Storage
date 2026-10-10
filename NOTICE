@@ -27,3 +27,10 @@ This inventory does not grant a license to the owner's original application.
 
 Argon2id draft dependency: Bouncy Castle 1.82, Copyright (c) 2000-2023 The Legion of the Bouncy Castle Inc.
 MIT license: docs/licensing/upstream/bouncycastle.txt. No upstream implementation source copied.
+
+Native candidate builds: TDLib 1.8.68 (Boost-1.0), OpenSSL 3.5.9 (Apache-2.0),
+and TDLib's bundled SQLCipher, Copyright (c) 2008 ZETETIC LLC (BSD-3-Clause).
+Notices: docs/licensing/upstream/tdlib.txt, openssl.txt and tdlib-sqlcipher.txt.
+TDLib's GPL-2.0 tl-parser is a host source-generation tool, not an Android runtime
+library. Its build-only license is retained separately; no generator binary is
+distributed in the application. Full native/transitive review remains required.

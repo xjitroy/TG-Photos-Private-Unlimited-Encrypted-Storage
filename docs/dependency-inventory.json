@@ -156,6 +156,13 @@
       "version": "1.82",
       "license": "MIT",
       "status": "Argon2id backend draft; Kotlin/Android and resolved vulnerability review pending"
+    },
+    {
+      "alias": "startup-runtime",
+      "module": "androidx.startup:startup-runtime",
+      "version": "1.1.1",
+      "license": "Apache-2.0",
+      "status": "already resolved at runtime; explicit implementation needed for reviewed manifest class; CI pending"
     }
   ],
   "build_plugins": {

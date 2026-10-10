@@ -1,0 +1,9 @@
+Producer source: a3141692cedc1d4c391b7bb674732837b4743718
+Run: https://github.com/xjitroy/TG-Photos-Private-Unlimited-Encrypted-Storage/actions/runs/38067274352
+PASS arm64-v8a and x86_64 official TDLib 1.8.68/OpenSSL 3.5.9 native compile, original JNI linking and 16KB ELF checks.
+Exact archive/library hashes and producer metadata: docs/native-baseline.json.
+PASS both downloaded artifact archive digests, checked against GitHub metadata.
+PASS local GNU readelf ELF64 ABI, unversioned Android SONAMEs, expected C/JNI exports, allowed system/TDLib dependencies and 16KB LOAD alignment/congruence.
+The existing-artifact ELF review is separate from original producer provenance. No source patch was needed for SONAMEs.
+NOT RUN native library installation/loading, live Telegram, real device/provider/cross-device recovery or independent security review.
+New JNI bounds/generation/rebuild changes are later source and require their own native CI result.
