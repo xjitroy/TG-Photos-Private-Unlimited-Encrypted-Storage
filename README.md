@@ -4,6 +4,8 @@ Native Android project for private Telegram-backed photo, video and file backup.
 Official application name: **TG Photos**. Proposed new application ID: `app.tgphotos.android`.
 Play working title: **TG Photos: Private Backup**. Independent project, not affiliated with Telegram.
 
+Read [latest development and branch instructions](docs/CONTINUATION.md) before resuming or building.
+
 ## Current delivery
 
 Phase 1 source foundation: Kotlin/Compose, Material 3 Expressive theme, dynamic colors,
