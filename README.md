@@ -38,6 +38,7 @@ before claiming production encryption or an absence of leaks. See [privacy contr
 - [Next developer/agent handoff](docs/HANDOFF.md)
 - [Phase 1 source report](docs/STATUS.md)
 - [Full imported plan, with naming override](docs/MASTER_PLAN.md)
+- [Original documents and all 14 UI reference images](docs/reference/README.md)
 
 ## Check without creating an APK
 
