@@ -38,15 +38,19 @@ jobs:
           python3 scripts/check_source.py
           python3 scripts/check_secrets.py
           python3 scripts/bootstrap_wrapper.py
-          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" 'platforms;android-36' 'build-tools;36.0.0' 'emulator' 'system-images;android-35;google_apis;x86_64'
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" 'platform-tools' 'platforms;android-36' 'build-tools;36.0.0' 'emulator' 'system-images;android-35;google_apis;x86_64'
+          printf '%s\n' "$ANDROID_HOME/platform-tools" >> "$GITHUB_PATH"
+          mkdir -p .toolchain/ui-evidence
           ./gradlew --no-daemon :app:assembleDebug -PapkBuildApproved=true
+          "$ANDROID_HOME/cmdline-tools/latest/bin/apkanalyzer" manifest print app/build/outputs/apk/debug/app-debug.apk > .toolchain/ui-evidence/merged-manifest.xml
+          python3 scripts/check_apk_manifest.py .toolchain/ui-evidence/merged-manifest.xml
       - name: Boot a fresh account-free Android 35 emulator
         run: |
           test -c /dev/kvm
           sudo chmod 666 /dev/kvm
           echo no | "$ANDROID_HOME/cmdline-tools/latest/bin/avdmanager" create avd -n tgphotos-qa -k 'system-images;android-35;google_apis;x86_64' --device pixel_6
-          "$ANDROID_HOME/emulator/emulator" -avd tgphotos-qa -port 5554 -no-window -no-audio -no-boot-anim -no-snapshot -gpu swiftshader_indirect -accel on -memory 3072 -camera-back none -camera-front none > /tmp/tgphotos-emulator.log 2>&1 &
-          adb -s emulator-5554 wait-for-device
+          "$ANDROID_HOME/emulator/emulator" -avd tgphotos-qa -port 5554 -no-window -no-audio -no-boot-anim -no-snapshot -gpu swiftshader_indirect -accel on -memory 3072 -camera-back none -camera-front none > .toolchain/ui-evidence/emulator.log 2>&1 &
+          timeout 180 adb -s emulator-5554 wait-for-device
           for attempt in $(seq 1 150); do
             if [ "$(adb -s emulator-5554 shell getprop sys.boot_completed | tr -d '\r')" = 1 ]; then break; fi
             sleep 2

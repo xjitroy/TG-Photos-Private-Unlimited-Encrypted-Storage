@@ -84,7 +84,7 @@ eviction policy and lifecycle tests remain mandatory. It is not a durable backup
 
 Pinned TDLib schema is used for nested email OTP authentication and resend-code reason. Email address/code
 requests wipe mutable caller input, and the reducer retains masked delivery metadata. Four additional JUnit
-schema/rejection tests await CI. Neither email authentication nor other real login UI is app-wired.
+schema/rejection tests pass in source run 38068420902; its total JVM summary is 21 passing tests. Neither email authentication nor other real login UI is app-wired.
 
 ## Authenticated media and emulator QA source
 
@@ -105,3 +105,22 @@ fresh Android 35 emulator. It checks preview navigation, Settings, theme persist
 flags using UI-tree-derived coordinates, and retains account-free screenshots/test evidence only. No APK
 artifact is uploaded/delivered; no API registration, account, private media, live feature or release signing is
 present. Actual emulator results are pending. This is not production/live integration acceptance.
+
+## Native provenance and dependency review preparation
+
+Native validation now additionally checks ELF64/target ABI, required exported TDLib C/JNI symbols,
+16KB-aligned/congruent LOAD segments and allowed Android/system DSO dependencies. Native JSON copies
+are bounded before allocating Java/C++ response buffers. These source changes await native compilation.
+SQLCipher's embedded Zetetic BSD notice and host-only GPL TL-parser license are retained distinctly.
+
+A non-packaging Gradle inventory task records resolved external JVM/Android coordinates, artifact SHA-256
+and sizes for app debug/release plus draft security/backup/media/cache module configurations. It excludes
+project-built artifacts and private configuration; the source-check workflow uploads only this review JSON
+as a private artifact. Inventory generation awaits CI. It is not a complete native SBOM or an automatic
+license, vulnerability or network privacy audit; all such reviews remain explicit production gates.
+
+Preview QA first run 38068966719 successfully assembled the temporary development APK (4m 8s), then
+failed before installation because platform-tools/adb was not on the CI PATH. No UI acceptance is claimed.
+The workflow now explicitly provisions platform-tools, adds its directory to the next steps' PATH, bounds
+wait-for-device and preserves account-free emulator startup logs. The debug APK was removed in cleanup;
+no APK artifact was uploaded or delivered. The rerun will verify actual installation/navigation.

@@ -29,3 +29,12 @@ PASS Android/Kotlin compilation including LocalSessionKeyStore, Room KSP, JVM te
 PASS 31 offline primitive/key-lifecycle checks and 13 backup protocol fixture checks.
 No device/Keystore operation or native linking is implied by compilation. No APK/AAB created.
 Later persistent-cache/email-schema changes require their own CI run.
+
+Verified disk-cache/email-schema source commit: fab88efa38f67bb60b54d918e13394bc4794d80b
+Run: https://github.com/xjitroy/TG-Photos-Private-Unlimited-Encrypted-Storage/actions/runs/38068420902
+PASS 31 crypto/key-lifecycle + 13 backup + 10 disk-cache offline fixture checks
+PASS Android/Kotlin/Java cache compilation, Room KSP, Debug/Release lint
+JVM test summary: 21 tests, 0 failures, 0 errors, 0 skipped
+BUILD SUCCESSFUL in 5m 56s
+PASS no APK/AAB created in this source-check run
+Subsequent Media3/range-reader/native/emulator changes require separate checks.

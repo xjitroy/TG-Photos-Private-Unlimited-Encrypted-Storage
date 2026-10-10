@@ -47,7 +47,9 @@ jobs:
           test -n "$ANDROID_HOME"
           "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" 'platforms;android-36' 'build-tools;36.0.0'
       - name: Compile modules, run JVM tests and Android lint without packaging
-        run: ./scripts/check_android.sh
+        run: |
+          ./scripts/check_android.sh
+          python3 scripts/enrich_dependency_inventory.py
       - name: Confirm no APK or app bundle was created
         if: always()
         run: |
@@ -58,5 +60,12 @@ jobs:
               raise SystemExit('Unapproved application package found')
           print('PASS: no APK/AAB created')
           PY
+      - name: Preserve resolved public dependency coordinates and hashes for review
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        with:
+          name: tgphotos-resolved-dependency-inventory
+          path: .toolchain/dependency-evidence/
+          if-no-files-found: error
+          retention-days: 30
 
-# No API registration, user files, credentials, artifact upload, signing or publication.
+# No API registration, user files, credentials, APK/AAB upload, signing or publication.

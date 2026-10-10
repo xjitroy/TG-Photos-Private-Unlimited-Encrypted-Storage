@@ -3,10 +3,10 @@
 | Area | Cases | Status |
 |---|---|---|
 | Source policy | branding, four tabs/overflow Settings, no permission/provider/endpoints/telemetry/logging, XML/catalog/module graph, disabled auth/vault, failed backup, no APK, packaging guard | 12 checks passed; source-only |
-| JVM deletion safety | every backup state, exact file/version, incomplete restore, corrupt hash, unauthenticated manifest/chunk, local-only evidence, empty file | 3 JUnit methods written; not executed |
-| JVM unavailable crypto | encryption never returns fake ciphertext; decryption never returns unauthenticated bytes | 2 JUnit methods written; not executed |
-| Compile | app and all Android/JVM modules, Room KSP/schema export | blocked by toolchain/wrapper/dependency availability |
-| Lint | debug/release lint without packaging | blocked |
+| JVM deletion safety | every backup state, exact file/version, incomplete restore, corrupt hash, unauthenticated manifest/chunk, local-only evidence, empty file | 3 JUnit methods pass in Android CI |
+| JVM unavailable crypto | encryption never returns fake ciphertext; decryption never returns unauthenticated bytes | 2 JUnit methods pass in Android CI |
+| Compile | app and all Android/JVM modules, Room KSP/schema export | Android/Room KSP compilation passes; newer media/native source pending |
+| Lint | debug/release lint without packaging | Debug/Release lint passes in CI |
 | Auth | phone/country/E.164, authoritative delivery/email/2FA, logout/expired session, no logs | P2 integration pending |
 | Recovery/crypto | golden vectors, wrong passphrase, corruption, reordered/missing chunks, fresh-device restore/password rotation, key loss | pending |
 | Backup | file types, Unicode/nested/empty/10GB+ where feasible; interruption/restart/duplicate/permission/FloodWait | pending |
@@ -19,4 +19,5 @@
 | Supply chain | full SBOM/version hashes/advisories/license/native ABI provenance | direct inventory/source-level licensing only |
 
 No emulator screenshots or test results are fabricated. Instrumentation/device test installation can create
-APK artifacts and must wait for the owner's approval; do not substitute it for allowed JVM checks.
+APK artifacts. The owner has authorized eventual APK creation; the preview emulator workflow uses a
+temporary debug package only for QA and uploads no APK. Live/device production acceptance remains pending.

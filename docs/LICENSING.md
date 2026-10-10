@@ -69,3 +69,14 @@ native/device/independent vulnerability gates. No obsolete default OpenSSL 1.1.1
 Official `actions/upload-artifact` v6 is build-only MIT, pinned at
 `b7c566a772e6b6bfb58ed0dc250532a479d7789f`; it stores public-source native binaries/provenance
 in the owner private repository artifacts, not private configuration or user files.
+
+### TDLib native embedded/build-only components
+
+Checking the exact pinned source found `sqlite/sqlite/LICENSE`: TDLib embeds SQLCipher with Zetetic's
+BSD-3-Clause terms, rather than a public-domain-only SQLite assumption. Its complete notice is retained
+in `docs/licensing/upstream/tdlib-sqlcipher.txt` and copied beside future native artifacts. The GPL-2.0
+`td/generate/tl-parser` is invoked as a host source-generation executable, under `NOT CMAKE_CROSSCOMPILING`
+in the pinned generate CMake file; it is not linked into the Android libraries. Its build-only license is
+retained separately. This distinction does not complete all generated-source/native/transitive obligations;
+independent distribution/license review is still required. Do not label the complete TDLib source tree
+uniformly Boost or omit the bundled SQLCipher notice.

@@ -39,8 +39,8 @@ primitive/protocol classes only, with Java 17 source/target, under OpenJDK 21 in
 They do not compile Kotlin, Android or TDLib and do not create an APK. On a full JDK17/SDK36 setup,
 use `scripts/check_android.sh` for non-packaging compilation/JVM/lint tasks.
 `.github/workflows/android-checks.yml` runs these checks on source pushes on GitHub-hosted runners.
-It has read-only repository permissions, pinned official actions, no account credentials or artifact upload,
-and does not authorize APK/AAB packaging. Check actual run results before claiming Android compatibility.
+It has read-only repository permissions, pinned official actions, no account credentials or APK/AAB upload,
+and does not package an APK/AAB. Its only artifact is resolved public dependency coordinates/hashes for review. Check actual run results before claiming Android compatibility.
 
 The official Gradle 8.13 wrapper JAR is now present with verified SHA-256. Its distribution and Android
 SDK still need a permitted download/toolchain. Use a writable `GRADLE_USER_HOME`; do not write into
