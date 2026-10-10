@@ -9,9 +9,17 @@ import xml.etree.ElementTree as ET
 ROOT = Path(__file__).resolve().parents[1]
 ANDROID = "{http://schemas.android.com/apk/res/android}"
 
+def runtime_sources():
+    # Inspect declared application modules, not ignored upstream research, generated code or test fixtures.
+    modules = set(re.findall(r'"(:[\w:]+)"', (ROOT / "settings.gradle.kts").read_text()))
+    for module in sorted(modules):
+        source = ROOT / module[1:].replace(":", "/") / "src/main"
+        for suffix in ("*.kt", "*.java"):
+            yield from source.rglob(suffix)
+
 class SourcePolicyChecks(unittest.TestCase):
     def test_final_branding(self):
-        for path in ROOT.rglob("*.kt"):
+        for path in runtime_sources():
             self.assertNotIn("TG Photos E2EE", path.read_text(), str(path))
         strings = ET.parse(ROOT / "app/src/main/res/values/strings.xml").getroot()
         self.assertEqual("TG Photos", next(x.text for x in strings if x.attrib.get("name") == "app_name"))
@@ -34,7 +42,7 @@ class SourcePolicyChecks(unittest.TestCase):
             self.assertEqual(".MainActivity", component.get(ANDROID + "name"))
 
     def test_no_app_runtime_endpoint_or_tracking_sdk(self):
-        for path in list(ROOT.rglob("*.kt")) + list(ROOT.rglob("*.toml")):
+        for path in list(runtime_sources()) + [ROOT / "gradle/libs.versions.toml"]:
             text = path.read_text().lower()
             for forbidden in ["https://", "http://", "firebase", "sentry", "bugsnag", "appsflyer", "facebook", "mixpanel", "amplitude", "crashlytics"]:
                 self.assertNotIn(forbidden, text, str(path))
@@ -43,7 +51,7 @@ class SourcePolicyChecks(unittest.TestCase):
         self.assertEqual([], list(ROOT.rglob("*.apk")) + list(ROOT.rglob("*.aab")))
 
     def test_xml_and_catalog_parse(self):
-        for path in ROOT.rglob("*.xml"):
+        for path in list((ROOT / "app/src/main").rglob("*.xml")) + list((ROOT / "core").glob("*/src/main/**/*.xml")) + list((ROOT / "feature").glob("*/src/main/**/*.xml")):
             ET.parse(path)
         data = tomllib.loads((ROOT / "gradle/libs.versions.toml").read_text())
         for dependency in list(data["libraries"].values()) + list(data["plugins"].values()):
@@ -85,11 +93,11 @@ class SourcePolicyChecks(unittest.TestCase):
         worker = (ROOT / "core/backup/src/main/kotlin/app/tgphotos/core/backup/BackupWorker.kt").read_text()
         self.assertIn("Result.failure", worker)
         self.assertNotIn("Result.success", worker)
-        for path in ROOT.rglob("*.kt"):
+        for path in runtime_sources():
             self.assertNotIn("enqueueUniqueWork", path.read_text())
 
     def test_no_logs_of_sensitive_state(self):
-        for path in ROOT.rglob("*.kt"):
+        for path in runtime_sources():
             self.assertIsNone(re.search(r'\b(?:Log\.[vdiew]|println|print|Timber\.)\s*\(', path.read_text()), str(path))
 
     def test_packaging_guard_present(self):

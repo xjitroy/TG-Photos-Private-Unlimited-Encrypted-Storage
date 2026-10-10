@@ -4,7 +4,7 @@
 #include <td/telegram/td_json_client.h>
 
 namespace {
-// Requests are JSON-escaped ASCII by the Kotlin writer where needed. Convert standard UTF-8 explicitly
+// Encode requests and responses as standard UTF-8 explicitly.
 // for returned JSON; JNI's NewStringUTF accepts modified UTF-8 and is not a general UTF-8 decoder.
 jstring utf8_json(JNIEnv* env, const char* json) {
     if (json == nullptr) return nullptr;

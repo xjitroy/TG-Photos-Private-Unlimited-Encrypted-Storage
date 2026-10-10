@@ -36,7 +36,9 @@ feature is complete. Detailed per-feature implementation status is in `REQUIREME
 - Continue authorized development and source updates without repetitive permission questions.
 - Upload resumable source/documents/test evidence to the owner's private repository; exclude private API
   values, registration screenshots, user files and keys. Referenced application servers receive no app data.
-- No APK/AAB or Play publication is approved. Source-only compile/lint/test CI is authorized development.
+- The owner's latest instruction authorizes eventual APK creation/delivery after requirements/design and
+  production gates pass. Play publication remains unapproved. Source-only compile/lint/test CI continues
+  without packaging; no APK has yet been built.
 - Do not mark previews or tested individual primitives as completed live login, backup, vault or audited E2EE.
 
 ## Explicit detail checks still required

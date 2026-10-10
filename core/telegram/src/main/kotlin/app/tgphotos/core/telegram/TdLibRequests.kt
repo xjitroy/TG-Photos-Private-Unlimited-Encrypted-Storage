@@ -15,8 +15,10 @@ class TdLibSessionConfiguration(
     val appPrivateRoot: File,
     val databaseDirectory: File,
     val filesDirectory: File,
-    private val databaseKey: ByteArray,
-) {
+    databaseKey: ByteArray,
+) : AutoCloseable {
+    private val databaseKey = databaseKey.copyOf()
+    private var closed = false
     init {
         require(appPrivateRoot.isAbsolute && databaseDirectory.isAbsolute && filesDirectory.isAbsolute)
         val root = appPrivateRoot.canonicalFile.toPath()
@@ -24,7 +26,11 @@ class TdLibSessionConfiguration(
         require(filesDirectory.canonicalFile.toPath().startsWith(root))
         require(databaseKey.size == 32)
     }
-    internal fun encryptedDatabaseKey(): String = Base64.getEncoder().encodeToString(databaseKey)
+    @Synchronized internal fun encryptedDatabaseKey(): String {
+        check(!closed) { "TDLib session configuration is closed" }
+        return Base64.getEncoder().encodeToString(databaseKey)
+    }
+    @Synchronized override fun close() { databaseKey.fill(0); closed = true }
     override fun toString(): String = "TdLibSessionConfiguration(redacted)"
 }
 

@@ -8,5 +8,6 @@ public final class NativeTdJson {
     public static native void send(int clientId, String request);
     /** One global receiver, as required by td_receive. Returned JSON is copied before the next receive. */
     public static synchronized native String receive(double timeoutSeconds);
-    public static native String execute(String request);
+    /** Serialize with receive while native returned JSON is copied; either call can invalidate its pointer. */
+    public static synchronized native String execute(String request);
 }

@@ -1,0 +1,427 @@
+{
+  "checked": "2026-10-10",
+  "scope": "Selected source snapshots, READMEs and licenses from every original master-plan repository; not full clones",
+  "runtime_reuse": "None of these app reference sources is bundled or executed",
+  "files": [
+    {
+      "repo": "deckerst/aves",
+      "commit": "f3cbe6ee128bfbfc686b312f8abb3b7af77e8cd7",
+      "path": "README.md",
+      "blob": "0fa9bfeba82a5bc521367ed43e55715f40c7df0f",
+      "license": "BSD-3-Clause",
+      "purpose": "license-or-readme",
+      "sha256": "6cb9d4e194f976c9a21f9fe149c6c8469e55d5d855828006ebc4ec49ac97f893",
+      "bytes": 8808
+    },
+    {
+      "repo": "deckerst/aves",
+      "commit": "f3cbe6ee128bfbfc686b312f8abb3b7af77e8cd7",
+      "path": "LICENSE",
+      "blob": "2ed6edb4966b3d4ec2283d4e81a557ee3c55f881",
+      "license": "BSD-3-Clause",
+      "purpose": "license-or-readme",
+      "sha256": "70243f0df9ce6cdccf9d095ebb012b7090b9e3fdc133e069605ccfbcbf00c89a",
+      "bytes": 1524
+    },
+    {
+      "repo": "deckerst/aves",
+      "commit": "f3cbe6ee128bfbfc686b312f8abb3b7af77e8cd7",
+      "path": "lib/model/dynamic_albums.dart",
+      "blob": "b1147eda219e41ffdc835a4b59620fcb0cc512ce",
+      "license": "BSD-3-Clause",
+      "purpose": "source-reference",
+      "sha256": "2e5852fc55bc76bcdb4fe7cd3968dba9e7885e738ca6c18885034c96c181c980",
+      "bytes": 5771
+    },
+    {
+      "repo": "ente/ente",
+      "commit": "29c8293ec4f6576cfd16368f3d53519fb8c094e3",
+      "path": "README.md",
+      "blob": "40b8136687fbc58874a4a7f7c1e8adfcc4899fbe",
+      "license": "AGPL-3.0",
+      "purpose": "license-or-readme",
+      "sha256": "d2af70e256ff732ddc002cd3f6937fa8deb1bb9f46fd130d4f5bb418b7a608fc",
+      "bytes": 9475
+    },
+    {
+      "repo": "ente/ente",
+      "commit": "29c8293ec4f6576cfd16368f3d53519fb8c094e3",
+      "path": "LICENSE",
+      "blob": "be3f7b28e564e7dd05eaf59d64adba1a4065ac0e",
+      "license": "AGPL-3.0",
+      "purpose": "license-or-readme",
+      "sha256": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0",
+      "bytes": 34523
+    },
+    {
+      "repo": "ente/ente",
+      "commit": "29c8293ec4f6576cfd16368f3d53519fb8c094e3",
+      "path": "mobile/apps/photos/lib/models/backup/backup_item.dart",
+      "blob": "e990935c8ba06e318582bab41496c97da2a63fd1",
+      "license": "AGPL-3.0",
+      "purpose": "source-reference",
+      "sha256": "07f4cf7859f74799e731dec705d39f5ef02313ec9f1f3b73c7bc7bc2f093189a",
+      "bytes": 1773
+    },
+    {
+      "repo": "immich-app/immich",
+      "commit": "2685234ed390746413203a2cf0b18bc36dba53d1",
+      "path": "README.md",
+      "blob": "ba774d44cdd7b9e9baed4cc4166d4c317e3ebae8",
+      "license": "AGPL-3.0",
+      "purpose": "license-or-readme",
+      "sha256": "27b511ae6ee3be2295c4c1e0674dd0ac5b0c6023d9fdd9187869b1605ff56fad",
+      "bytes": 5543
+    },
+    {
+      "repo": "immich-app/immich",
+      "commit": "2685234ed390746413203a2cf0b18bc36dba53d1",
+      "path": "LICENSE",
+      "blob": "94ae15a0fcbd45872c6d01efe11b6ed2a5746b37",
+      "license": "AGPL-3.0",
+      "purpose": "license-or-readme",
+      "sha256": "a3bad629f67f442b23b5224419e49edafc32e6b9c876b89464f7aafe6091ccde",
+      "bytes": 32388
+    },
+    {
+      "repo": "immich-app/immich",
+      "commit": "2685234ed390746413203a2cf0b18bc36dba53d1",
+      "path": "mobile/lib/infrastructure/repositories/backup.repository.dart",
+      "blob": "f0012b5eaed8562e5ada3bdbfc57b8a5adbe5fdb",
+      "license": "AGPL-3.0",
+      "purpose": "source-reference",
+      "sha256": "6390f7a096d8a1a6d0d96e2a757d340445a18b6704b9b4e3a82bbee7bd9e59f8",
+      "bytes": 4652
+    },
+    {
+      "repo": "FossifyOrg/Gallery",
+      "commit": "f5d52cde20d9f05d225722bbebaa4f680ca0962e",
+      "path": "README.md",
+      "blob": "577b27fb009ef3be256d51fde1e34e28f5d0398f",
+      "license": "GPL-3.0",
+      "purpose": "license-or-readme",
+      "sha256": "81f6a9b25c979c681f1059382553e0803d6e9e585f61b66c95e7a5b5dfca499f",
+      "bytes": 2986
+    },
+    {
+      "repo": "FossifyOrg/Gallery",
+      "commit": "f5d52cde20d9f05d225722bbebaa4f680ca0962e",
+      "path": "LICENSE",
+      "blob": "f288702d2fa16d3cdf0035b15a9fcbc552cd88e7",
+      "license": "GPL-3.0",
+      "purpose": "license-or-readme",
+      "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+      "bytes": 35149
+    },
+    {
+      "repo": "FossifyOrg/Gallery",
+      "commit": "f5d52cde20d9f05d225722bbebaa4f680ca0962e",
+      "path": "app/src/main/kotlin/org/fossify/gallery/dialogs/ConfirmDeleteFolderDialog.kt",
+      "blob": "be05fcad2138e3fda962d9143e43442406832e17",
+      "license": "GPL-3.0",
+      "purpose": "source-reference",
+      "sha256": "48838c491def66e7e1f1443463633dc1959bd9fbec5442c1ebc1d7b5cbef16ca",
+      "bytes": 1137
+    },
+    {
+      "repo": "zhanghai/MaterialFiles",
+      "commit": "c9b29cb30716ac03c9e1108218d79d9687267c37",
+      "path": "README.md",
+      "blob": "81ae655a400486057f22eab11941ef3e95a7f0cf",
+      "license": "GPL-3.0",
+      "purpose": "license-or-readme",
+      "sha256": "4ebe04403776748c57266963f0332784c2f9997a7722648e8f8d396cf6899c52",
+      "bytes": 8248
+    },
+    {
+      "repo": "zhanghai/MaterialFiles",
+      "commit": "c9b29cb30716ac03c9e1108218d79d9687267c37",
+      "path": "LICENSE",
+      "blob": "f288702d2fa16d3cdf0035b15a9fcbc552cd88e7",
+      "license": "GPL-3.0",
+      "purpose": "license-or-readme",
+      "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+      "bytes": 35149
+    },
+    {
+      "repo": "zhanghai/MaterialFiles",
+      "commit": "c9b29cb30716ac03c9e1108218d79d9687267c37",
+      "path": "app/src/main/java/me/zhanghai/android/files/provider/document/DocumentCopyMove.kt",
+      "blob": "3ace7c88656eaab5bbfd86361a6b3eb6a79922be",
+      "license": "GPL-3.0",
+      "purpose": "source-reference",
+      "sha256": "7ce3d3454e4c633757cde5256e4f5e6b69fdc84f4b59f5d8bf0aedce00950f01",
+      "bytes": 3551
+    },
+    {
+      "repo": "TeamAmaze/AmazeFileManager",
+      "commit": "94afab32b0a1bd0ddbc582978aca9ffced1301b8",
+      "path": "README.md",
+      "blob": "33dca15216d12cd2901b730325dc7bafcc0599b4",
+      "license": "GPL-3.0",
+      "purpose": "license-or-readme",
+      "sha256": "44caeccfcc71368893596a138a4f38558942e6d548124fdd1650e89f2a32d140",
+      "bytes": 7366
+    },
+    {
+      "repo": "TeamAmaze/AmazeFileManager",
+      "commit": "94afab32b0a1bd0ddbc582978aca9ffced1301b8",
+      "path": "LICENSE.txt",
+      "blob": "20d40b6bceca3a6c0237d7455ebf1820aeff3680",
+      "license": "GPL-3.0",
+      "purpose": "license-or-readme",
+      "sha256": "c53a65c2fd561c87eaabf1072ef5dcab8653042bc15308465f52413585eb6271",
+      "bytes": 35146
+    },
+    {
+      "repo": "TeamAmaze/AmazeFileManager",
+      "commit": "94afab32b0a1bd0ddbc582978aca9ffced1301b8",
+      "path": "app/src/main/java/com/amaze/filemanager/filesystem/Operations.java",
+      "blob": "aabc9b7e564ca0c810eafd97d64d94cbd8314a0c",
+      "license": "GPL-3.0",
+      "purpose": "source-reference",
+      "sha256": "dae3f424f64f2d4b28308d82cb2865ff90893fce401b014045f6d63e9b89ad55",
+      "bytes": 32680
+    },
+    {
+      "repo": "leonlatsch/Photok",
+      "commit": "4b8025265dd18fd344379b7828cd2073d29211b5",
+      "path": "README.md",
+      "blob": "66184b92e3035806db552b91a0a7681fbfbce06d",
+      "license": "Apache-2.0",
+      "purpose": "license-or-readme",
+      "sha256": "0c73e65ebb4cee4e6824012ff456d62ef06e18a0b453d92f7f95a8b741508908",
+      "bytes": 7407
+    },
+    {
+      "repo": "leonlatsch/Photok",
+      "commit": "4b8025265dd18fd344379b7828cd2073d29211b5",
+      "path": "LICENSE",
+      "blob": "4bb060e6cf90e28a40b2e5d0a00f8f506912257b",
+      "license": "Apache-2.0",
+      "purpose": "license-or-readme",
+      "sha256": "86464c28e8acb00b78f660ef9e00e3bc4156161408fb5656a1caa5ef32dc138a",
+      "bytes": 11346
+    },
+    {
+      "repo": "leonlatsch/Photok",
+      "commit": "4b8025265dd18fd344379b7828cd2073d29211b5",
+      "path": "app/src/main/java/dev/leonlatsch/photok/encryption/domain/VaultService.kt",
+      "blob": "dab9c15ec9306b1c1bce4d2cc262d9dc18b20f4f",
+      "license": "Apache-2.0",
+      "purpose": "source-reference",
+      "sha256": "2855d9edc50be70118a41fdb4f9d2a1a3a6ecc2b8a485da18e2fbe26abf4de56",
+      "bytes": 4834
+    },
+    {
+      "repo": "tdlib/td",
+      "commit": "c15d3f5a5de6e3ba5839822c451152e5e18bb700",
+      "path": "README.md",
+      "blob": "f3d977676902409682031c7206a2c08e0fb22784",
+      "license": "BSL-1.0",
+      "purpose": "license-or-readme",
+      "sha256": "c65d237e0e301681dd3946ee960fb124e902e6f0e91efde922c084502836811f",
+      "bytes": 8389
+    },
+    {
+      "repo": "tdlib/td",
+      "commit": "c15d3f5a5de6e3ba5839822c451152e5e18bb700",
+      "path": "LICENSE_1_0.txt",
+      "blob": "36b7cd93cdfbac762f5be4c6ce276df2ea6305c2",
+      "license": "BSL-1.0",
+      "purpose": "license-or-readme",
+      "sha256": "c9bff75738922193e67fa726fa225535870d2aa1059f91452c411736284ad566",
+      "bytes": 1338
+    },
+    {
+      "repo": "tdlib/td",
+      "commit": "c15d3f5a5de6e3ba5839822c451152e5e18bb700",
+      "path": "td/telegram/td_json_client.h",
+      "blob": "7ea78bf4c9d6028d543c5a62802fcedb646efe9d",
+      "license": "BSL-1.0",
+      "purpose": "source-reference",
+      "sha256": "cdf6190b0264417c69c108d192d1f3381f3a1315ddb309798dbefc5036be1eb3",
+      "bytes": 9232
+    },
+    {
+      "repo": "androidx/media",
+      "commit": "8c6678b657ede1e7883fc164ef73ed483c7796c3",
+      "path": "README.md",
+      "blob": "8d056c17f195dd251d535d6ab147976ce366b1ef",
+      "license": "Apache-2.0",
+      "purpose": "license-or-readme",
+      "sha256": "591ae2fdcaa8174d1c3609c1bf26e397f420b4baecf5f6e79f7c2acd4fece970",
+      "bytes": 6738
+    },
+    {
+      "repo": "androidx/media",
+      "commit": "8c6678b657ede1e7883fc164ef73ed483c7796c3",
+      "path": "LICENSE",
+      "blob": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+      "license": "Apache-2.0",
+      "purpose": "license-or-readme",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "bytes": 11358
+    },
+    {
+      "repo": "androidx/media",
+      "commit": "8c6678b657ede1e7883fc164ef73ed483c7796c3",
+      "path": "libraries/datasource/src/main/java/androidx/media3/datasource/DataSource.java",
+      "blob": "fc93269055c2a260549ed348b50c18cdb0879c4d",
+      "license": "Apache-2.0",
+      "purpose": "source-reference",
+      "sha256": "a640c681488421a1773493a663c32415392571a13f3892cf4a26085dac777e85",
+      "bytes": 4451
+    },
+    {
+      "repo": "coil-kt/coil",
+      "commit": "8efac6f9d34716e5bbdd08a7e31c6e075dfca542",
+      "path": "README.md",
+      "blob": "b33819c3138b0b3877663e75759ceed880ae0d09",
+      "license": "Apache-2.0",
+      "purpose": "license-or-readme",
+      "sha256": "ce0a846f0637ff4ecb6c161e005217ed2e9e45e18dc6d15c545e2d104df1bf7e",
+      "bytes": 2098
+    },
+    {
+      "repo": "coil-kt/coil",
+      "commit": "8efac6f9d34716e5bbdd08a7e31c6e075dfca542",
+      "path": "LICENSE.txt",
+      "blob": "ebd16d9f5bb5f7b5a944f4d969e493e05e398f32",
+      "license": "Apache-2.0",
+      "purpose": "license-or-readme",
+      "sha256": "d44a18f12b0f5a494ddc3ba0e980ae8b0936d938c611a518e80f2f1405098893",
+      "bytes": 11347
+    },
+    {
+      "repo": "coil-kt/coil",
+      "commit": "8efac6f9d34716e5bbdd08a7e31c6e075dfca542",
+      "path": "coil-core/src/commonMain/kotlin/coil3/fetch/Fetcher.kt",
+      "blob": "3d10049f1aa14bfe5e6e3495bee6743425b9b963",
+      "license": "Apache-2.0",
+      "purpose": "source-reference",
+      "sha256": "f776ed65f669a263f13a017a0fd0c00ade591665a996ac54c5833d52ecd77f6b",
+      "bytes": 1390
+    },
+    {
+      "repo": "tink-crypto/tink-java",
+      "commit": "a8667999af1fbbb2fb84bb4668d4775af6771668",
+      "path": "README.md",
+      "blob": "d12e763410856ace8c7933fc3a0fa509f20f70f6",
+      "license": "Apache-2.0",
+      "purpose": "license-or-readme",
+      "sha256": "6c6989d4b5dfd77b302536df9993b05e6960c3b55dce16ae602a4e4fa0079ae7",
+      "bytes": 2857
+    },
+    {
+      "repo": "tink-crypto/tink-java",
+      "commit": "a8667999af1fbbb2fb84bb4668d4775af6771668",
+      "path": "LICENSE",
+      "blob": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+      "license": "Apache-2.0",
+      "purpose": "license-or-readme",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "bytes": 11358
+    },
+    {
+      "repo": "tink-crypto/tink-java",
+      "commit": "a8667999af1fbbb2fb84bb4668d4775af6771668",
+      "path": "src/main/java/com/google/crypto/tink/subtle/Hkdf.java",
+      "blob": "03f3b6b877de2eb89b6c462824018b3b6322e45a",
+      "license": "Apache-2.0",
+      "purpose": "source-reference",
+      "sha256": "a0c29dbe05478baf58469351e6c1637d5b2e4b12397cc4b9f7943c3e47c403e7",
+      "bytes": 4839
+    },
+    {
+      "repo": "jedisct1/libsodium",
+      "commit": "89e500718da7e1fc90e168bd88e18d1060f54db3",
+      "path": "README.markdown",
+      "blob": "5e7c35209295237260ac6832572d8017982a4a63",
+      "license": "NOASSERTION",
+      "purpose": "license-or-readme",
+      "sha256": "912320deaa456b6f3b43f3ab5467cb5870da98160552d6a1cfdb7a59179f45dc",
+      "bytes": 3763
+    },
+    {
+      "repo": "jedisct1/libsodium",
+      "commit": "89e500718da7e1fc90e168bd88e18d1060f54db3",
+      "path": "LICENSE",
+      "blob": "95c22fbadfa457cd7898ebe96aaa05147589b655",
+      "license": "NOASSERTION",
+      "purpose": "license-or-readme",
+      "sha256": "508a76d186356c0dd807a670ef510964f8724557024796a2c426c6c0e19ab683",
+      "bytes": 823
+    },
+    {
+      "repo": "jedisct1/libsodium",
+      "commit": "89e500718da7e1fc90e168bd88e18d1060f54db3",
+      "path": "src/libsodium/include/sodium/crypto_pwhash_argon2id.h",
+      "blob": "e6f72a9289058a6515e7a0767d6c9ec28353f55a",
+      "license": "NOASSERTION",
+      "purpose": "source-reference",
+      "sha256": "07dc395f064c8dbffc76c32ef09942c5230474f9b520b2996253856f7a065297",
+      "bytes": 3979
+    },
+    {
+      "repo": "sqlcipher/sqlcipher-android",
+      "commit": "db8a03716be2b5695ab7a5aff09687f27b3af041",
+      "path": "README.md",
+      "blob": "8b4112d0eace4e8224fa5cd7dc3b37189cf8442b",
+      "license": "NOASSERTION",
+      "purpose": "license-or-readme",
+      "sha256": "7553c6360f30d3ca42e7601a7d398a985b8e9d3c19ed8bcbb3fb6bec2f3e4080",
+      "bytes": 6646
+    },
+    {
+      "repo": "sqlcipher/sqlcipher-android",
+      "commit": "db8a03716be2b5695ab7a5aff09687f27b3af041",
+      "path": "LICENSE",
+      "blob": "7167addca133ce72d9cb791929d2e168d9204bc2",
+      "license": "NOASSERTION",
+      "purpose": "license-or-readme",
+      "sha256": "09e4af560ce2e3c9c2aa6b564e35947b03db7d1ae345f22a32793ed46542cc14",
+      "bytes": 1468
+    },
+    {
+      "repo": "sqlcipher/sqlcipher-android",
+      "commit": "db8a03716be2b5695ab7a5aff09687f27b3af041",
+      "path": "sqlcipher/src/main/java/net/zetetic/database/sqlcipher/SQLiteDatabase.java",
+      "blob": "4552792a79cfecee11010b9a56970b220ee2e684",
+      "license": "NOASSERTION",
+      "purpose": "source-reference",
+      "sha256": "20800b06cac7060262d5752de43eb62e774df206a3544932993e6bdf1956d34e",
+      "bytes": 111650
+    },
+    {
+      "repo": "videolan/vlc-android",
+      "commit": "91c78014517bfbc769df4634d06cbd40ebce77ec",
+      "path": "README.md",
+      "blob": "2e57bcd48310f7b1617a8e27c4975834b6a2b50e",
+      "license": "GPL-2.0",
+      "purpose": "license-or-readme",
+      "sha256": "751fe0e96bd39a511264117ad32f96193fa0b5b2ea81a95395377b61ab5282e1",
+      "bytes": 5618
+    },
+    {
+      "repo": "videolan/vlc-android",
+      "commit": "91c78014517bfbc769df4634d06cbd40ebce77ec",
+      "path": "COPYING",
+      "blob": "e4db7c6fcc4dd5c06732c3c87b7b291efd1d2d4f",
+      "license": "GPL-2.0",
+      "purpose": "license-or-readme",
+      "sha256": "0d8fa19bd4147073a3924f230f68345c21651400d620d63234ad3bcb7eb2f688",
+      "bytes": 15222
+    },
+    {
+      "repo": "videolan/vlc-android",
+      "commit": "91c78014517bfbc769df4634d06cbd40ebce77ec",
+      "path": "application/vlc-android/src/org/videolan/vlc/PlaybackService.kt",
+      "blob": "ace154091269993287c8d379f6943beac92ec7d6",
+      "license": "GPL-2.0",
+      "purpose": "source-reference",
+      "sha256": "6639a9aa2900194ad80159324e4c699835c6f03d546a54c8686e16240e2dc177",
+      "bytes": 91164
+    }
+  ]
+}

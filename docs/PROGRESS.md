@@ -8,7 +8,7 @@
   `java com.sun.tools.javac.Main` works. `--release 17` is unavailable because `ct.sym` is absent;
   offline checks use Java 17 source/target on the Java 21 provider, not proof of Android/JDK17 compatibility.
 - Real bounded JCA AES-256-GCM envelopes, canonical file/version/index/scope authenticated context,
-  random root-key wrapping primitives and Kotlin chunk bridge written. **19 offline primitive checks pass**.
+  random root-key wrapping primitives and Kotlin chunk bridge written. **28 offline primitive/key-hierarchy checks pass**.
 - Streamed encrypted backup coordinator, opaque transport identifiers, encrypted manifest-last commit,
   checkpoint-content checks and independent remote authentication/hash verification written.
   **13 offline protocol/fault checks pass** with in-memory test transport/checkpoints.
@@ -16,18 +16,20 @@
 
 ## Work written but not integrated/compiled
 
-- Strict Argon2id KDF contract with unavailable backend; no weak hash/PBKDF2 fallback.
+- Bouncy Castle 1.82 Argon2id 1.3 backend, bounded KDF parameters and 6 JVM KDF/recovery tests; no weak hash/PBKDF2 fallback. This backend is not app-wired.
 - TDLib runtime credential/session request factory, JSON authorization reducer and original JNI/CMake boundary.
   Official header/API/CMake definitions were checked, with intended native source pin
   `tdlib/td@c15d3f5a5de6e3ba5839822c451152e5e18bb700` (1.8.68).
 - Request correlation/receiver/session/Keystore/UI wiring and native build are still pending.
-- No production CryptoEngine, KDF, live TDLib gateway, scheduler or authenticated media player is enabled.
+- No production CryptoEngine, app-wired KDF, live TDLib gateway, scheduler or authenticated media player is enabled.
 
 ## Limits and open gates
 
 Gradle distribution download fails in the sandbox with `SocketException: Operation not permitted`.
-Android SDK/full JDK17/dependencies/NDK are not provisioned. Kotlin/Android/Room KSP compilation, lint,
-5 prepared JUnit methods, JNI compilation, device tests and screenshots remain blocked/not run.
+Local Android SDK/full JDK17/dependencies/NDK are not provisioned. The private GitHub CI runner
+resolved the Android toolchain: Kotlin/Android compilation, Room KSP, model/crypto JVM tests and
+Debug/Release lint PASS in run 38065928993 (source commit b8047c80ed4f3be25a14da4d214b6d6422a64db6).
+JNI/NDK linking, real device tests and runtime screenshots remain not run. No APK/AAB was created.
 
 The offline tests verify primitives/protocol properties, not Argon2id, full password recovery,
 actual Telegram behavior, persisted resume, 10GB/device performance or audited E2EE.
@@ -38,4 +40,13 @@ Progress objects are not consent for deletion. No Android file is deleted by the
 
 API registration is privately stored and excluded from Git/archive; its screenshot is not uploaded.
 The owner authorizes uploads to the selected private repository. Security drafts stay unmerged on the feature
-branch for independent human review. No APK or Google Play action is authorized.
+branch for independent human review. The owner subsequently authorized eventual APK creation/delivery after requirements/design and
+production gates pass. Google Play publication remains unapproved.
+
+## Original source references and latest instruction
+
+All 14 original upstream repositories have locally downloaded selected source/README/license snapshots:
+42 files, Git blob SHA and SHA-256 verified. See UPSTREAM_REFERENCE_SOURCES.md and its manifest.
+These are ignored reference material, not copied into runtime code or connected to external app servers.
+The latest owner request authorizes producing the APK when the real application is production-ready;
+it does not turn incomplete live integrations or an unaudited encryption draft into a completed feature.

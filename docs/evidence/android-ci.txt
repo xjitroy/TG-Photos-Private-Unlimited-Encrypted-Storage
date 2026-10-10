@@ -1,0 +1,15 @@
+Verified source commit: b8047c80ed4f3be25a14da4d214b6d6422a64db6
+Run: https://github.com/xjitroy/TG-Photos-Private-Unlimited-Encrypted-Storage/actions/runs/38065928993
+Runner: Ubuntu 24.04, Temurin JDK 17, Android platform 36
+
+PASS source policy, private Git index exclusions, official wrapper SHA-256, original ZIP/image hashes
+PASS 28 Java/JCA primitive/key hierarchy checks; 13 encrypted backup protocol fixture checks
+PASS Kotlin/Android compilation for app, backup, database, media and app's transitive feature modules
+PASS Room :core:database:kspDebugKotlin
+PASS :core:model:test and :core:crypto:test (including 6 Argon2id/recovery JUnit methods)
+PASS :app:lintDebug and :app:lintRelease
+BUILD SUCCESSFUL in 5m 1s
+PASS no APK/AAB created
+
+This evidence applies to the source commit above. Later TDLib/session-source changes need a new CI run.
+No native linking, live Telegram, real device gallery/player/vault, distribution or independent audit verified.

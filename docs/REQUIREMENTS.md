@@ -18,7 +18,7 @@ Source: owner request, latest branding/privacy clarification and all master-plan
 | F10 | Settings from top-right overflow; no fifth tab | app / P1 | Source |
 | F11 | Media3, Room, WorkManager, Android Keystore | core / P1–P6 | first three declared/foundation; Keystore pending |
 | F12 | Original polished UI inspired by 14 reference images | features / P1 | Preview source; runtime review pending |
-| F13 | Accessibility/48dp/large font/RTL/error-empty-loading states | features / P1–P7 | source baseline/empty-unavailable states; device QA pending |
+| F13 | Accessibility/48dp/large font/RTL/error-empty-loading states | features / P1–P7 | source baseline/empty-unavailable states; Android compile/lint passed; device QA pending |
 | A01 | Telegram phone authentication through official TDLib | telegram/auth / P2 | Preview; adapter unavailable |
 | A02 | Automatic country suggestion and editable selector | auth / P1–P2 | Preview starter list; full list/E.164 pending |
 | A03 | Authoritative OTP delivery type/length/resend | telegram/auth / P2 | UI preview only; no fabricated OTP |
@@ -28,7 +28,7 @@ Source: owner request, latest branding/privacy clarification and all master-plan
 | A07 | Protected session, expiration/logout and secure lifecycle | telegram / P2 | Pending; no live session |
 | A08 | Own API ID/hash, secure local/CI setup, no hardcoded secrets | telegram / P2 | owner registration stored in ignored private configuration; runtime deployment pending |
 | E01 | Random 256-bit root; never a short-password direct media key | crypto / P2 | random 256-bit generator/root wrappers implemented; full setup/recovery flow pending |
-| E02 | Secure calibrated Argon2id, unique salt, strength UX | crypto/auth / P2 | Bouncy Castle Argon2id 1.3 backend source + 6 JVM tests prepared; calibration/CI result pending |
+| E02 | Secure calibrated Argon2id, unique salt, strength UX | crypto/auth / P2 | Bouncy Castle Argon2id 1.3 backend + 6 JVM tests pass in GitHub CI; calibration/app wiring pending |
 | E03 | AES-256-GCM authenticated bounded file chunks | crypto/backup / P2–P3 | AES-GCM primitive + bridge; mutation/bounds tests pass; app engine unavailable |
 | E04 | Per-file/version fresh keys and safe nonces | crypto / P2–P3 | HKDF file/version context and random nonces implemented; offline tests pass; app wiring pending |
 | E05 | HKDF file/manifest/cache/vault domain-separated keys | crypto / P2 | independent cloud/vault root validation + 5 scoped HKDF purposes; offline tests pass |
@@ -93,8 +93,8 @@ Source: owner request, latest branding/privacy clarification and all master-plan
 | O04 | Feature branch/local commits, preserve original documents/code | repo / all | local feature commits; original master ZIP and all 14 UI references preserved in private GitHub |
 | O05 | No hardcoded keys/credentials, sensitive logs or plaintext shared staging | all / all | no such source; runtime tests pending |
 | O06 | Independent security review and verified recovery before production claims | all / P2–P7 | mandatory pending gate |
-| O07 | Available checks/tests/format/lint/device/performance/security with honest logs | scripts/docs / all | 12 source + 28 crypto + 13 backup checks pass; GitHub Android CI added; device/audit pending |
-| O08 | No APK creation until explicit owner approval; no Play publishing | build/repo / all | guard/source checks; no artifacts/publication |
+| O07 | Available checks/tests/format/lint/device/performance/security with honest logs | scripts/docs / all | 12 source + 28 crypto + 13 backup checks pass; Android compile/JVM/lint pass in GitHub CI; device/audit pending |
+| O08 | No APK creation until explicit owner approval; no Play publishing | build/repo / all | latest owner authorizes eventual APK delivery after production gates; no artifacts/Play publication |
 | O09 | Bengali progress communication, English identifiers/files/code | delivery / all | applied |
 | O10 | Report changed files/completed source/results/remaining tasks | docs/status / all | documented |
 

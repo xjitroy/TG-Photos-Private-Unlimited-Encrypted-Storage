@@ -14,6 +14,7 @@ The repository identifier is the owner's existing name; application branding rem
 5. `docs/MASTER_PLAN.md`: all imported original requirements, with naming/approval overrides.
 6. `docs/reference/README.md`: original PDF/DOCX/Markdown archive and checksum-verified extraction of all 14 UI images.
 7. `docs/MASTER_PLAN_RECONCILIATION.md`: section-by-section ZIP and latest owner-instruction comparison.
+8. `docs/UPSTREAM_REFERENCE_SOURCES.md`: downloaded reference source from all 14 ZIP repositories and restore commands.
 
 `main` holds the Phase 1 foundation. Continued, unmerged security work is on
 `feature/phase-2-security-foundation`. Fetch/switch to this branch before continuing the latest work.
@@ -67,5 +68,7 @@ Do not use its MTProto IPs/public keys as hardcoded client configuration; offici
    secure core gates pass. Leave existing design previews honest until real functionality is available.
 6. Run resolved SBOM/manifest/privacy/network/device/accessibility checks and independent security review.
 
-The owner has **not approved any APK/AAB build**, signing, Play publication or deployment.
-Source uploads are authorized; they do not grant APK approval. Communicate progress in Bengali.
+The owner authorized eventual **APK creation and delivery** on 2026-10-10 after requirements/design
+and production gates pass. Do not claim the preview is production-ready. Security review and device/live
+acceptance remain required; Play publication/external deployment are not authorized. Keep the Gradle
+approval guard and use its property only for an owner-authorized packaging step. Communicate in Bengali.
