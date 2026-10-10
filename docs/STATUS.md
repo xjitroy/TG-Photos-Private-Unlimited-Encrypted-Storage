@@ -2,7 +2,7 @@
 
 This is the historical Phase 1 baseline report. Read **PROGRESS.md** and **HANDOFF.md** for continuation:
 current continuation has the verified wrapper, 31 Java crypto + 13 backup protocol checks and successful
-Android compilation, Room KSP, 22 JVM tests and Debug/Release lint. The baseline results below are
+Android compilation, Room KSP, 24 JVM tests and Debug/Release lint. The baseline results below are
 historical; use docs/evidence/android-ci.txt and PROGRESS.md for current results.
 
 ## Implemented source

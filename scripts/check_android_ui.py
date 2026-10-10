@@ -27,13 +27,19 @@ def adb(*args, binary=False):
 
 
 def tree(label):
-    output = adb('exec-out', 'uiautomator', 'dump', '/dev/tty')
-    start, end = output.find('<hierarchy'), output.rfind('</hierarchy>')
-    if start < 0 or end < 0:
-        raise RuntimeError('UI hierarchy is unavailable')
-    xml = output[start:end + len('</hierarchy>')]
-    (root / f'{label}.xml').write_text(xml)
-    return ET.fromstring(xml)
+    # Accessibility can be briefly unavailable after a navigation/layout change.
+    # Keep every real response; retries never substitute an expected UI tree.
+    for attempt in range(3):
+        output = adb('exec-out', 'uiautomator', 'dump', '/dev/tty')
+        (root / f'{label}-dump-{attempt}.txt').write_text(output)
+        start, end = output.find('<hierarchy'), output.rfind('</hierarchy>')
+        if start >= 0 and end >= 0:
+            xml = output[start:end + len('</hierarchy>')]
+            (root / f'{label}.xml').write_text(xml)
+            return ET.fromstring(xml)
+        if attempt < 2:
+            time.sleep(1)
+    raise RuntimeError(f'UI hierarchy is unavailable: {label}; inspect saved dump and crash buffer')
 
 
 def matches(node, text):
@@ -147,6 +153,13 @@ try:
         raise RuntimeError('Android crash buffer contains a failure')
     (root / 'crash-buffer.txt').write_text(crash)
 finally:
+    # Preserve crash evidence even when an earlier UI assertion fails. Never
+    # capture a fallback screenshot: the current screen could be the Vault.
+    try:
+        (root / 'crash-buffer.txt').write_text(adb('logcat', '-d', '-b', 'crash'))
+        (root / 'final-window.txt').write_text(adb('shell', 'dumpsys', 'window', 'windows'))
+    except (subprocess.SubprocessError, OSError) as failure:
+        (root / 'diagnostics-failure.txt').write_text(type(failure).__name__ + '\n')
     (root / 'results.json').write_text(json.dumps({
         'scope': 'Labelled design-preview UI on Android emulator; not live Telegram/backup/vault/player acceptance',
         'passed': passed, 'device': serial,

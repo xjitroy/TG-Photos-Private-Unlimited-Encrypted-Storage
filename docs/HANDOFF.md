@@ -10,7 +10,7 @@ The repository identifier is the owner's existing name; application branding rem
 1. `AGENTS.md`: permissions, privacy, branding and security review rules.
 2. `docs/STATUS.md` and `docs/PROGRESS.md`: completed source, real checks and current blockers.
 3. `docs/REQUIREMENTS.md`, `PLAN.md`, `docs/ARCHITECTURE.md` and the ADRs.
-4. `docs/PRIVACY_CONTRACT.md`, `docs/THREAT_MODEL.md`, `docs/LICENSING.md` and test evidence.
+4. `docs/PRIVACY_CONTRACT.md`, `docs/THREAT_MODEL.md`, `docs/SECURITY_REVIEW_PACKET.md`, `docs/LICENSING.md` and test evidence.
 5. `docs/MASTER_PLAN.md`: all imported original requirements, with naming/approval overrides.
 6. `docs/reference/README.md`: original PDF/DOCX/Markdown archive and checksum-verified extraction of all 14 UI images.
 7. `docs/MASTER_PLAN_RECONCILIATION.md`: section-by-section ZIP and latest owner-instruction comparison.
@@ -58,9 +58,9 @@ Do not use its MTProto IPs/public keys as hardcoded client configuration; offici
 
 ## Concrete next work
 
-1. Source 13eccdd6 passes Android compilation, Room KSP, 22 JVM tests and Debug/Release lint in
-   run 38071501320. Native rebuild 38071501341 passes both ABIs with fresh bounded JNI. Check newer
-   runs before claiming changed-source compatibility; actual JNI loading remains untested.
+1. Source b7befe23 passes Android compilation, Room KSP, 24 JVM tests and Debug/Release lint in
+   run 38074390463. Native rebuild 38071501341 passes both ABIs with fresh bounded JNI. Check newer
+   runs before claiming changed-source compatibility; Android native load/UTF-8/bounds pass; immediate reownership fix passes all six Android tests in run 38074390506 attempt 2. UI acceptance still fails at Photos hierarchy acquisition; inspect the next diagnostics run.
 2. Review AeadEnvelope, ChunkContext, Argon2id/HKDF/root wrappers and the backup protocol. Finish encrypted
    root/recovery persistence and key version handling. Independent vault lock is implemented as a primitive,
    but authentication, automatic locking and wiping consumer-held keys/previews are not app-wired.

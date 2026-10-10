@@ -254,3 +254,26 @@ still retains process ownership and fails closed until restart; no forced reset/
 Two JVM regressions cover immediate repeated ownership after shutdown and authoritative closure before
 its request acknowledgement. Both new JVM/runtime checks require the corrected source CI result.
 The obsolete pre-fix runtime can be superseded by corrected source; canceled runs are never reported as PASS.
+
+## Corrected session JVM checks pass
+
+Source b7befe232f57dbeb31671fbf3432ee8d0ade565b passes run 38074390463: separate source-policy/
+whole-range classifier job, Android/Room/Android-test compilation, 24 JVM tests (zero failures/errors/
+skips) and Debug/Release lint. Both shutdown regressions pass; public dependency cache saves correctly.
+The first runtime attempt failed before building/installing because the Google emulator image ZIP was
+invalid during SDK provisioning. The fresh-runner retry completed; that infrastructure failure is not
+counted as passing lifecycle/UI acceptance. If SDK provisioning fails before an APK exists, its cleanup can report the absent APK directory; no emulator or package was started in that failed attempt.
+
+## Full account-free Android runtime checks pass; UI diagnosis continues
+
+Source b7befe232f57dbeb31671fbf3432ee8d0ade565b, run 38074390506 attempt 2:
+all six Android 35 tests pass (zero failures/errors/skips, 5.604 seconds). This includes four
+Keystore checks and native Unicode/bounds plus immediate two-client reownership after confirmed close.
+The runtime regression is fixed for this tested source. Public Gradle download cache restores successfully;
+app assembly takes 5m 2s. The same manifest-audited QA APK is reinstalled after test teardown.
+Login preview and disabled authentication checks pass, but Photos UI hierarchy acquisition fails;
+overall UI run FAILED. Artifact 11681748569 ZIP SHA256
+2cd4717b7c005a6e393294df7a18fee099ab1e8d604b6d7184d7dbb964be449b matches the download.
+The harness now preserves every raw hierarchy response, retries three times after transitions, and
+collects crash/window diagnostics even after failure. Assertions and Vault screenshot protection remain
+intact. This harness change needs a new emulator run; no complete UI or live-feature acceptance claimed.

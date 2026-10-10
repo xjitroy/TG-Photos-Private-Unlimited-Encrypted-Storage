@@ -7,7 +7,7 @@
 | JVM unavailable crypto | encryption never returns fake ciphertext; decryption never returns unauthenticated bytes | 2 JUnit methods pass in Android CI |
 | Compile | app and all Android/JVM modules, Room KSP/schema export | Android/Room KSP/media compilation passes for named commits; isolated Keystore test source compiles |
 | Lint | debug/release lint without packaging | Debug/Release lint passes in CI |
-| Dispatcher/schema | bounded correlation, shutdown, positive logging ack, official email OTP shapes | 7 dispatcher + 4 schema JVM tests pass; live/native runtime pending |
+| Dispatcher/schema | bounded correlation, shutdown, positive logging ack, official email OTP shapes | 9 dispatcher + 4 schema JVM tests pass; native load/Unicode/bounds and two-owner closure pass on Android 35; live integration pending |
 | Android Keystore | isolated fresh/concurrent instances, corrupt envelope, missing alias, no reset | four Android 35 emulator provider checks pass; hardware/lock/reboot/API matrix pending |
 | Native | both ABI build/link/16KB/exports; standard UTF-8/bounds/receiver ownership/closure on Android | both ABI builds and Android load/UTF-8/bounds check pass; immediate reownership race found, source fix awaiting runtime acceptance |
 | Auth | phone/country/E.164, authoritative delivery/email/2FA, logout/expired session, no logs | P2 integration pending |

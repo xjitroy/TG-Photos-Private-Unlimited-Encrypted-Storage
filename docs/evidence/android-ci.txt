@@ -71,3 +71,20 @@ Run: https://github.com/xjitroy/TG-Photos-Private-Unlimited-Encrypted-Storage/ac
 Four LocalSessionKeyStore instrumented tests, 0 failures/errors/skips, 3.035s.
 Overall workflow failed later: UI launch attempted after connected-test teardown removed the tested app.
 No UI acceptance or hardware/lock/reboot proof is implied. Workflow reinstall fix requires a new runtime run.
+
+Verified receiver cleanup barrier source: b7befe232f57dbeb31671fbf3432ee8d0ade565b
+Run: https://github.com/xjitroy/TG-Photos-Private-Unlimited-Encrypted-Storage/actions/runs/38074390463
+PASS separate every-change source/privacy/ZIP/classifier policy job.
+PASS corrected session Kotlin/JVM and Android test compilation, Room KSP, Debug/Release lint.
+JVM test summary: 24 tests, 0 failures, 0 errors, 0 skipped
+BUILD SUCCESSFUL in 6m 23s; public-dependency cache saved; no APK/AAB in source workflow.
+Android runtime rerun is separate; original first attempt failed during Google SDK image download.
+
+Verified source b7befe232f57dbeb31671fbf3432ee8d0ade565b
+Source run 38074390463: 24 JVM tests, zero failures/errors/skips; Android/Room/test compilation and both lints PASS.
+Runtime run 38074390506 attempt 2: six Android 35 provider/native tests, zero failures/errors/skips, 5.604s PASS.
+Native immediate two-client reownership regression PASS after confirmed cleanup barrier fix.
+QA APK assembly BUILD SUCCESSFUL in 5m 2s; public Gradle cache restored.
+UI overall FAILED: login PASS, Photos hierarchy unavailable. Full UI acceptance NOT established.
+Evidence artifact 11681748569 SHA256 2cd4717b7c005a6e393294df7a18fee099ab1e8d604b6d7184d7dbb964be449b.
+No owner credentials/account/media used; no production APK delivered.
