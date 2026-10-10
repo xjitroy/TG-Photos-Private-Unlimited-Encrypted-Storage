@@ -41,3 +41,10 @@ Official version references:
 
 Project license for original code is not selected on the owner's behalf. Do not call reference-only copyleft
 apps safe to copy into a proprietary product. Privacy review is independent of license compatibility.
+# Build-only GitHub Actions
+
+The source-check workflow uses official `actions/checkout` and `actions/setup-java` v4, pinned to
+`11d5960a326750d5838078e36cf38b85af677262` and `cf277c60eb25467037889841efdb72551f06f6c3`.
+These are MIT-licensed build tools, not application runtime dependencies. Their upstream notices apply
+on the CI runner; no action source or JDK binary is bundled into the application.
+
