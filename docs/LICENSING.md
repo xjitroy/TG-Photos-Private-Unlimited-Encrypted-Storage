@@ -48,3 +48,12 @@ The source-check workflow uses official `actions/checkout` and `actions/setup-ja
 These are MIT-licensed build tools, not application runtime dependencies. Their upstream notices apply
 on the CI runner; no action source or JDK binary is bundled into the application.
 
+## Argon2id backend draft
+
+Bouncy Castle `org.bouncycastle:bcprov-jdk18on:1.82` is a proposed JVM/Android Argon2id backend,
+verified against upstream tag `r1rv82`, source commit `de42702b6cda2631e8e3ff94f8458198860b328e`.
+The MIT license is preserved in `docs/licensing/upstream/bouncycastle.txt` and NOTICE.
+Only its low-level Argon2 generator is called; no global provider is installed, no native binary or
+network/backend is added. This version is a reproducible source pin, not a claim that current
+vulnerability scanning or Android compatibility review is complete. Resolved dependency scanning
+and on-device calibration remain mandatory before app integration.

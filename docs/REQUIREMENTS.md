@@ -26,31 +26,31 @@ Source: owner request, latest branding/privacy clarification and all master-plan
 | A05 | Telegram 2FA distinctly separate from encryption password | auth / P1–P2 | Separate previews; authentication pending |
 | A06 | Email/email-code authorization branches when requested | telegram / P2 | State contract; live handlers pending |
 | A07 | Protected session, expiration/logout and secure lifecycle | telegram / P2 | Pending; no live session |
-| A08 | Own API ID/hash, secure local/CI setup, no hardcoded secrets | telegram / P2 | policy documented; setup pending |
-| E01 | Random 256-bit root; never a short-password direct media key | crypto / P2 | Pending |
-| E02 | Secure calibrated Argon2id, unique salt, strength UX | crypto/auth / P2 | Pending |
-| E03 | AES-256-GCM authenticated bounded file chunks | crypto/backup / P2–P3 | Pending; unavailable engine |
-| E04 | Per-file/version fresh keys and safe nonces | crypto / P2–P3 | Pending |
-| E05 | HKDF file/manifest/cache/vault domain-separated keys | crypto / P2 | Pending |
-| E06 | Encrypted authenticated manifests/schema/transport pointers | crypto/backup / P3 | Pending |
+| A08 | Own API ID/hash, secure local/CI setup, no hardcoded secrets | telegram / P2 | owner registration stored in ignored private configuration; runtime deployment pending |
+| E01 | Random 256-bit root; never a short-password direct media key | crypto / P2 | random 256-bit generator/root wrappers implemented; full setup/recovery flow pending |
+| E02 | Secure calibrated Argon2id, unique salt, strength UX | crypto/auth / P2 | Bouncy Castle Argon2id 1.3 backend source + 6 JVM tests prepared; calibration/CI result pending |
+| E03 | AES-256-GCM authenticated bounded file chunks | crypto/backup / P2–P3 | AES-GCM primitive + bridge; mutation/bounds tests pass; app engine unavailable |
+| E04 | Per-file/version fresh keys and safe nonces | crypto / P2–P3 | HKDF file/version context and random nonces implemented; offline tests pass; app wiring pending |
+| E05 | HKDF file/manifest/cache/vault domain-separated keys | crypto / P2 | independent cloud/vault root validation + 5 scoped HKDF purposes; offline tests pass |
+| E06 | Encrypted authenticated manifests/schema/transport pointers | crypto/backup / P3 | encrypted manifest coordinator draft; 13 in-memory protocol checks pass; live transport pending |
 | E07 | Encrypted names/path/EXIF/metadata/search index | crypto/database / P2–P4 | encrypted-envelope schema source only |
 | E08 | Encrypted thumbnails/persistent cache, in-memory decode only | crypto/cache / P3–P5 | contract only |
-| E09 | Passphrase wrap + offline recovery + separate recovery wrap | crypto/auth / P2 | Preview explanation; pending |
+| E09 | Passphrase wrap + offline recovery + separate recovery wrap | crypto/auth / P2 | root/recovery wrap primitives pass; passphrase-backed tests prepared; export/UI pending |
 | E10 | Keystore local convenience wrapper; second-device recovery | crypto / P2 | Pending |
 | E11 | Password rotation/key versions/cross-device restore | crypto / P2–P6 | Pending |
 | E12 | No plaintext private keys/passwords uploaded | crypto/transport / all | required boundary; no uploads yet |
-| E13 | Corruption/wrong password/duplicate/missing/reordered chunks fail closed | crypto/backup/media / P2–P5 | Pending; unavailable crypto tests prepared |
+| E13 | Corruption/wrong password/duplicate/missing/reordered chunks fail closed | crypto/backup/media / P2–P5 | wrong-key/corruption/reorder/truncation primitive checks pass; live/device integration pending |
 | B01 | Per-folder opt-in switches, recursive filters | albums/backup / P3 | switch preview; no policies/scheduling |
 | B02 | MediaStore observer and SAF periodic scan/new-file detection | albums/backup / P3 | Pending |
 | B03 | Durable background queue/checkpoints/idempotency | backup/database / P3 | unscheduled failure worker only |
 | B04 | Photo/video/audio/document/archive/arbitrary binary backup | backup / P3 | Pending |
 | B05 | Multiple selection/upload/download | photos/files/backup / P3–P4 | file sample selection only |
-| B06 | Resumable upload/download, retries/backoff/FloodWait | backup/telegram / P3 | Pending |
+| B06 | Resumable upload/download, retries/backoff/FloodWait | backup/telegram / P3 | resumable coordinator test fixtures pass; durable queue/TDLib/FloodWait pending |
 | B07 | Progress/retry/error/permission/account-limited/paused states | backup/model / P3 | enum foundation; no live progress |
 | B08 | Wi-Fi/metered/roaming/charging/battery constraints | backup/settings / P3 | documented, pending |
 | B09 | Original quality; no silent transcode | backup/media / P3–P5 | policy, pending |
-| B10 | Chunks uploaded/verified first; manifest committed last | backup/telegram / P3 | Pending |
-| B11 | Complete independent restored hash/bytes/exact version before deletion | model/backup / P3 | domain gate source, 3 test methods unrun |
+| B10 | Chunks uploaded/verified first; manifest committed last | backup/telegram / P3 | encrypted manifest-last coordinator draft; 13 in-memory checks pass |
+| B11 | Complete independent restored hash/bytes/exact version before deletion | model/backup / P3 | domain gate source + independent remote protocol verification; Android consent flow pending |
 | B12 | Explicit confirmation + Android scoped deletion consent | files/backup / P3–P4 | Pending; no delete operation |
 | B13 | Restart/offline/low disk/SD removal/revoked grants consistency | backup/database / P3 | Pending |
 | B14 | Backup notifications branded TG Photos and no plaintext private info | backup/app / P3 | Pending; no notifications generated |
@@ -78,7 +78,7 @@ Source: owner request, latest branding/privacy clarification and all master-plan
 | M07 | Scoped grants/revoke/export temporary URIs/cleanup | files / P4–P6 | Pending; no FileProvider |
 | M08 | Nondestructive edits, protected workspace, new encrypted version | files/media/crypto / P5 | Pending |
 | P01 | Separate vault authentication/biometric protection | vault/crypto / P6 | locked preview only |
-| P02 | Independent encrypted vault key/index/ACL hierarchy | vault/crypto / P6 | Pending |
+| P02 | Independent encrypted vault key/index/ACL hierarchy | vault/crypto / P6 | independent root validation/domain-separated keys source; vault unlock/index/ACL pending |
 | P03 | FLAG_SECURE + recents protection on sensitive surfaces | vault/app / P6 | FLAG_SECURE source; device/recents tests pending |
 | P04 | Background/time-based auto-lock and key/preview clearing | vault/cache/crypto / P6 | Pending; preview always locked |
 | P05 | Encrypted import/export/previews; no media exposure to other apps | vault/files / P6 | Pending; no import/access yet |
@@ -90,10 +90,10 @@ Source: owner request, latest branding/privacy clarification and all master-plan
 | O01 | Verify 14 referenced repositories/licenses before reuse | docs / P0 | license/README screening done; exact reuse/native dependency audit pending |
 | O02 | Prefer permissive audited components, respect GPL/AGPL/LGPL obligations | all / all | clean-room app; no copyleft source copied |
 | O03 | Attributions/NOTICE/resolved SBOM/build provenance/pinned dependencies | gradle/docs / all | declared inventory/source hashes; resolved SBOM pending |
-| O04 | Feature branch/local commits, preserve original documents/code | repo / all | new isolated repo; originals preserved outside project |
+| O04 | Feature branch/local commits, preserve original documents/code | repo / all | local feature commits; original master ZIP and all 14 UI references preserved in private GitHub |
 | O05 | No hardcoded keys/credentials, sensitive logs or plaintext shared staging | all / all | no such source; runtime tests pending |
 | O06 | Independent security review and verified recovery before production claims | all / P2–P7 | mandatory pending gate |
-| O07 | Available checks/tests/format/lint/device/performance/security with honest logs | scripts/docs / all | 12 source checks pass; other checks explicitly blocked/pending |
+| O07 | Available checks/tests/format/lint/device/performance/security with honest logs | scripts/docs / all | 12 source + 28 crypto + 13 backup checks pass; GitHub Android CI added; device/audit pending |
 | O08 | No APK creation until explicit owner approval; no Play publishing | build/repo / all | guard/source checks; no artifacts/publication |
 | O09 | Bengali progress communication, English identifiers/files/code | delivery / all | applied |
 | O10 | Report changed files/completed source/results/remaining tasks | docs/status / all | documented |

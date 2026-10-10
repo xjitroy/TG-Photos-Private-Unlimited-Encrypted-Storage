@@ -149,6 +149,13 @@
       "version": "4.13.2",
       "license": "EPL-1.0",
       "status": "declared; transitive Android dependency resolution pending"
+    },
+    {
+      "alias": "bouncycastle",
+      "module": "org.bouncycastle:bcprov-jdk18on",
+      "version": "1.82",
+      "license": "MIT",
+      "status": "Argon2id backend draft; Kotlin/Android and resolved vulnerability review pending"
     }
   ],
   "build_plugins": {

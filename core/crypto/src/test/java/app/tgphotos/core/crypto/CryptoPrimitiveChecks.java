@@ -91,6 +91,56 @@ public final class CryptoPrimitiveChecks {
             rejects(() -> new RootKeyEnvelope(aead).unwrap(wrapped, unlock, id, 1, ChunkContext.Scope.ROOT_PASSWORD_WRAP));
         });
         check("Invalid root length rejected", () -> rejects(() -> new RootKeyEnvelope(aead).wrap(new byte[16], key, id, 1, ChunkContext.Scope.ROOT_PASSWORD_WRAP)));
+        check("RFC 5869 SHA-256 test case 1", () -> {
+            byte[] ikm = new byte[22]; Arrays.fill(ikm, (byte) 0x0b);
+            require(Arrays.equals(hex("3cb25f25faacd57a90434f64d0362f2a2d2d0a90cf1a5a4c5db02d56ecc4c5bf34007208d5b887185865"),
+                HkdfSha256.derive(ikm, hex("000102030405060708090a0b0c"), hex("f0f1f2f3f4f5f6f7f8f9"), 42)));
+        });
+        check("RFC 5869 SHA-256 test case 3 with empty salt/info", () -> {
+            byte[] ikm = new byte[22]; Arrays.fill(ikm, (byte) 0x0b);
+            require(Arrays.equals(hex("8da4e775a563c18f715f802a063c5a31b8a11f5c5ee1879ec3454e5f3c738d2d9d201395faa4b61a96c8"),
+                HkdfSha256.derive(ikm, new byte[0], new byte[0], 42)));
+        });
+        check("HKDF rejects output and context overflow", () -> {
+            rejects(() -> HkdfSha256.derive(key, new byte[32], new byte[0], 8161));
+            rejects(() -> HkdfSha256.derive(key, new byte[32], new byte[0], 0));
+            rejects(() -> HkdfSha256.derive(key, new byte[32], new byte[4097], 32));
+        });
+        byte[] vaultRoot = aead.generateKey();
+        ScopedKeyHierarchy hierarchy = new ScopedKeyHierarchy(key, vaultRoot, aead.generateKey());
+        byte[] contentKey = hierarchy.derive(ScopedKeyHierarchy.Domain.CLOUD, ScopedKeyHierarchy.Purpose.CONTENT, id, 1);
+        check("File keys are stable across repeated requests", () -> require(Arrays.equals(contentKey,
+            hierarchy.derive(ScopedKeyHierarchy.Domain.CLOUD, ScopedKeyHierarchy.Purpose.CONTENT, id, 1))));
+        check("Key purposes are distinct", () -> {
+            for (ScopedKeyHierarchy.Purpose purpose : ScopedKeyHierarchy.Purpose.values()) {
+                if (purpose != ScopedKeyHierarchy.Purpose.CONTENT) require(!Arrays.equals(contentKey,
+                    hierarchy.derive(ScopedKeyHierarchy.Domain.CLOUD, purpose, id, 1)));
+            }
+        });
+        check("Keys differ across file IDs, versions and vault domain", () -> {
+            require(!Arrays.equals(contentKey, hierarchy.derive(ScopedKeyHierarchy.Domain.CLOUD, ScopedKeyHierarchy.Purpose.CONTENT, UUID.randomUUID(), 1)));
+            require(!Arrays.equals(contentKey, hierarchy.derive(ScopedKeyHierarchy.Domain.CLOUD, ScopedKeyHierarchy.Purpose.CONTENT, id, 2)));
+            require(!Arrays.equals(contentKey, hierarchy.derive(ScopedKeyHierarchy.Domain.VAULT, ScopedKeyHierarchy.Purpose.CONTENT, id, 1)));
+        });
+        check("Cloud/vault root reuse and invalid roots rejected", () -> {
+            rejects(() -> new ScopedKeyHierarchy(key, key, new byte[32]));
+            rejects(() -> new ScopedKeyHierarchy(new byte[16], vaultRoot, new byte[32]));
+        });
+        check("Caller input mutation cannot change retained roots", () -> {
+            byte[] cloud = key.clone(), vault = vaultRoot.clone(), salt = aead.generateKey();
+            try (ScopedKeyHierarchy copy = new ScopedKeyHierarchy(cloud, vault, salt)) {
+                byte[] before = copy.derive(ScopedKeyHierarchy.Domain.CLOUD, ScopedKeyHierarchy.Purpose.CONTENT, id, 1);
+                Arrays.fill(cloud, (byte) 0); Arrays.fill(vault, (byte) 0); Arrays.fill(salt, (byte) 0);
+                require(Arrays.equals(before, copy.derive(ScopedKeyHierarchy.Domain.CLOUD, ScopedKeyHierarchy.Purpose.CONTENT, id, 1)));
+            }
+        });
+        check("Lock destroys retained roots and rejects further derivation", () -> {
+            hierarchy.close(); hierarchy.close();
+            try { hierarchy.derive(ScopedKeyHierarchy.Domain.CLOUD, ScopedKeyHierarchy.Purpose.CONTENT, id, 1); }
+            catch (IllegalStateException expected) { return; }
+            throw new AssertionError("Locked hierarchy returned a key");
+        });
+        Arrays.fill(vaultRoot, (byte) 0); Arrays.fill(contentKey, (byte) 0);
         Arrays.fill(key, (byte) 0);
         System.out.println("RESULT " + passed + " checks passed. Java/JCA only; Android/KDF/full recovery not verified.");
     }

@@ -17,4 +17,13 @@ PASS Maximum bounded chunk round trip
 PASS Root key restore using a fresh service instance
 PASS Recovery/password wrap domain separation
 PASS Invalid root length rejected
-RESULT 19 checks passed. Java/JCA only; Android/KDF/full recovery not verified.
+PASS RFC 5869 SHA-256 test case 1
+PASS RFC 5869 SHA-256 test case 3 with empty salt/info
+PASS HKDF rejects output and context overflow
+PASS File keys are stable across repeated requests
+PASS Key purposes are distinct
+PASS Keys differ across file IDs, versions and vault domain
+PASS Cloud/vault root reuse and invalid roots rejected
+PASS Caller input mutation cannot change retained roots
+PASS Lock destroys retained roots and rejects further derivation
+RESULT 28 checks passed. Java/JCA only; Android/KDF/full recovery not verified.

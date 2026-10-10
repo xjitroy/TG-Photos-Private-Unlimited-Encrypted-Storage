@@ -13,6 +13,7 @@ The repository identifier is the owner's existing name; application branding rem
 4. `docs/PRIVACY_CONTRACT.md`, `docs/THREAT_MODEL.md`, `docs/LICENSING.md` and test evidence.
 5. `docs/MASTER_PLAN.md`: all imported original requirements, with naming/approval overrides.
 6. `docs/reference/README.md`: original PDF/DOCX/Markdown archive and checksum-verified extraction of all 14 UI images.
+7. `docs/MASTER_PLAN_RECONCILIATION.md`: section-by-section ZIP and latest owner-instruction comparison.
 
 `main` holds the Phase 1 foundation. Continued, unmerged security work is on
 `feature/phase-2-security-foundation`. Fetch/switch to this branch before continuing the latest work.

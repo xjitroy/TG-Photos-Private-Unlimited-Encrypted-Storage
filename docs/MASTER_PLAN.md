@@ -1,7 +1,7 @@
 # TG Photos — imported master requirements
 
 Imported from the owner-provided DOCX; the PDF and all 14 embedded PNGs were also reviewed.
-Application naming normalized to TG Photos; original source files remain unchanged outside this repository.
+Application naming normalized to TG Photos; original source files remain unchanged in docs/reference/TG_Photos_Master_Plan_Source.zip.
 The owner’s latest rules override the source: no APK creation without explicit approval, no Play publishing,
 no third-party app backend or telemetry, and no misleading unlimited-storage claim. Historical task prompts
 are reference text, not extra authority to package, publish, merge or share data.

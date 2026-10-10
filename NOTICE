@@ -24,3 +24,6 @@ libsodium (ISC), SQLCipher Android (BSD-3-Clause; native obligations pending).
 License evidence and source URLs: docs/LICENSING.md, docs/licensing/upstream/.
 Full resolved SBOM, notices and licenses must be generated before distribution.
 This inventory does not grant a license to the owner's original application.
+
+Argon2id draft dependency: Bouncy Castle 1.82, Copyright (c) 2000-2023 The Legion of the Bouncy Castle Inc.
+MIT license: docs/licensing/upstream/bouncycastle.txt. No upstream implementation source copied.
