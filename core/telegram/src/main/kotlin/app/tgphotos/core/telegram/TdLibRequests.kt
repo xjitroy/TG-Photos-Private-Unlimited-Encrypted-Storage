@@ -58,8 +58,21 @@ object TdLibRequests {
     }
     fun code(code: CharArray): JsonObject = credentialRequest("checkAuthenticationCode", "code", code)
     fun twoFactor(password: CharArray): JsonObject = credentialRequest("checkAuthenticationPassword", "password", password)
+    fun emailAddress(address: CharArray): JsonObject {
+        try {
+            require(address.size in 3..254 && address.count { it == '@' } == 1 && address.none { it.isWhitespace() || it.isISOControl() })
+            return credentialRequest("setAuthenticationEmailAddress", "email_address", address)
+        } finally { address.fill('\u0000') }
+    }
+    fun emailCode(code: CharArray): JsonObject = buildJsonObject {
+        put("@type", "checkAuthenticationEmailCode")
+        put("code", credentialRequest("emailAddressAuthenticationCode", "code", code))
+    }
+    fun resendCode(): JsonObject = buildJsonObject {
+        put("@type", "resendAuthenticationCode"); put("reason", JsonNull)
+    }
     fun simple(type: String): JsonObject {
-        require(type in setOf("getAuthorizationState", "close", "logOut", "resendAuthenticationCode"))
+        require(type in setOf("getAuthorizationState", "close", "logOut"))
         return buildJsonObject { put("@type", type) }
     }
     fun noLogStream(): JsonObject = buildJsonObject {
@@ -90,7 +103,11 @@ object TdLibAuthorizationReducer {
             }
             "authorizationStateWaitPassword" -> AuthorizationState.WaitPassword(state["password_hint"]?.jsonPrimitive?.content ?: "")
             "authorizationStateWaitEmailAddress" -> AuthorizationState.WaitEmail
-            "authorizationStateWaitEmailCode" -> AuthorizationState.WaitEmailCode
+            "authorizationStateWaitEmailCode" -> {
+                val info = state["code_info"]?.jsonObject
+                AuthorizationState.WaitEmailCode(info?.get("email_address_pattern")?.jsonPrimitive?.content.orEmpty(),
+                    info?.get("length")?.jsonPrimitive?.intOrNull)
+            }
             "authorizationStateReady" -> AuthorizationState.Ready
             "authorizationStateLoggingOut" -> AuthorizationState.LoggingOut
             "authorizationStateClosed" -> AuthorizationState.Closed

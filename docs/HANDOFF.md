@@ -30,6 +30,7 @@ git switch feature/phase-2-security-foundation
 python3 scripts/check_source.py
 ./scripts/check_crypto_offline.sh
 ./scripts/check_backup_offline.sh
+./scripts/check_cache_offline.sh
 ```
 
 Offline scripts use `java com.sun.tools.javac.Main` if the JDK compiler module exists; they compile Java
@@ -67,7 +68,8 @@ Do not use its MTProto IPs/public keys as hardcoded client configuration; offici
    No native binary or live client is enabled in the app yet.
 4. Add encrypted durable checkpoints and safe WorkManager orchestration. Handle upload-ack/checkpoint crash
    windows and cancellation; current coordinator resumes test fixtures but is not a durable production queue.
-5. Wire actual MediaStore/SAF gallery/file permissions, encrypted cache, Media3 and separate-key vault only after
+5. Review the ciphertext-only AuthenticatedDiskCache and its Linux fixture checks before wiring it.
+   Wire actual MediaStore/SAF gallery/file permissions, encrypted cache, Media3 and separate-key vault only after
    secure core gates pass. Leave existing design previews honest until real functionality is available.
 6. Run resolved SBOM/manifest/privacy/network/device/accessibility checks and independent security review.
 

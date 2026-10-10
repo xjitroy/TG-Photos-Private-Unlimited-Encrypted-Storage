@@ -22,3 +22,10 @@ BUILD SUCCESSFUL in 5m 53s
 PASS no APK/AAB created
 Six session dispatcher tests passed. Native workflow is separate and was still running when recorded.
 Subsequent LocalSessionKeyStore/vault lifecycle changes require another compile run.
+
+Verified Keystore/vault source commit: d9490c3becbf43e0a12192084f56a8e6af609c03
+Run: https://github.com/xjitroy/TG-Photos-Private-Unlimited-Encrypted-Storage/actions/runs/38067943717
+PASS Android/Kotlin compilation including LocalSessionKeyStore, Room KSP, JVM tests and Debug/Release lint.
+PASS 31 offline primitive/key-lifecycle checks and 13 backup protocol fixture checks.
+No device/Keystore operation or native linking is implied by compilation. No APK/AAB created.
+Later persistent-cache/email-schema changes require their own CI run.

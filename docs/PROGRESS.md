@@ -65,7 +65,23 @@ Native linking/device/login tests and app wiring remain pending until actual wor
 
 An Android Keystore binding draft now wraps a random 256-bit TDLib database key with AES-GCM in
 noBackupFilesDir using AtomicFile. Missing wrappers/corrupt envelopes fail closed rather than resetting
-a session. It is not app-wired; compilation and Android lock/invalidation/reboot/device tests are pending.
+a session. It compiles in source run 38067943717, but is not app-wired; Android lock/invalidation/reboot/device tests are pending.
 The key hierarchy now supports cloud operations while the independent vault root is locked. Vault lock
 wipes its retained root and rejects subsequent vault derivations without changing cloud keys. Three
 additional offline checks pass. Consumers must wipe already-derived keys and previews separately.
+
+## Authenticated persistent cache and full auth schema drafts
+
+A bounded AuthenticatedDiskCache persists only AES-GCM ciphertext under opaque UUID filenames in a
+caller-supplied dedicated app-private directory. Writes fsync ciphertext temporary files, atomically rename,
+and fsync the parent; failed/unfinished writes never promote plaintext. Reads require trusted manifest
+version/length, reject symlinks, authenticate before returning in-memory bytes and derive separate cloud/vault
+cache keys. Startup removes ciphertext-only temporary files. A quota rejects growth rather than silently
+removing user content. Ten Linux/JCA fixture checks pass, including fresh service restore, corruption of
+all envelope bytes, substitution/replay, vault relock, symlink rejection, quota failure and interrupted writes.
+This is not yet connected to EncryptedCache, Android viewers or Room/WorkManager; filesystem/device,
+eviction policy and lifecycle tests remain mandatory. It is not a durable backup outbox/checkpoint store.
+
+Pinned TDLib schema is used for nested email OTP authentication and resend-code reason. Email address/code
+requests wipe mutable caller input, and the reducer retains masked delivery metadata. Four additional JUnit
+schema/rejection tests await CI. Neither email authentication nor other real login UI is app-wired.

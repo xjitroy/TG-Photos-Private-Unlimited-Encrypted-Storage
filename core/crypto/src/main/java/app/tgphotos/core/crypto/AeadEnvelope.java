@@ -21,6 +21,7 @@ public final class AeadEnvelope {
     private static final int NONCE_BYTES = 12;
     private static final int TAG_BYTES = 16;
     private static final int HEADER_BYTES = 4 + 1 + NONCE_BYTES + 4;
+    public static final int ENVELOPE_OVERHEAD_BYTES = HEADER_BYTES + TAG_BYTES;
     private static final byte[] MAGIC = new byte[] {'T', 'G', 'P', 'A'};
     private static final byte VERSION = 1;
     private static final byte[] DOMAIN = "TGPhotos/Aead/v1\u0000".getBytes(StandardCharsets.UTF_8);

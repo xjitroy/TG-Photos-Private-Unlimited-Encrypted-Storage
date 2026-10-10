@@ -12,7 +12,7 @@ sealed interface AuthorizationState {
     data class WaitCode(val deliveryDescription: String, val expectedLength: Int?) : AuthorizationState
     data class WaitPassword(val hint: String) : AuthorizationState
     data object WaitEmail : AuthorizationState
-    data object WaitEmailCode : AuthorizationState
+    data class WaitEmailCode(val addressPattern: String, val expectedLength: Int?) : AuthorizationState
     data object Ready : AuthorizationState
     data object LoggingOut : AuthorizationState
     data object Closed : AuthorizationState
@@ -23,6 +23,9 @@ interface TelegramGateway {
     suspend fun submitPhone(e164: String)
     suspend fun submitCode(code: CharArray)
     suspend fun submitTwoFactorPassword(password: CharArray)
+    suspend fun submitEmailAddress(address: CharArray)
+    suspend fun submitEmailCode(code: CharArray)
+    suspend fun resendCode()
     suspend fun logout()
 }
 
@@ -39,5 +42,12 @@ class UnavailableTelegramGateway : TelegramGateway {
         unavailable()
     }
     override suspend fun logout(): Nothing = unavailable()
+    override suspend fun submitEmailAddress(address: CharArray): Nothing {
+        address.fill('\u0000'); unavailable()
+    }
+    override suspend fun submitEmailCode(code: CharArray): Nothing {
+        code.fill('\u0000'); unavailable()
+    }
+    override suspend fun resendCode(): Nothing = unavailable()
     private fun unavailable(): Nothing = throw IllegalStateException("Official TDLib adapter is not integrated")
 }

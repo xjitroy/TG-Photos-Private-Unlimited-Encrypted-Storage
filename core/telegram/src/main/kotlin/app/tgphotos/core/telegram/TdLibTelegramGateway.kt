@@ -48,6 +48,22 @@ class TdLibTelegramGateway(
         } finally { password.fill('\u0000') }
     }
     override suspend fun logout() { session.request(TdLibRequests.simple("logOut")) }
+    override suspend fun submitEmailAddress(address: CharArray) {
+        try {
+            check(authorization.value == AuthorizationState.WaitEmail)
+            session.request(TdLibRequests.emailAddress(address))
+        } finally { address.fill('\u0000') }
+    }
+    override suspend fun submitEmailCode(code: CharArray) {
+        try {
+            check(authorization.value is AuthorizationState.WaitEmailCode)
+            session.request(TdLibRequests.emailCode(code))
+        } finally { code.fill('\u0000') }
+    }
+    override suspend fun resendCode() {
+        check(authorization.value is AuthorizationState.WaitCode)
+        session.request(TdLibRequests.resendCode())
+    }
     suspend fun shutdown() {
         session.shutdown()
         configuration.close()

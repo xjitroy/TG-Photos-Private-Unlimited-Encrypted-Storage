@@ -34,7 +34,7 @@ Source: owner request, latest branding/privacy clarification and all master-plan
 | E05 | HKDF file/manifest/cache/vault domain-separated keys | crypto / P2 | independent cloud/vault root validation + 5 scoped HKDF purposes; offline tests pass |
 | E06 | Encrypted authenticated manifests/schema/transport pointers | crypto/backup / P3 | encrypted manifest coordinator draft; 13 in-memory protocol checks pass; live transport pending |
 | E07 | Encrypted names/path/EXIF/metadata/search index | crypto/database / P2–P4 | encrypted-envelope schema source only |
-| E08 | Encrypted thumbnails/persistent cache, in-memory decode only | crypto/cache / P3–P5 | contract only |
+| E08 | Encrypted thumbnails/persistent cache, in-memory decode only | crypto/cache / P3–P5 | authenticated disk-cache primitive + 10 offline fault tests; thumbnail/viewer integration pending |
 | E09 | Passphrase wrap + offline recovery + separate recovery wrap | crypto/auth / P2 | root/recovery wrap primitives pass; passphrase-backed tests prepared; export/UI pending |
 | E10 | Keystore local convenience wrapper; second-device recovery | crypto / P2 | Pending |
 | E11 | Password rotation/key versions/cross-device restore | crypto / P2–P6 | Pending |
@@ -86,7 +86,7 @@ Source: owner request, latest branding/privacy clarification and all master-plan
 | S02 | No hidden backend/analytics/ad/crash-upload/remote conversion | all / all | no source endpoints/permission/SDK; full resolved/runtime audit pending |
 | S03 | No data delivered to applications used as code/design references | all / all | mandatory privacy contract; no app code/backend integrated |
 | S04 | Explain Telegram identity/traffic and OS/root boundaries accurately | security/privacy / all | documented |
-| S05 | App-private encrypted persistent media/session/cache, OS backup excluded | app/core / all | backup exclusions source; actual encrypted stores pending |
+| S05 | App-private encrypted persistent media/session/cache, OS backup excluded | app/core / all | backup exclusions source + Keystore/cache drafts; app wiring and device tests pending |
 | O01 | Verify 14 referenced repositories/licenses before reuse | docs / P0 | license/README screening done; exact reuse/native dependency audit pending |
 | O02 | Prefer permissive audited components, respect GPL/AGPL/LGPL obligations | all / all | clean-room app; no copyleft source copied |
 | O03 | Attributions/NOTICE/resolved SBOM/build provenance/pinned dependencies | gradle/docs / all | declared inventory/source hashes; resolved SBOM pending |
