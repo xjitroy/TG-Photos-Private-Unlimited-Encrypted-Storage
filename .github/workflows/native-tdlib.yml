@@ -1,0 +1,51 @@
+name: Pinned Android TDLib native build
+
+on:
+  push:
+    branches: ['feature/**']
+    paths:
+      - 'core/telegram/src/main/cpp/**'
+      - 'scripts/build_tdlib_android.sh'
+      - 'scripts/check_native_artifacts.py'
+      - '.github/workflows/native-tdlib.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: native-tdlib-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  native:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        abi: [arm64-v8a, x86_64]
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Install native build prerequisites
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake ninja-build gperf php libssl-dev zlib1g-dev
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" 'ndk;28.2.13676358'
+      - name: Build pinned public TDLib/OpenSSL and original JNI boundary
+        run: bash scripts/build_tdlib_android.sh '${{ matrix.abi }}'
+      - name: Preserve native binaries, licenses and provenance in private repository artifacts
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: tgphotos-tdlib-${{ matrix.abi }}
+          path: .toolchain/native/${{ matrix.abi }}/output/
+          if-no-files-found: error
+          retention-days: 30
+
+# Downloads/builds public pinned sources only. No personal data or credentials enter this job.

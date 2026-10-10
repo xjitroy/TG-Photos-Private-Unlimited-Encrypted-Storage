@@ -1,6 +1,17 @@
 cmake_minimum_required(VERSION 3.22)
 project(TGPhotosTdJson LANGUAGES CXX)
-find_package(Td 1.8.68 REQUIRED)
+if(TGPHOTOS_TDLIB_SOURCE_DIR AND TGPHOTOS_TDLIB_BUILD_DIR)
+    # CI builds the pinned official source; import its generated JSON target without rebuilding it.
+    if(NOT EXISTS "${TGPHOTOS_TDLIB_BUILD_DIR}/td/libtdjson.so")
+        message(FATAL_ERROR "Pinned TDLib JSON library is missing")
+    endif()
+    add_library(Td::TdJson SHARED IMPORTED)
+    set_target_properties(Td::TdJson PROPERTIES
+        IMPORTED_LOCATION "${TGPHOTOS_TDLIB_BUILD_DIR}/td/libtdjson.so"
+        INTERFACE_INCLUDE_DIRECTORIES "${TGPHOTOS_TDLIB_SOURCE_DIR};${TGPHOTOS_TDLIB_BUILD_DIR}/td")
+else()
+    find_package(Td 1.8.68 REQUIRED)
+endif()
 add_library(tgphotos_tdjson SHARED tdjson_jni.cpp)
 target_link_libraries(tgphotos_tdjson PRIVATE Td::TdJson)
 target_compile_features(tgphotos_tdjson PRIVATE cxx_std_17)

@@ -57,3 +57,14 @@ Only its low-level Argon2 generator is called; no global provider is installed, 
 network/backend is added. This version is a reproducible source pin, not a claim that current
 vulnerability scanning or Android compatibility review is complete. Resolved dependency scanning
 and on-device calibration remain mandatory before app integration.
+
+## Native build candidates
+
+The draft Android native workflow pins TDLib 1.8.68 source `c15d3f5a5de6e3ba5839822c451152e5e18bb700`
+and OpenSSL 3.5.9 source `45e844fa2a14ec92d146bd8f5778ac130b6625fb` (published 2026-09-29).
+OpenSSL Apache-2.0 license is preserved in `docs/licensing/upstream/openssl.txt`; TDLib Boost-1.0
+and OpenSSL licenses accompany any workflow binary artifacts. These candidates have not yet passed
+native/device/independent vulnerability gates. No obsolete default OpenSSL 1.1.1 is enabled.
+Official `actions/upload-artifact` v6 is build-only MIT, pinned at
+`b7c566a772e6b6bfb58ed0dc250532a479d7789f`; it stores public-source native binaries/provenance
+in the owner private repository artifacts, not private configuration or user files.

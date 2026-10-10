@@ -50,3 +50,13 @@ All 14 original upstream repositories have locally downloaded selected source/RE
 These are ignored reference material, not copied into runtime code or connected to external app servers.
 The latest owner request authorizes producing the APK when the real application is production-ready;
 it does not turn incomplete live integrations or an unaudited encryption draft into a completed feature.
+
+## Native integration work started
+
+Correlated TDLib JSON session/gateway drafts now implement a single owned native receiver, ordered
+authorization updates, bounded pending requests, timeout cleanup, redacted server failures/FloodWait,
+and confirmed native closure. Six JVM dispatcher tests are added and awaiting the new CI result.
+JNI execute/receive calls now share synchronization to protect returned native pointer lifetime.
+A native-only workflow builds pinned TDLib/OpenSSL for arm64-v8a and x86_64 with NDK 28.2,
+API 26 and ELF 16KB alignment checks. It produces library/license/provenance artifacts, not an APK.
+Native linking/device/login tests and app wiring remain pending until actual workflow results pass.
