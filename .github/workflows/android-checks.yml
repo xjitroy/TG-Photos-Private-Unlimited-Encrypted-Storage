@@ -41,6 +41,7 @@ jobs:
           ./scripts/check_crypto_offline.sh
           ./scripts/check_backup_offline.sh
           ./scripts/check_cache_offline.sh
+          ./scripts/check_media_offline.sh
       - name: Provision Android compile platform
         run: |
           test -n "$ANDROID_HOME"

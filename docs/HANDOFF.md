@@ -31,6 +31,7 @@ python3 scripts/check_source.py
 ./scripts/check_crypto_offline.sh
 ./scripts/check_backup_offline.sh
 ./scripts/check_cache_offline.sh
+./scripts/check_media_offline.sh
 ```
 
 Offline scripts use `java com.sun.tools.javac.Main` if the JDK compiler module exists; they compile Java
@@ -77,3 +78,9 @@ The owner authorized eventual **APK creation and delivery** on 2026-10-10 after 
 and production gates pass. Do not claim the preview is production-ready. Security review and device/live
 acceptance remain required; Play publication/external deployment are not authorized. Keep the Gradle
 approval guard and use its property only for an owner-authorized packaging step. Communicate in Bengali.
+
+Preview QA workflow builds a temporary owner-authorized debug APK on its own runner, drives a fresh
+Android 35 emulator by UI-tree coordinates and uploads only account-free screenshot/test evidence. It does
+not deliver an APK or prove live functionality. Read actual run conclusions and inspect screenshots.
+AuthenticatedRangeReader/EncryptedMediaDataSource are drafts; close readers on locks and review trusted
+manifest/range/transport/provider boundaries before connecting ExoPlayer.

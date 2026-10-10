@@ -25,7 +25,8 @@ credentials, files or metadata to be delivered to the source application's serve
 Phase 1 source has no internet/storage permissions, provider, runtime URL, network client or telemetry SDK.
 Only theme/dynamic-color preferences are saved, using private preferences. No real user data is loaded.
 The source policy checks are useful prevention checks; they do not prove the merged manifest, third-party
-binaries, Android OS or final runtime has no leak. Dependency resolution and device traffic capture are pending.
+binaries, Android OS or final runtime has no leak. Dependency resolution/compilation now pass in GitHub CI; resolved-binary privacy analysis and device
+traffic capture remain pending.
 
 Telegram necessarily learns account identity, authorization data and some traffic metadata. Its account/file
 limits, service availability and retention are outside this app's control. A compromised/rooted OS, external

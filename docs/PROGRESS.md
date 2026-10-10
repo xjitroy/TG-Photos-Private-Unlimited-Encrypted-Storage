@@ -85,3 +85,23 @@ eviction policy and lifecycle tests remain mandatory. It is not a durable backup
 Pinned TDLib schema is used for nested email OTP authentication and resend-code reason. Email address/code
 requests wipe mutable caller input, and the reducer retains masked delivery metadata. Four additional JUnit
 schema/rejection tests await CI. Neither email authentication nor other real login UI is app-wired.
+
+## Authenticated media and emulator QA source
+
+AuthenticatedRangeReader authenticates a complete bounded chunk before copying any requested range to a
+consumer; seek mapping uses trusted chunk-length offsets, one in-memory plaintext chunk is retained, and
+replacement/close wipes the owned buffer/key. Eight offline JCA fixture checks pass for sequential/seek reads,
+replay/reordering/corruption, immutable destination on auth failure, truncation, invalid ranges, cancellation,
+close and empty files. All active readers must be closed on vault/account lock; automatic lifecycle wiring
+is pending. CiphertextSource is a bounded/deadline/interruption transport contract, not a live downloader.
+
+An original EncryptedMediaDataSource draft follows the exact Media3 1.8.0 API, tag source commit
+b7bbc6e2bc3e45ff3ed99884c114c50f03bba5c9. It accepts only opaque tgphotos media URIs and forwards fully
+authenticated ranges; actual ExoPlayer setup, buffering, tracks, playback resume/editing and device tests
+are pending. Android/Java compilation is included in the next source CI check.
+
+The owner-authorized Android preview QA workflow may build a temporary debug APK solely to install into a
+fresh Android 35 emulator. It checks preview navigation, Settings, theme persistence and vault secure-window
+flags using UI-tree-derived coordinates, and retains account-free screenshots/test evidence only. No APK
+artifact is uploaded/delivered; no API registration, account, private media, live feature or release signing is
+present. Actual emulator results are pending. This is not production/live integration acceptance.

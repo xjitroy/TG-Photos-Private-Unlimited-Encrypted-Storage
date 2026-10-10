@@ -60,13 +60,13 @@ Source: owner request, latest branding/privacy clarification and all master-plan
 | G04 | Favorites/cloud albums/info/encrypted search | photos/database / P4 | sample favorites; live actions pending |
 | G05 | Download/share with explicit decrypt consent/offline pin/move vault | photos/vault/cache / P4–P6 | Pending |
 | G06 | Photo viewer/basic crop/rotate/exposure/filter/export | photos/media / P4–P5 | illustration viewer; editing pending |
-| G07 | Adjacent 2–3 ahead/1–2 behind prefetch, cancel stale work | media/cache / P5 | Pending |
+| G07 | Adjacent 2–3 ahead/1–2 behind prefetch, cancel stale work | media/cache / P5 | full-chunk authenticated range primitive; app player/budget lifecycle pending |
 | V01 | 9:16 Reels/1:1 square/16:9 normal nondestructive modes | media / P5 | ratio enum foundation only |
 | V02 | Horizontal/vertical video navigation and quality playback | media/photos / P5 | Pending |
 | V03 | Multiple audio/subtitle tracks/external subtitles/speed | media / P5 | Pending |
 | V04 | Resume per file/version; next-video prebuffer | media/database/cache / P5 | playback contract only |
-| V05 | Adaptive seekable encrypted streaming and bounded caching | media/crypto/cache / P5 | authentication contract only |
-| V06 | Authenticate chunks before decoder; respect power/network budget | media/cache / P5 | Pending |
+| V05 | Adaptive seekable encrypted streaming and bounded caching | media/crypto/cache / P5 | authenticated range-reader + Media3 adapter drafts; 8 offline fault checks pass; player/device integration pending |
+| V06 | Authenticate chunks before decoder; respect power/network budget | media/cache / P5 | full-chunk authenticated range primitive; app player/budget lifecycle pending |
 | V07 | Basic video trim/crop/rotate/speed/export and audio cut/fade/volume | media / P5 | Media3 Transformer declared; pending |
 | V08 | Codec/4K/HDR graceful fallback; optional VLC audited separately | media / P5 | Pending; no universal-format claim |
 | M01 | Local scoped-storage/SAF files and encrypted cloud switching | files / P4 | Preview switch; no actual access |

@@ -29,8 +29,9 @@ not distributable original app artwork. No upstream trademark/logo/photo was shi
 Declared dependencies: Kotlin/compiler/coroutines/serialization (Apache-2.0), AndroidX Activity/Core/Splash/Compose/Material3/
 Room/WorkManager/Media3 (Apache-2.0), KSP (Apache-2.0), JUnit 4 (EPL-1.0), Gradle/AGP (Apache-2.0).
 `dependency-inventory.json` records the declared direct inventory only; it is not a resolved SBOM or binary audit.
-Transitive licenses, hashes, advisories, manifests, init providers and runtime endpoints remain unverified because
-dependencies could not be downloaded/resolved in this environment. Recheck these before reuse/distribution.
+Transitive licenses, hashes, advisories, manifests, init providers and runtime endpoints remain unverified. GitHub CI resolves/compiles the declared Android dependencies; local shell downloads
+remain blocked. Successful compilation does not establish transitive license/privacy/advisory review.
+Recheck these before reuse/distribution.
 
 Official version references:
 - [AGP 8.13 compatibility](https://developer.android.com/build/releases/agp-8-13-0-release-notes)
