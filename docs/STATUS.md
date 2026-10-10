@@ -1,7 +1,9 @@
 # TG Photos delivery status — 2026-10-10
 
 This is the historical Phase 1 baseline report. Read **PROGRESS.md** and **HANDOFF.md** for continuation:
-the wrapper JAR is now present and 19 Java crypto + 13 backup protocol checks pass. Kotlin/Android checks remain blocked.
+current continuation has the verified wrapper, 31 Java crypto + 13 backup protocol checks and successful
+Android compilation, Room KSP, 17 JVM tests and Debug/Release lint. The baseline results below are
+historical; use docs/evidence/android-ci.txt and PROGRESS.md for current results.
 
 ## Implemented source
 

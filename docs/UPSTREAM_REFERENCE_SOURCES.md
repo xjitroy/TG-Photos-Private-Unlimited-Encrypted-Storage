@@ -1,8 +1,8 @@
 # Downloaded source references from the original ZIP
 
-On the owner's request, 42 files were downloaded into ignored `.toolchain/upstream/` from all **14**
+On the owner's request, 43 files were downloaded into ignored `.toolchain/upstream/` from all **14**
 repositories listed in the original master plan. Each repository has a pinned README, root license
-and a relevant source file. All downloaded bytes were checked against GitHub's Git blob SHA and
+and a relevant source file; TDLib additionally includes its complete pinned API schema. All downloaded bytes were checked against GitHub's Git blob SHA and
 recorded SHA-256. These are selected source snapshots, not complete repository clones.
 
 `upstream-source-manifest.json` records exact commits, paths, sizes and checksums. Restore them on a
@@ -20,7 +20,7 @@ no backend client is installed, and no personal file, API registration or key is
 | zhanghai/MaterialFiles | document-provider copy/move behaviour | GPL-3.0; research only |
 | TeamAmaze/AmazeFileManager | scoped file operations | GPL-3.0; research only |
 | leonlatsch/Photok | vault service/session behaviour | Apache-2.0; audited adaptation only |
-| tdlib/td | official JSON native C API header | Boost-1.0; intended supported Telegram dependency |
+| tdlib/td | official JSON native C API header and complete API schema | Boost-1.0; intended supported Telegram dependency |
 | androidx/media | custom DataSource contract | Apache-2.0; use pinned published Media3 APIs |
 | coil-kt/coil | Fetcher contract | Apache-2.0; secure custom fetching assessment |
 | tink-crypto/tink-java | HKDF implementation reference | Apache-2.0; compare protocol/provider behaviour |

@@ -93,7 +93,7 @@ Source: owner request, latest branding/privacy clarification and all master-plan
 | O04 | Feature branch/local commits, preserve original documents/code | repo / all | local feature commits; original master ZIP and all 14 UI references preserved in private GitHub |
 | O05 | No hardcoded keys/credentials, sensitive logs or plaintext shared staging | all / all | no such source; runtime tests pending |
 | O06 | Independent security review and verified recovery before production claims | all / P2–P7 | mandatory pending gate |
-| O07 | Available checks/tests/format/lint/device/performance/security with honest logs | scripts/docs / all | 12 source + 28 crypto + 13 backup checks pass; Android compile/JVM/lint pass in GitHub CI; device/audit pending |
+| O07 | Available checks/tests/format/lint/device/performance/security with honest logs | scripts/docs / all | 12 source + 31 crypto + 13 backup checks pass; Android compile/JVM/lint pass in GitHub CI; device/audit pending |
 | O08 | No APK creation until explicit owner approval; no Play publishing | build/repo / all | latest owner authorizes eventual APK delivery after production gates; no artifacts/Play publication |
 | O09 | Bengali progress communication, English identifiers/files/code | delivery / all | applied |
 | O10 | Report changed files/completed source/results/remaining tasks | docs/status / all | documented |

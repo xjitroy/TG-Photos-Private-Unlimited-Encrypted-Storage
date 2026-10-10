@@ -13,3 +13,12 @@ PASS no APK/AAB created
 
 This evidence applies to the source commit above. Later TDLib/session-source changes need a new CI run.
 No native linking, live Telegram, real device gallery/player/vault, distribution or independent audit verified.
+
+Newer verified source commit: a3141692cedc1d4c391b7bb674732837b4743718
+Run: https://github.com/xjitroy/TG-Photos-Private-Unlimited-Encrypted-Storage/actions/runs/38067274325
+PASS :core:cache:classes and :core:telegram:test plus previous compilation/KSP/lint checks
+JVM test summary: 17 tests, 0 failures, 0 errors, 0 skipped
+BUILD SUCCESSFUL in 5m 53s
+PASS no APK/AAB created
+Six session dispatcher tests passed. Native workflow is separate and was still running when recorded.
+Subsequent LocalSessionKeyStore/vault lifecycle changes require another compile run.

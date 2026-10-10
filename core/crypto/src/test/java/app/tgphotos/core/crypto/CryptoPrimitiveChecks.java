@@ -140,6 +140,39 @@ public final class CryptoPrimitiveChecks {
             catch (IllegalStateException expected) { return; }
             throw new AssertionError("Locked hierarchy returned a key");
         });
+        check("Cloud operations work while vault starts locked", () -> {
+            try (ScopedKeyHierarchy cloudOnly = new ScopedKeyHierarchy(key, new byte[32])) {
+                require(!cloudOnly.isVaultUnlocked());
+                require(cloudOnly.derive(ScopedKeyHierarchy.Domain.CLOUD, ScopedKeyHierarchy.Purpose.CONTENT, id, 1).length == 32);
+                try { cloudOnly.derive(ScopedKeyHierarchy.Domain.VAULT, ScopedKeyHierarchy.Purpose.CONTENT, id, 1); }
+                catch (IllegalStateException expected) { return; }
+                throw new AssertionError("Unauthenticated vault derivation succeeded");
+            }
+        });
+        check("Vault relock leaves cloud keys stable and vault unavailable", () -> {
+            try (ScopedKeyHierarchy separate = new ScopedKeyHierarchy(key, vaultRoot, new byte[32])) {
+                byte[] cloudKey = separate.derive(ScopedKeyHierarchy.Domain.CLOUD, ScopedKeyHierarchy.Purpose.CONTENT, id, 1);
+                byte[] privateKey = separate.derive(ScopedKeyHierarchy.Domain.VAULT, ScopedKeyHierarchy.Purpose.CONTENT, id, 1);
+                separate.lockVault(); separate.lockVault();
+                require(!separate.isVaultUnlocked());
+                require(Arrays.equals(cloudKey, separate.derive(ScopedKeyHierarchy.Domain.CLOUD, ScopedKeyHierarchy.Purpose.CONTENT, id, 1)));
+                try { separate.derive(ScopedKeyHierarchy.Domain.VAULT, ScopedKeyHierarchy.Purpose.CONTENT, id, 1); throw new AssertionError("Locked vault returned a key"); }
+                catch (IllegalStateException expected) { /* expected */ }
+                separate.unlockVault(vaultRoot);
+                require(Arrays.equals(privateKey, separate.derive(ScopedKeyHierarchy.Domain.VAULT, ScopedKeyHierarchy.Purpose.CONTENT, id, 1)));
+            }
+        });
+        check("Vault rejects root substitution while unlocked and after session close", () -> {
+            ScopedKeyHierarchy separate = new ScopedKeyHierarchy(key, vaultRoot, new byte[32]);
+            try { separate.unlockVault(aead.generateKey()); throw new AssertionError("Unlocked vault root replaced"); }
+            catch (IllegalStateException expected) { /* expected */ }
+            separate.lockVault();
+            rejects(() -> separate.unlockVault(key));
+            rejects(() -> separate.unlockVault(new byte[16]));
+            separate.close();
+            try { separate.unlockVault(vaultRoot); throw new AssertionError("Closed hierarchy unlocked"); }
+            catch (IllegalStateException expected) { /* expected */ }
+        });
         Arrays.fill(vaultRoot, (byte) 0); Arrays.fill(contentKey, (byte) 0);
         Arrays.fill(key, (byte) 0);
         System.out.println("RESULT " + passed + " checks passed. Java/JCA only; Android/KDF/full recovery not verified.");

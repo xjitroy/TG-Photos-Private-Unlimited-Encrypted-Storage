@@ -422,6 +422,16 @@
       "purpose": "source-reference",
       "sha256": "6639a9aa2900194ad80159324e4c699835c6f03d546a54c8686e16240e2dc177",
       "bytes": 91164
+    },
+    {
+      "repo": "tdlib/td",
+      "commit": "c15d3f5a5de6e3ba5839822c451152e5e18bb700",
+      "path": "td/generate/scheme/td_api.tl",
+      "blob": "2779f2ddf781a6bac0e1b11f00274e19ac7ad0a1",
+      "license": "BSL-1.0",
+      "purpose": "complete-official-api-schema-reference",
+      "sha256": "cea6311c8a4ba0c73460b4f632b1e2b771499b32cf531f7297ee315a5a83eae5",
+      "bytes": 1191756
     }
   ]
 }
