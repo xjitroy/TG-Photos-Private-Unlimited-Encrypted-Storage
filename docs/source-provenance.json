@@ -1,0 +1,63 @@
+{
+  "TG_Photos_E2EE_Master_Plan_BN.pdf": "f79fed49f38f2520e8b06d01e9515281a151c07130b4c4b180d538046a3738c4",
+  "TG_Photos_E2EE_Codex_Master_Prompt.md": "afd3a3f8582eebc47ca020939067bb5ee9e110147c56bb28f0df6134db1f0993",
+  "TG_Photos_E2EE_Master_Plan_BN.docx": "effe017c12d09948438d65fbade506554be2b6fd4cbd232310ae5a0ae4b397f3",
+  "embedded_images": [
+    {
+      "filename": "image1.png",
+      "sha256": "256abba5c1542ab5413622bd95147aecd3c134bdb601836f34403badc4365cfd"
+    },
+    {
+      "filename": "image10.png",
+      "sha256": "8e7f671b80fd7cd707eee34fca03541d592f6670ef1088c56abd8a1c64ce2c86"
+    },
+    {
+      "filename": "image11.png",
+      "sha256": "576ff14d016f2113ba839649ac908bcdd0c979e9fd27b8035040206643db1aef"
+    },
+    {
+      "filename": "image12.png",
+      "sha256": "f1f775c6f3c9ea84da9b9e82e09eae6be5a9f522f2bc6ed4e582079b1eb29224"
+    },
+    {
+      "filename": "image13.png",
+      "sha256": "4c15cf4449da28cfd4fb6cc6e796062d84367d52d972b2ac198ffe2a0a119547"
+    },
+    {
+      "filename": "image14.png",
+      "sha256": "ad7fa30f5eb11ffa121dfbfa3271e429d65bec3c1267cb0d6134e62a486e3667"
+    },
+    {
+      "filename": "image2.png",
+      "sha256": "f54f6d76c73be2250f09344a416d11b1d8d0e2ec044742f86288d9a30fcd7ecb"
+    },
+    {
+      "filename": "image3.png",
+      "sha256": "2e68224ee21968163bb407d6e6a928ea963a92108b159b43c3183488351d89d9"
+    },
+    {
+      "filename": "image4.png",
+      "sha256": "d2539e9c1f4fe60ab579adc2deaeaa9120f19adad70d6dc545d1690c6f349789"
+    },
+    {
+      "filename": "image5.png",
+      "sha256": "529f953557bdec5521a4bc3893fa48fc7fd3a5ec32e3b950db5ce64f6989eaa3"
+    },
+    {
+      "filename": "image6.png",
+      "sha256": "1ceb1fc562f54d3606b1919aa813d049812975c445a2e114753b494424573ba8"
+    },
+    {
+      "filename": "image7.png",
+      "sha256": "aca624c0b9571d75797b48600f634a47750445501b155b3f74973702fb7ab30c"
+    },
+    {
+      "filename": "image8.png",
+      "sha256": "d3aecf5461d311000257889efef8f7de82a57e68d6accc3068af44583f424e62"
+    },
+    {
+      "filename": "image9.png",
+      "sha256": "b59cb0471dda643909d003bef8025e8276830ad31dba4272cd01bff1ce5b42dc"
+    }
+  ]
+}

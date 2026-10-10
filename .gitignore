@@ -1,0 +1,14 @@
+.gradle/
+**/build/
+local.properties
+*.jks
+*.keystore
+.idea/
+.kotlin/
+.toolchain/
+.private/
+*.apk
+*.aab
+__pycache__/
+*.pyc
+docs/evidence/raw/

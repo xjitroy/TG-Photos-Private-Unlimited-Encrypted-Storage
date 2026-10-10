@@ -1,0 +1,13 @@
+<resources>
+    <style name="Theme.TGPhotos" parent="android:style/Theme.Material.NoActionBar">
+        <item name="android:fontFamily">sans</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowActionModeOverlay">true</item>
+        <item name="android:windowBackground">#111119</item>
+    </style>
+    <style name="Theme.TGPhotos.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">#111119</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_brand</item>
+        <item name="postSplashScreenTheme">@style/Theme.TGPhotos</item>
+    </style>
+</resources>

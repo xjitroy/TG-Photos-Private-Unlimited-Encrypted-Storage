@@ -1,0 +1,62 @@
+[
+  {
+    "file": "docs/licensing/upstream/aves.txt",
+    "checked": "2026-10-10",
+    "purpose": "License evidence only; upstream application code not reused"
+  },
+  {
+    "file": "docs/licensing/upstream/ente.txt",
+    "checked": "2026-10-10",
+    "purpose": "License evidence only; upstream application code not reused"
+  },
+  {
+    "file": "docs/licensing/upstream/immich.txt",
+    "checked": "2026-10-10",
+    "purpose": "License evidence only; upstream application code not reused"
+  },
+  {
+    "file": "docs/licensing/upstream/fossify.txt",
+    "checked": "2026-10-10",
+    "purpose": "License evidence only; upstream application code not reused"
+  },
+  {
+    "file": "docs/licensing/upstream/material-files.txt",
+    "checked": "2026-10-10",
+    "purpose": "License evidence only; upstream application code not reused"
+  },
+  {
+    "file": "docs/licensing/upstream/photok.txt",
+    "checked": "2026-10-10",
+    "purpose": "License evidence only; upstream application code not reused"
+  },
+  {
+    "file": "docs/licensing/upstream/media3.txt",
+    "checked": "2026-10-10",
+    "purpose": "License evidence only; upstream application code not reused"
+  },
+  {
+    "file": "docs/licensing/upstream/coil.txt",
+    "checked": "2026-10-10",
+    "purpose": "License evidence only; upstream application code not reused"
+  },
+  {
+    "file": "docs/licensing/upstream/tink.txt",
+    "checked": "2026-10-10",
+    "purpose": "License evidence only; upstream application code not reused"
+  },
+  {
+    "file": "docs/licensing/upstream/sodium.txt",
+    "checked": "2026-10-10",
+    "purpose": "License evidence only; upstream application code not reused"
+  },
+  {
+    "file": "docs/licensing/upstream/sqlcipher.txt",
+    "checked": "2026-10-10",
+    "purpose": "License evidence only; upstream application code not reused"
+  },
+  {
+    "file": "docs/licensing/upstream/vlc.txt",
+    "checked": "2026-10-10",
+    "purpose": "License evidence only; upstream application code not reused"
+  }
+]

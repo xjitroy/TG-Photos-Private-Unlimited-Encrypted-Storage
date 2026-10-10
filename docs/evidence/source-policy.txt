@@ -1,0 +1,17 @@
+test_backup_has_no_success_or_schedule (__main__.SourcePolicyChecks.test_backup_has_no_success_or_schedule) ... ok
+test_final_branding (__main__.SourcePolicyChecks.test_final_branding) ... ok
+test_four_tabs_no_settings_destination (__main__.SourcePolicyChecks.test_four_tabs_no_settings_destination) ... ok
+test_manifest_privacy_surface (__main__.SourcePolicyChecks.test_manifest_privacy_surface) ... ok
+test_module_graph_has_no_missing_nodes_or_cycles (__main__.SourcePolicyChecks.test_module_graph_has_no_missing_nodes_or_cycles) ... ok
+test_no_apk_or_bundle_exists (__main__.SourcePolicyChecks.test_no_apk_or_bundle_exists) ... ok
+test_no_app_runtime_endpoint_or_tracking_sdk (__main__.SourcePolicyChecks.test_no_app_runtime_endpoint_or_tracking_sdk) ... ok
+test_no_logs_of_sensitive_state (__main__.SourcePolicyChecks.test_no_logs_of_sensitive_state) ... ok
+test_packaging_guard_present (__main__.SourcePolicyChecks.test_packaging_guard_present) ... ok
+test_secret_inputs_disabled_in_preview (__main__.SourcePolicyChecks.test_secret_inputs_disabled_in_preview) ... ok
+test_vault_has_secure_window_and_no_unlock (__main__.SourcePolicyChecks.test_vault_has_secure_window_and_no_unlock) ... ok
+test_xml_and_catalog_parse (__main__.SourcePolicyChecks.test_xml_and_catalog_parse) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 0.057s
+
+OK

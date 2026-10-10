@@ -1,0 +1,26 @@
+TG Photos — third-party notice inventory (Phase 1 source foundation)
+
+Original Compose/UI/domain files are authored for this project. No application
+source or image assets from Aves, Ente, Immich, Fossify, Material Files, Amaze,
+Photok or VLC Android have been copied into the application.
+
+Gradle POSIX/Windows wrapper launchers were copied from gradle/gradle v8.13.0.
+Copyright 2015-2021 the original authors; Apache License 2.0. Their original
+headers remain intact. Wrapper distribution/binary hashes are pinned to Gradle
+8.13; the official wrapper JAR is present and its published SHA-256 is verified.
+
+Declared build/runtime foundations (not a resolved binary dependency audit):
+Kotlin, kotlinx.coroutines, KSP: Apache-2.0, respective project contributors.
+kotlinx.serialization (draft TDLib request writer): Apache-2.0.
+AndroidX Activity/Core/Splash/Compose/Material3/Room/WorkManager/Media3:
+Apache-2.0, The Android Open Source Project and contributors.
+Material Icons: Apache-2.0, Google/The Android Open Source Project.
+Gradle and Android Gradle Plugin: Apache-2.0, respective project contributors.
+JUnit 4: Eclipse Public License 1.0, JUnit contributors.
+
+Candidate libraries not integrated: TDLib (Boost-1.0), Coil/Tink (Apache-2.0),
+libsodium (ISC), SQLCipher Android (BSD-3-Clause; native obligations pending).
+
+License evidence and source URLs: docs/LICENSING.md, docs/licensing/upstream/.
+Full resolved SBOM, notices and licenses must be generated before distribution.
+This inventory does not grant a license to the owner's original application.

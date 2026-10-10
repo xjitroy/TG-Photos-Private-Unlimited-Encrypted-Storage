@@ -1,0 +1,32 @@
+TG Photos verification evidence — 2026-10-10
+
+python scripts/check_source.py
+  PASS: 12 source policy checks. Detailed output: source-policy.txt.
+  These checks inspect source/configuration; they do not compile or prove runtime privacy/security.
+
+scripts/check_android.sh
+  Source checks PASS, then BLOCKED (exit 2): verified wrapper JAR missing.
+
+python scripts/bootstrap_wrapper.py
+  BLOCKED (exit 1): sandbox socket PermissionError / URLError, no binary written.
+
+./gradlew :app:compileDebugKotlin
+  BLOCKED (exit 1): Could not find or load main class org.gradle.wrapper.GradleWrapperMain.
+  No Android task ran and no APK was created.
+
+git diff --cached --check
+  PASS after normalizing trailing blank lines in downloaded text snapshots.
+
+sh -n gradlew
+sh -n scripts/check_android.sh
+python -m py_compile scripts/bootstrap_wrapper.py scripts/check_source.py
+  PASS: launcher/check shell syntax and Python syntax.
+
+Kotlin/JVM tests, Room schema generation, lint, emulator/device/screenshots:
+  NOT RUN: missing complete JDK17, Kotlin/Gradle, Android SDK and wrapper/dependencies.
+
+Resolved SBOM/advisories/merged manifest/network traffic/independent security review:
+  NOT RUN: no connected/buildable runtime environment.
+
+APK/AAB artifacts, signing, Google Play publication, external Git push:
+  NONE. Not authorized for this delivery.

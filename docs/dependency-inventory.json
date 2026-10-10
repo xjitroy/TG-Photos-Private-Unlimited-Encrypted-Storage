@@ -1,0 +1,185 @@
+{
+  "project": "TG Photos",
+  "checked": "2026-10-10",
+  "scope": "direct declared inventory only; not resolved SBOM",
+  "libraries": [
+    {
+      "alias": "compose-bom",
+      "module": "androidx.compose:compose-bom",
+      "version": "2025.09.01",
+      "license": "Apache-2.0",
+      "status": "declared, not resolved or downloaded"
+    },
+    {
+      "alias": "compose-ui",
+      "module": "androidx.compose.ui:ui",
+      "version": "managed by pinned Compose BOM",
+      "license": "Apache-2.0",
+      "status": "declared, not resolved or downloaded"
+    },
+    {
+      "alias": "compose-tooling",
+      "module": "androidx.compose.ui:ui-tooling",
+      "version": "managed by pinned Compose BOM",
+      "license": "Apache-2.0",
+      "status": "declared, not resolved or downloaded"
+    },
+    {
+      "alias": "compose-preview",
+      "module": "androidx.compose.ui:ui-tooling-preview",
+      "version": "managed by pinned Compose BOM",
+      "license": "Apache-2.0",
+      "status": "declared, not resolved or downloaded"
+    },
+    {
+      "alias": "compose-foundation",
+      "module": "androidx.compose.foundation:foundation",
+      "version": "managed by pinned Compose BOM",
+      "license": "Apache-2.0",
+      "status": "declared, not resolved or downloaded"
+    },
+    {
+      "alias": "compose-material3",
+      "module": "androidx.compose.material3:material3",
+      "version": "1.5.0-alpha03",
+      "license": "Apache-2.0",
+      "status": "declared, not resolved or downloaded"
+    },
+    {
+      "alias": "compose-icons",
+      "module": "androidx.compose.material:material-icons-extended",
+      "version": "1.7.8",
+      "license": "Apache-2.0",
+      "status": "declared, not resolved or downloaded"
+    },
+    {
+      "alias": "activity-compose",
+      "module": "androidx.activity:activity-compose",
+      "version": "1.11.0",
+      "license": "Apache-2.0",
+      "status": "declared, not resolved or downloaded"
+    },
+    {
+      "alias": "core-ktx",
+      "module": "androidx.core:core-ktx",
+      "version": "1.17.0",
+      "license": "Apache-2.0",
+      "status": "declared, not resolved or downloaded"
+    },
+    {
+      "alias": "core-splashscreen",
+      "module": "androidx.core:core-splashscreen",
+      "version": "1.0.1",
+      "license": "Apache-2.0",
+      "status": "declared, not resolved or downloaded"
+    },
+    {
+      "alias": "lifecycle-runtime",
+      "module": "androidx.lifecycle:lifecycle-runtime-ktx",
+      "version": "2.9.4",
+      "license": "Apache-2.0",
+      "status": "declared, not resolved or downloaded"
+    },
+    {
+      "alias": "coroutines-core",
+      "module": "org.jetbrains.kotlinx:kotlinx-coroutines-core",
+      "version": "1.10.2",
+      "license": "Apache-2.0",
+      "status": "declared, not resolved or downloaded"
+    },
+    {
+      "alias": "room-runtime",
+      "module": "androidx.room:room-runtime",
+      "version": "2.8.1",
+      "license": "Apache-2.0",
+      "status": "declared, not resolved or downloaded"
+    },
+    {
+      "alias": "room-ktx",
+      "module": "androidx.room:room-ktx",
+      "version": "2.8.1",
+      "license": "Apache-2.0",
+      "status": "declared, not resolved or downloaded"
+    },
+    {
+      "alias": "room-compiler",
+      "module": "androidx.room:room-compiler",
+      "version": "2.8.1",
+      "license": "Apache-2.0",
+      "status": "declared, not resolved or downloaded"
+    },
+    {
+      "alias": "work-runtime",
+      "module": "androidx.work:work-runtime-ktx",
+      "version": "2.10.5",
+      "license": "Apache-2.0",
+      "status": "declared, not resolved or downloaded"
+    },
+    {
+      "alias": "media3-exoplayer",
+      "module": "androidx.media3:media3-exoplayer",
+      "version": "1.8.0",
+      "license": "Apache-2.0",
+      "status": "declared, not resolved or downloaded"
+    },
+    {
+      "alias": "media3-transformer",
+      "module": "androidx.media3:media3-transformer",
+      "version": "1.8.0",
+      "license": "Apache-2.0",
+      "status": "declared, not resolved or downloaded"
+    },
+    {
+      "alias": "media3-ui",
+      "module": "androidx.media3:media3-ui-compose",
+      "version": "1.8.0",
+      "license": "Apache-2.0",
+      "status": "declared, not resolved or downloaded"
+    },
+    {
+      "alias": "junit",
+      "module": "junit:junit",
+      "version": "4.13.2",
+      "license": "EPL-1.0",
+      "status": "declared, not resolved or downloaded"
+    }
+  ],
+  "build_plugins": {
+    "android-application": {
+      "id": "com.android.application",
+      "version": {
+        "ref": "agp"
+      }
+    },
+    "android-library": {
+      "id": "com.android.library",
+      "version": {
+        "ref": "agp"
+      }
+    },
+    "kotlin-android": {
+      "id": "org.jetbrains.kotlin.android",
+      "version": {
+        "ref": "kotlin"
+      }
+    },
+    "kotlin-jvm": {
+      "id": "org.jetbrains.kotlin.jvm",
+      "version": {
+        "ref": "kotlin"
+      }
+    },
+    "kotlin-compose": {
+      "id": "org.jetbrains.kotlin.plugin.compose",
+      "version": {
+        "ref": "kotlin"
+      }
+    },
+    "ksp": {
+      "id": "com.google.devtools.ksp",
+      "version": {
+        "ref": "ksp"
+      }
+    }
+  }
+}
