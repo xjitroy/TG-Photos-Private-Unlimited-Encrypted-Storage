@@ -8,10 +8,17 @@ from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / ".toolchain/upstream"
-manifest = json.loads((ROOT / "docs/upstream-source-manifest.json").read_text())
 parser = argparse.ArgumentParser()
 parser.add_argument("--verify-only", action="store_true", help="Check already downloaded files without network access")
+parser.add_argument("--current-six", action="store_true", help="Restore the six owner-selected 2026-10-11 snapshots")
 args = parser.parse_args()
+if args.current_six:
+    OUTPUT = ROOT / ".toolchain/upstream-current"
+    current = json.loads((ROOT / "docs/upstream-six-projects-current.json").read_text())
+    manifest = {"files": [dict(file, repo=repo["canonical"], commit=repo["commit"])
+                          for repo in current["repositories"] for file in repo["files"]]}
+else:
+    manifest = json.loads((ROOT / "docs/upstream-source-manifest.json").read_text())
 
 def verify(data, entry):
     digest = hashlib.sha256(data).hexdigest()

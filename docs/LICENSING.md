@@ -12,8 +12,8 @@ were not transplanted. Repository-level licensing is not a complete file-specifi
 | [Fossify Gallery](https://github.com/FossifyOrg/Gallery/blob/main/LICENSE) | GPL-3.0; local gallery/editor feature reference | clean-room behavior research; no source/assets copied |
 | [Material Files](https://github.com/zhanghai/MaterialFiles/blob/master/LICENSE) | GPL-3.0; README includes archive/NAS/root features | file interaction research only; do not import NAS/network/root clients |
 | [Amaze](https://github.com/TeamAmaze/AmazeFileManager) | current default release/4.0 page identifies GPL-3.0; full license fetch blocked by slash-branch connector parsing | behavior research only; no plugins, backend or source copied |
-| [Photok](https://github.com/leonlatsch/Photok/blob/master/LICENSE) | Apache-2.0; README describes on-device encrypted vault | candidate audited local vault patterns later; none copied yet |
-| [TDLib](https://github.com/tdlib/td/blob/master/LICENSE_1_0.txt) | Boost-1.0; official JNI/async/encrypted database support | target transport; no binary/dependency yet; native transitive audit and Telegram terms required |
+| [Photok](https://github.com/leonlatsch/Photok/blob/main/LICENSE) | Apache-2.0; README describes on-device encrypted vault | candidate audited local vault patterns later; none copied yet |
+| [TDLib](https://github.com/tdlib/td/blob/master/LICENSE_1_0.txt) | Boost-1.0; official JNI/async/encrypted database support | pinned native build/test fixture and original adapter drafts; not app-wired; native transitive audit and Telegram terms required |
 | [Media3](https://github.com/androidx/media/blob/release/LICENSE) | Apache-2.0 | declared player/Transformer libraries, source API boundary only |
 | [Coil](https://github.com/coil-kt/coil/blob/main/LICENSE.txt) | Apache-2.0 | future custom encrypted fetcher candidate; not a current dependency |
 | [Tink Java](https://github.com/tink-crypto/tink-java/blob/main/LICENSE) | Apache-2.0 | reviewed AEAD candidate; not integrated |
@@ -95,3 +95,7 @@ CI-only GitHub actions/cache v6.1.0 is pinned to commit
 55cc8345863c7cc4c66a329aec7e433d2d1c52a9 (Node 24); upstream MIT LICENSE and action definition
 verified on 2026-10-10. It caches public Maven/Gradle distribution downloads only, never app builds,
 APK/AAB/signing keys, owner registration, user data, AVD state or native fixture/session files.
+
+## Current six-project refresh (2026-10-11)
+
+See `upstream-six-projects-current.json` for actual root-license blob/SHA-256 and current repository commit pins. Eighteen selected README/license/component snapshots are verified. `ente-io/ente` redirects to `ente/ente`. No upstream app source or protected assets were imported by this refresh. `SIX_PROJECT_INTEGRATION.md` records remaining obligations and actual integration status.

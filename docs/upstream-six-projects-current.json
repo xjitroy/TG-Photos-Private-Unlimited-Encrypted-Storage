@@ -1,0 +1,170 @@
+{
+  "checked": "2026-10-11",
+  "requested_ente_url": "https://github.com/ente-io/ente",
+  "ente_redirect": "https://github.com/ente/ente",
+  "scope": "Selected README, actual root license and component references, not full clones. Research snapshots do not update runtime dependency pins.",
+  "repositories": [
+    {
+      "requested": "deckerst/aves",
+      "canonical": "deckerst/aves",
+      "branch": "develop",
+      "license": "BSD-3-Clause",
+      "commit": "779c0aff932acdc3825ec430bcea83a4da1662f7",
+      "files": [
+        {
+          "path": "README.md",
+          "blob": "0fa9bfeba82a5bc521367ed43e55715f40c7df0f",
+          "sha256": "6cb9d4e194f976c9a21f9fe149c6c8469e55d5d855828006ebc4ec49ac97f893",
+          "bytes": 8808
+        },
+        {
+          "path": "lib/model/dynamic_albums.dart",
+          "blob": "b1147eda219e41ffdc835a4b59620fcb0cc512ce",
+          "sha256": "2e5852fc55bc76bcdb4fe7cd3968dba9e7885e738ca6c18885034c96c181c980",
+          "bytes": 5771
+        },
+        {
+          "path": "LICENSE",
+          "blob": "2ed6edb4966b3d4ec2283d4e81a557ee3c55f881",
+          "sha256": "70243f0df9ce6cdccf9d095ebb012b7090b9e3fdc133e069605ccfbcbf00c89a",
+          "bytes": 1524
+        }
+      ]
+    },
+    {
+      "requested": "ente/ente",
+      "canonical": "ente/ente",
+      "branch": "main",
+      "license": "AGPL-3.0",
+      "commit": "29c8293ec4f6576cfd16368f3d53519fb8c094e3",
+      "files": [
+        {
+          "path": "README.md",
+          "blob": "40b8136687fbc58874a4a7f7c1e8adfcc4899fbe",
+          "sha256": "d2af70e256ff732ddc002cd3f6937fa8deb1bb9f46fd130d4f5bb418b7a608fc",
+          "bytes": 9475
+        },
+        {
+          "path": "mobile/apps/photos/lib/models/backup/backup_item.dart",
+          "blob": "e990935c8ba06e318582bab41496c97da2a63fd1",
+          "sha256": "07f4cf7859f74799e731dec705d39f5ef02313ec9f1f3b73c7bc7bc2f093189a",
+          "bytes": 1773
+        },
+        {
+          "path": "LICENSE",
+          "blob": "be3f7b28e564e7dd05eaf59d64adba1a4065ac0e",
+          "sha256": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0",
+          "bytes": 34523
+        }
+      ]
+    },
+    {
+      "requested": "zhanghai/MaterialFiles",
+      "canonical": "zhanghai/MaterialFiles",
+      "branch": "master",
+      "license": "GPL-3.0",
+      "commit": "c9b29cb30716ac03c9e1108218d79d9687267c37",
+      "files": [
+        {
+          "path": "README.md",
+          "blob": "81ae655a400486057f22eab11941ef3e95a7f0cf",
+          "sha256": "4ebe04403776748c57266963f0332784c2f9997a7722648e8f8d396cf6899c52",
+          "bytes": 8248
+        },
+        {
+          "path": "app/src/main/java/me/zhanghai/android/files/provider/document/DocumentCopyMove.kt",
+          "blob": "3ace7c88656eaab5bbfd86361a6b3eb6a79922be",
+          "sha256": "7ce3d3454e4c633757cde5256e4f5e6b69fdc84f4b59f5d8bf0aedce00950f01",
+          "bytes": 3551
+        },
+        {
+          "path": "LICENSE",
+          "blob": "f288702d2fa16d3cdf0035b15a9fcbc552cd88e7",
+          "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+          "bytes": 35149
+        }
+      ]
+    },
+    {
+      "requested": "leonlatsch/Photok",
+      "canonical": "leonlatsch/Photok",
+      "branch": "main",
+      "license": "Apache-2.0",
+      "commit": "4baa0c5ee38f2f0e3705537269a1d493e992460d",
+      "files": [
+        {
+          "path": "README.md",
+          "blob": "66184b92e3035806db552b91a0a7681fbfbce06d",
+          "sha256": "0c73e65ebb4cee4e6824012ff456d62ef06e18a0b453d92f7f95a8b741508908",
+          "bytes": 7407
+        },
+        {
+          "path": "app/src/main/java/dev/leonlatsch/photok/encryption/domain/VaultService.kt",
+          "blob": "dab9c15ec9306b1c1bce4d2cc262d9dc18b20f4f",
+          "sha256": "2855d9edc50be70118a41fdb4f9d2a1a3a6ecc2b8a485da18e2fbe26abf4de56",
+          "bytes": 4834
+        },
+        {
+          "path": "LICENSE",
+          "blob": "4bb060e6cf90e28a40b2e5d0a00f8f506912257b",
+          "sha256": "86464c28e8acb00b78f660ef9e00e3bc4156161408fb5656a1caa5ef32dc138a",
+          "bytes": 11346
+        }
+      ]
+    },
+    {
+      "requested": "tdlib/td",
+      "canonical": "tdlib/td",
+      "branch": "master",
+      "license": "BSL-1.0",
+      "commit": "c15d3f5a5de6e3ba5839822c451152e5e18bb700",
+      "files": [
+        {
+          "path": "README.md",
+          "blob": "f3d977676902409682031c7206a2c08e0fb22784",
+          "sha256": "c65d237e0e301681dd3946ee960fb124e902e6f0e91efde922c084502836811f",
+          "bytes": 8389
+        },
+        {
+          "path": "td/telegram/td_json_client.h",
+          "blob": "7ea78bf4c9d6028d543c5a62802fcedb646efe9d",
+          "sha256": "cdf6190b0264417c69c108d192d1f3381f3a1315ddb309798dbefc5036be1eb3",
+          "bytes": 9232
+        },
+        {
+          "path": "LICENSE_1_0.txt",
+          "blob": "36b7cd93cdfbac762f5be4c6ce276df2ea6305c2",
+          "sha256": "c9bff75738922193e67fa726fa225535870d2aa1059f91452c411736284ad566",
+          "bytes": 1338
+        }
+      ]
+    },
+    {
+      "requested": "androidx/media",
+      "canonical": "androidx/media",
+      "branch": "release",
+      "license": "Apache-2.0",
+      "commit": "8c6678b657ede1e7883fc164ef73ed483c7796c3",
+      "files": [
+        {
+          "path": "README.md",
+          "blob": "8d056c17f195dd251d535d6ab147976ce366b1ef",
+          "sha256": "591ae2fdcaa8174d1c3609c1bf26e397f420b4baecf5f6e79f7c2acd4fece970",
+          "bytes": 6738
+        },
+        {
+          "path": "libraries/datasource/src/main/java/androidx/media3/datasource/DataSource.java",
+          "blob": "fc93269055c2a260549ed348b50c18cdb0879c4d",
+          "sha256": "a640c681488421a1773493a663c32415392571a13f3892cf4a26085dac777e85",
+          "bytes": 4451
+        },
+        {
+          "path": "LICENSE",
+          "blob": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "bytes": 11358
+        }
+      ]
+    }
+  ]
+}

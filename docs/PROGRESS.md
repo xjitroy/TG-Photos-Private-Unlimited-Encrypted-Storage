@@ -355,3 +355,28 @@ AGENTS/HANDOFF reflect these overrides. Actual setup/login/recovery/backup/media
 remains incomplete, and no production-ready claim or Play publication is authorized. Preview APK
 from run 38099671415 is downloaded, hash/signature/structure and private-registration exclusion
 verified; preview-apk-delivery.json records it. The GitHub artifact link was supplied to the owner.
+
+## 2026-10-11: six upstreams rechecked; encrypted upload journal implemented
+
+The owner's six selected repositories were rechecked at their current default-branch commits.
+Ente's ente-io URL redirects to ente/ente. Eighteen exact README/license/component references were
+fetched into ignored research storage and Git blob/SHA-256 verified; original 43 references remain
+unchanged and verified. Full clones are not claimed. See upstream-six-projects-current.json and
+SIX_PROJECT_INTEGRATION.md for licenses, original implementation boundaries and real feature status.
+
+EncryptedBackupCoordinator now requires prepared state before chunk upload. The new concrete
+EncryptedUploadJournal persists/authenticates that state and confirmed pointers under a separate
+AES-256-GCM key with private permissions, atomic file promotion and directory fsync. Reopen/uncertain
+ack retries the same operation UUID and ciphertext; changed content/keys are rejected before retry.
+Actual Telegram reconciliation, manifest outbox, Android durability/power-loss proof, key hierarchy/
+Room/WorkManager app wiring and pruning remain missing. Do not claim exactly-once Telegram upload.
+13 existing protocol cases and 8 new journal filesystem/fault cases pass locally. Source policy12,
+CI classification4, old43/new18 reference checks pass. Current Android compile/runtime blocked;
+latest historical run38101007749 fails before runner steps start. No security merge or new APK.
+
+Owner's latest background requirement is retained: Albums controls per-folder backup; enabled Camera
+and selected folders detect new items, and authorized transfers continue after leaving the screen via
+OS-compliant WorkManager/foreground notification. Force-stop/OS limitations must be disclosed.
+Owner confirms two separate per-photo/file actions: Backup and Delete from device.
+Deletion still needs complete remote verification plus explicit confirmation for the selected item.
+These are requirements only; Worker/Albums remain unavailable previews until actual secure integration.

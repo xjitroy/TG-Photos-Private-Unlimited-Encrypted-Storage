@@ -39,9 +39,12 @@ public final class BackupProtocolChecks {
     }
     private static final class MemoryCheckpoints implements EncryptedBackupCoordinator.Checkpoints {
         final Map<String, EncryptedBackupCoordinator.Checkpoint> checkpoints = new LinkedHashMap<>();
+        final Map<String, EncryptedBackupCoordinator.Prepared> prepared = new LinkedHashMap<>();
         String id(UUID id, long version, int index) { return id + ":" + version + ":" + index; }
         @Override public EncryptedBackupCoordinator.Checkpoint find(UUID id, long version, int index) { return checkpoints.get(id(id, version, index)); }
         @Override public void save(UUID id, long version, int index, EncryptedBackupCoordinator.Checkpoint record) { checkpoints.put(id(id, version, index), record); }
+        @Override public EncryptedBackupCoordinator.Prepared findPrepared(UUID id, long version, int index) { return prepared.get(id(id, version, index)); }
+        @Override public void prepare(UUID id, long version, int index, EncryptedBackupCoordinator.Prepared record) { prepared.put(id(id, version, index), record); }
     }
     private static final class Fixture {
         final AeadEnvelope aead = new AeadEnvelope();

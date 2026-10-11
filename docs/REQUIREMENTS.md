@@ -101,3 +101,10 @@ Source: owner request, latest branding/privacy clarification and all master-plan
 This checklist retains all priority requests and operational master-plan requirements. Phase exit checks are
 in PLAN.md and TEST_MATRIX.md. A Preview/Source status must not be converted to completed production functionality
 until the corresponding live implementation and acceptance checks pass.
+
+## Owner clarification: 2026-10-11
+
+- Albums controls persisted per-folder auto-backup, including Camera when enabled.
+- Leaving a screen/task should not cancel authorized uploads; use OS-compliant resumable background work and foreground transfer notification as required. Account for force-stop, permission revocation and OEM power restrictions.
+- Each photo/file exposes two separate actions: Backup and Delete from device. Never delete before independently verified full remote restore plus explicit item confirmation. Preserve encrypted metadata/previews and Vault access boundaries.
+- Retain all other original-plan requirements; these clarifications do not waive unfinished features or production gates. These controls are not yet app-integrated.

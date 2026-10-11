@@ -110,3 +110,10 @@ Direct download: https://github.com/xjitroy/TG-Photos-Private-Unlimited-Encrypte
 APK SHA256: 006b1fccca31426acf358538ebbd1850f0a968e75bb652ae4958b27c43b378aa
 Local delivery: /workspace/deliverables/TGPhotos-preview/TG-Photos-0.1.0-preview.apk
 No permanent GitHub Release asset has been created; raw workflow artifact retention is finite.
+
+Latest continuation: read `SIX_PROJECT_INTEGRATION.md` and `upstream-six-projects-current.json`.
+New backup journal source requires Android compile/durability and actual Telegram reconciliation;
+21 local backup/journal checks pass, not complete backup acceptance. Restore current references with
+`python3 scripts/download_upstream_references.py --current-six` (add --verify-only for offline checks).
+Owner requires Albums-controlled folder auto-backup and background transfer; current Worker is still
+unavailable. Owner confirms separate Backup and Delete from device item actions; no blanket device deletion permission is inferred.

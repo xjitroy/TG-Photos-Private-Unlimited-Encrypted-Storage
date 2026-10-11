@@ -100,3 +100,19 @@ explicit about self-review scope, open defects, untested Android/device/crypto p
 Current root-record source tests are blocked before runner allocation (runs 38100308560/38100308516);
 no new root-record runtime/production acceptance is established. Existing passed preview tests remain
 limited to their named commits.
+
+## Agent review: encrypted upload journal (2026-10-11, not an independent audit)
+
+Reviewed prepared-before-upload ordering, immutable operation/ciphertext, journal domain/identity AAD,
+bounded read/encode, independent caller key, fsync/atomic promotion, 0700/0600, symlink rejection,
+authentication failures, quota-before-network and close/key wipe. Found/fixed transient serialization
+buffer retention by wiping its backing array; the final payload buffer is also wiped. Eight meaningful
+filesystem/fault tests and the original thirteen protocol tests pass. Mutable JVM/provider copies
+cannot be guaranteed erased. Coordinator caller still owns stream/root/file/manifest key lifecycle.
+
+Open material findings: no Android compile/durability proof, no multiprocess lock, caller-supplied
+trusted private directory/key lifecycle not app-bound, manifest lacks write-ahead/reconciliation,
+prepared operation identity alone is not Telegram deduplication, no approved journal pruning or
+rollback anchor, no live WorkManager/TDLib binding. Disk-full acknowledgement recovery retains
+prepared state but needs authoritative remote reconciliation. Do not merge/enable these security
+integrations or label production-ready while mandatory checks/integration findings remain open.
