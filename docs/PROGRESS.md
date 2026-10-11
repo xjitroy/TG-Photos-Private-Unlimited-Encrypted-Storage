@@ -320,7 +320,7 @@ full authoritative login remain next P2 work; independent review remains require
 ### Private root record persistence draft
 
 PrivateRootRecordStore stores only the fixed versioned encrypted record under noBackupFilesDir.
-Create-only setup never replaces a missing/corrupt-key failure with a new root. Password change uses
+Read reports missing records explicitly and rejects corruption without regeneration; create refuses an existing record. First-setup versus deleted-key detection still requires trusted account initialization policy. Password change uses
 exact-record compare-and-replace, a process-wide writer lock, AtomicFile, explicit file sync, promoted
 byte verification, directory sync and private 0700/0600 modes. Symlinked or non-file paths and oversized/
 truncated framing are rejected. Unlock authentication is still the codec's responsibility; storage
@@ -334,3 +334,8 @@ is not exposed by the Android public SDK. No tests/runtime acceptance claimed fo
 Directory sync now uses public O_RDONLY/O_NOFOLLOW and validates the opened descriptor with
 fstat/S_ISDIR before fsync, retaining directory/symlink checks without hardcoded native flag values.
 The corrected source requires its own CI/runtime results.
+
+Private password-record replacement additionally requires unchanged root UUID/version and exactly
+one wrapping-revision increment, refusing rollback or accidental identity replacement before writing.
+These are structural guards, not a substitute for AEAD validation or a trusted rollback anchor.
+The Android rotation test now asserts rollback/identity rejection as well as stale-writer rejection.

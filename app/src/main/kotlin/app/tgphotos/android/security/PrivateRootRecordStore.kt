@@ -6,6 +6,7 @@ import android.system.OsConstants
 import android.util.AtomicFile
 import java.io.File
 import java.nio.file.Files
+import java.nio.ByteBuffer
 import java.security.MessageDigest
 import java.util.UUID
 
@@ -44,6 +45,13 @@ class PrivateRootRecordStore private constructor(context: Context, directory: St
         validate(old, purpose); validate(next, purpose)
         val current = readLocked(purpose) ?: error("Protected root is missing")
         check(MessageDigest.isEqual(current, old)) { "Protected root changed; reload before rotation" }
+        val revision = ByteBuffer.wrap(old).getLong(30)
+        check(revision > 0 && revision < Long.MAX_VALUE && ByteBuffer.wrap(next).getLong(30) == revision + 1) {
+            "Password replacement must advance the wrapping revision exactly once"
+        }
+        check(old.copyOfRange(6, 30).contentEquals(next.copyOfRange(6, 30))) {
+            "Password replacement must preserve root identity and version"
+        }
         writeLocked(purpose, next)
     }
 

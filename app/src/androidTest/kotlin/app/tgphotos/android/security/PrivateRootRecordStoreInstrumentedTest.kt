@@ -52,6 +52,14 @@ class PrivateRootRecordStoreInstrumentedTest {
             catch (_: GeneralSecurityException) { /* Expected. */ }
             try { store().compareAndReplace(storagePurpose, original, changed); fail("Stale writer accepted") }
             catch (_: IllegalStateException) { /* Expected without overwrite. */ }
+            try { store().compareAndReplace(storagePurpose, changed, original); fail("Revision rollback accepted") }
+            catch (_: IllegalStateException) { /* Expected without overwrite. */ }
+            val differentIdentity = changed.copyOf().also {
+                it[6] = (it[6].toInt() xor 1).toByte()
+                java.nio.ByteBuffer.wrap(it).putLong(30, 3)
+            }
+            try { store().compareAndReplace(storagePurpose, changed, differentIdentity); fail("Root identity replaced") }
+            catch (_: IllegalStateException) { /* Expected without overwrite. */ }
             assertArrayEquals(changed, store().read(storagePurpose))
         } finally { root.fill(0); restored?.fill(0) }
     }
