@@ -14,6 +14,7 @@ android {
 kotlin { jvmToolchain(17) }
 dependencies {
     implementation(project(":core:model"))
+    implementation(project(":core:backup"))
     implementation(project(":core:crypto"))
     implementation(libs.media3.exoplayer)
     implementation(libs.media3.transformer)

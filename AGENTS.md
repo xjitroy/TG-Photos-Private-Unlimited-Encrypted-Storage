@@ -25,3 +25,8 @@ unverified universal guarantee. Production native coverage still needs 32-bit AR
 Keep resumable source/build/test/architecture documentation and owner-requested APKs private on GitHub.
 Workspace retention is temporary; GitHub plus owner backups are the durable record. Never upload
 private API registration, passwords, production encryption/signing keys as ordinary source/artifacts.
+
+Latest owner steering: continue existing source without repeated planning/environment checks or
+unchanged test runs. Read NEXT_STEPS.md for the immediate implementation handoff. Production APK is
+the requested deliverable; an available development preview must never be presented as fulfilling it.
+Run relevant build/security/fault verification for changed code and preserve private GitHub updates.

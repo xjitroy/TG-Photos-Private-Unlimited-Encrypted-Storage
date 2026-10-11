@@ -380,3 +380,19 @@ OS-compliant WorkManager/foreground notification. Force-stop/OS limitations must
 Owner confirms two separate per-photo/file actions: Backup and Delete from device.
 Deletion still needs complete remote verification plus explicit confirmation for the selected item.
 These are requirements only; Worker/Albums remain unavailable previews until actual secure integration.
+
+## Authenticated backup-to-media integration
+
+AuthenticatedManifest now parses an authenticated remote descriptor with strict identity/total/count/
+length/pointer/trailing-data checks and explicit metadata lifecycle. The backup coordinator uses this
+shared path for independent full-restore verification; opening a descriptor does not create deletion proof.
+EncryptedBackupMediaSession connects that descriptor/remote chunk source to existing seekable readers,
+bounds concurrent readers, closes/wipes them on lock and refuses late publication after a blocked
+manifest download. core:media now depends on core:backup; no existing app preview/auth adapter enabled.
+13 protocol+8 journal regression checks and 9 range+9 new integrated pipeline checks pass. Pipeline
+cases exercise real encrypted journal upload, remote descriptor/seek/full reconstruction, authentication
+failure, wrong keys, unchanged destination on corruption, lock/blocked-fetch races, admission limits and
+snapshot/close semantics. Android/TDLib/decoder/biometric-lifecycle proof remains blocked/pending.
+Owner reiterates production APK, not preview. NEXT_STEPS.md/AGENTS reflect the required continuation;
+no production claim, new APK, security merge or Play publication. Existing private preview artifact was
+rechecked as unexpired and local APK hash unchanged; it remains a preview only.

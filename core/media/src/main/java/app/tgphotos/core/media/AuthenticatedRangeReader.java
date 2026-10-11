@@ -84,6 +84,8 @@ public final class AuthenticatedRangeReader implements AutoCloseable {
         }
     }
 
+    public boolean isClosed() { synchronized (state) { return closed; } }
+
     private void requireOpen() {
         if (closed) throw new IllegalStateException("Authenticated media source is closed");
     }

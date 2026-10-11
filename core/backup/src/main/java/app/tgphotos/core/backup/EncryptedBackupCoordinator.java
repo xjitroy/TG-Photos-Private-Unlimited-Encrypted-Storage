@@ -2,9 +2,7 @@ package app.tgphotos.core.backup;
 
 import app.tgphotos.core.crypto.AeadEnvelope;
 import app.tgphotos.core.crypto.ChunkContext;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -180,43 +178,40 @@ public final class EncryptedBackupCoordinator {
         } finally { Arrays.fill(manifest, (byte) 0); }
     }
 
-    /** Independent remote download+authentication+whole-file hash, bounded plaintext memory; no plaintext persistence. */
+    /** Authenticates a remote manifest for viewing/seeking; does NOT prove complete file restore. */
+    public AuthenticatedManifest openManifest(Commit commit, byte[] manifestKey) throws IOException, GeneralSecurityException {
+        if (commit == null || manifestKey == null || manifestKey.length != 32) throw new IllegalArgumentException("Invalid manifest request");
+        int maximum = Math.addExact(commit.manifestPlaintextBytes, AeadEnvelope.ENVELOPE_OVERHEAD_BYTES);
+        byte[] encrypted = transport.downloadCiphertext(commit.manifestPointer, maximum);
+        if (encrypted == null || encrypted.length != maximum) throw new IOException("Invalid remote manifest length");
+        byte[] manifest = aead.open(manifestKey, encrypted,
+                new ChunkContext(commit.fileId, commit.version, 0, commit.manifestPlaintextBytes, ChunkContext.Scope.MANIFEST).encode());
+        try { return AuthenticatedManifest.parse(manifest, commit); }
+        finally { Arrays.fill(manifest, (byte) 0); }
+    }
+
+    /** Independent complete remote authentication+whole-file hash; never substitutes viewing for deletion proof. */
     public Verification verifyRemote(Commit commit, byte[] fileKey, byte[] manifestKey) throws IOException, GeneralSecurityException {
         validateKeys(fileKey, manifestKey);
-        if (commit == null) throw new IllegalArgumentException("Missing backup commit");
-        byte[] encryptedManifest = transport.downloadCiphertext(commit.manifestPointer, AeadEnvelope.MAX_PLAINTEXT_BYTES + 64);
-        byte[] manifest = aead.open(manifestKey, encryptedManifest,
-                new ChunkContext(commit.fileId, commit.version, 0, commit.manifestPlaintextBytes, ChunkContext.Scope.MANIFEST).encode());
-        try {
-            DataInputStream in = new DataInputStream(new ByteArrayInputStream(manifest));
-            if (in.readInt() != 1 || !new UUID(in.readLong(), in.readLong()).equals(commit.fileId) ||
-                    in.readLong() != commit.version || in.readLong() != commit.bytes) throw new IOException("Manifest identity mismatch");
-            byte[] expectedHash = new byte[32]; in.readFully(expectedHash);
-            int metadataBytes = in.readInt();
-            if (metadataBytes < 0 || metadataBytes > MAX_METADATA_BYTES || metadataBytes > in.available()) throw new IOException("Invalid manifest metadata");
-            byte[] metadata = new byte[metadataBytes]; in.readFully(metadata); Arrays.fill(metadata, (byte) 0);
-            int count = in.readInt();
-            if (count < 0 || count > MAX_CHUNKS) throw new IOException("Invalid manifest chunk count");
-            MessageDigest restoredHash = sha256();
-            long bytes = 0;
-            for (int index = 0; index < count; index++) {
-                int plainBytes = in.readInt();
-                if (plainBytes < 1 || plainBytes > AeadEnvelope.MAX_PLAINTEXT_BYTES) throw new IOException("Invalid manifest chunk length");
-                String pointer = in.readUTF(); validatePointer(pointer);
-                byte[] encrypted = transport.downloadCiphertext(pointer, plainBytes + 64);
+        try (AuthenticatedManifest manifest = openManifest(commit, manifestKey)) {
+            int[] lengths = manifest.chunkLengths(); String[] pointers = manifest.chunkPointers();
+            MessageDigest restoredHash = sha256(); long bytes = 0;
+            for (int index = 0; index < lengths.length; index++) {
+                int maximum = lengths[index] + AeadEnvelope.ENVELOPE_OVERHEAD_BYTES;
+                byte[] encrypted = transport.downloadCiphertext(pointers[index], maximum);
+                if (encrypted == null || encrypted.length != maximum) throw new IOException("Invalid remote chunk length");
                 byte[] plaintext = aead.open(fileKey, encrypted,
-                        new ChunkContext(commit.fileId, commit.version, index, plainBytes, ChunkContext.Scope.FILE).encode());
+                        new ChunkContext(commit.fileId, commit.version, index, lengths[index], ChunkContext.Scope.FILE).encode());
                 try {
-                    if (plaintext.length != plainBytes) throw new IOException("Restored chunk length mismatch");
+                    if (plaintext.length != lengths[index]) throw new IOException("Restored chunk length mismatch");
                     restoredHash.update(plaintext); bytes = Math.addExact(bytes, plaintext.length);
                 } finally { Arrays.fill(plaintext, (byte) 0); }
             }
             byte[] actualHash = restoredHash.digest();
-            if (in.available() != 0 || bytes != commit.bytes || !MessageDigest.isEqual(expectedHash, actualHash)) {
+            if (bytes != commit.bytes || !MessageDigest.isEqual(manifest.sha256(), actualHash))
                 throw new IOException("Complete remote restore verification failed");
-            }
             return new Verification(commit.fileId, commit.version, bytes, actualHash);
-        } finally { Arrays.fill(manifest, (byte) 0); }
+        }
     }
 
     private static byte[] encodeManifest(UUID id, long version, long bytes, byte[] hash, byte[] metadata, List<Chunk> chunks) throws IOException {

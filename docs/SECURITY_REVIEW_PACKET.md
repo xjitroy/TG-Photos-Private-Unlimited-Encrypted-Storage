@@ -116,3 +116,13 @@ prepared operation identity alone is not Telegram deduplication, no approved jou
 rollback anchor, no live WorkManager/TDLib binding. Disk-full acknowledgement recovery retains
 prepared state but needs authoritative remote reconciliation. Do not merge/enable these security
 integrations or label production-ready while mandatory checks/integration findings remain open.
+
+Agent review: backup-to-media integration. AAD/authentication precedes descriptor parsing and chunk
+publication. Descriptor total/count/pointers are bounded and getters return snapshots. Session lock
+wipes owned keys, closes cached readers and blocks late reader publication; in-flight temporary keys
+are wiped when bounded transport returns, so their immediate erasure is not guaranteed. Caller still
+owns original keys/metadata copies and must supply the same authorized bounded/deadlined transport.
+Opening/partial playback is not restore evidence; full remote verification remains mandatory before
+requesting device deletion. Nine integrated faults plus existing range/protocol/journal checks pass
+locally. Android lifecycle/decoder/device/account proof, live key lifecycle and production acceptance
+remain open; agent review is not a third-party audit.
