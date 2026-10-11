@@ -27,7 +27,7 @@ The existing account-free QA APKs are temporary development/test packages and ar
 | P4 Gallery and file manager | Real permitted local/cloud timeline/albums/search/favorites/selection; copy/move/rename/delete/restore; safe document/archive handling; permission/SD revocation and no-loss checks |
 | P5 Playback and editing | App-wired authenticated Media3 source/player; seek/quality/ratios/swipes; audio/subtitle tracks; resume/prebuffer budgets; photo/video/audio nondestructive edits and protected export |
 | P6 Private Vault | Separate authentication/biometrics/root/index; encrypted import/previews; background/time-based locking; close readers/wipe consumer keys/clear decoder and UI on lock; recents/screenshot/export leak tests |
-| P7 Production validation and APK | Original-design runtime/accessibility acceptance; API/device/codec/network/fault/performance matrix; complete licenses/SBOM/advisories; independent human security review and verified recovery; private reproducible release signing; signed APK verification and owner delivery |
+| P7 Production validation and APK | Original-design runtime/accessibility acceptance; API/device/codec/network/fault/performance matrix; complete licenses/SBOM/advisories; documented agent-led security review (owner override 2026-10-11) and verified recovery; private reproducible release signing; signed APK verification and owner delivery |
 
 Several drafts help these phases but are not connected live features. The app still uses unavailable
 transport/crypto adapters and labelled samples. Never turn these statuses into completed authentication,
@@ -41,6 +41,6 @@ not a guaranteed calendar delivery date or a promise of unattended background wo
 each accepted phase using measured implementation/testing progress and actual integration blockers.
 
 Read HANDOFF.md and PROGRESS.md, and inspect the latest feature-branch CI results before continuing.
-The feature branch remains unmerged pending the independent security review required by AGENTS.md.
+The feature branch remains unmerged pending the documented security review and actual passing checks required by AGENTS.md.
 No credentials, OTPs, passphrases, keys, registration screenshots or user files belong in Git/artifacts.
 Telegram account/traffic metadata remains observable; no zero-risk or unlimited-capacity guarantee is made.

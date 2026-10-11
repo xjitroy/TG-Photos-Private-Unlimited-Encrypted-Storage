@@ -1,0 +1,18 @@
+{
+  "app": "TG Photos",
+  "package": "app.tgphotos.android",
+  "version": "0.1.0",
+  "min_android_api": 26,
+  "source_commit": "d128ff085a0fd979cdd39cfaa33bb9a50146425f",
+  "workflow_run": "38099671415",
+  "apk_sha256": "006b1fccca31426acf358538ebbd1850f0a968e75bb652ae4958b27c43b378aa",
+  "apk_bytes": 18787377,
+  "scope": "Owner-requested labelled development preview; NOT production-ready",
+  "signing": "Runner-generated development debug certificate; not a stable release identity",
+  "limits": [
+    "No live Telegram login or encrypted backup",
+    "No real personal gallery/file manager/player/Vault authentication",
+    "No owner credentials, production keys or user files included"
+  ],
+  "previous_runtime_evidence": "docs/evidence/android-preview-runtime.json"
+}

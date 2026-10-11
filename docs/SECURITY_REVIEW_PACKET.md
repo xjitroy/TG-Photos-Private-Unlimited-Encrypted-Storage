@@ -1,6 +1,6 @@
 # TG Photos security draft review packet
 
-Prepared 2026-10-10 for independent human review. This document is not an audit or approval.
+Prepared 2026-10-10 for review; owner on 2026-10-11 requests agent-led review. This document is not an audit or approval.
 Review the actual feature-branch head and diffs; source b7befe232f57dbeb31671fbf3432ee8d0ade565b
 is the current named compilation/lifecycle-fix baseline. Further changes need their own assessment.
 The owner authorized source/documentation upload and eventual APK delivery, not Play publication.
@@ -11,6 +11,7 @@ The owner authorized source/documentation upload and eventual APK delivery, not 
 |---|---|---|
 | Authenticated envelopes | core/crypto/.../AeadEnvelope.java, ChunkContext.java | Bounded full AES-256-GCM authentication before output, fresh CSPRNG nonces, authenticated version/context; offline mutation/replay/range checks; not a complete recovery protocol |
 | Password/root hierarchy | BouncyCastlePasswordKeyDerivation.kt, RootKeyEnvelope.java, HkdfSha256.java, ScopedKeyHierarchy.java | Bounded Argon2id 1.3 parameters, independent cloud/Vault roots, HKDF domain separation and root wrapping; JVM/offline vectors; app provisioning/calibration/recovery persistence pending |
+| Password-root records | PasswordProtectedRoot.kt, PrivateRootRecordStore.kt | Fresh-salt Argon2id; full framing/domain/identity/version authentication; same-root password rewrap; private create-only and exact-record atomic replacement; six JVM and two Android checks prepared. Results must be checked for the corrected source. Not setup UI/recovery integration or rollback anchoring. |
 | Local Telegram database key | app/.../security/LocalSessionKeyStore.kt | Random 32-byte key, Android Keystore AES-GCM wrapper, AtomicFile under noBackupFilesDir, cross-instance process lock; four isolated Android 35 checks pass; physical hardware/locked-device/reboot/invalidation/API matrix pending |
 | Official native boundary | core/telegram/src/main/cpp, NativeTdJson.java | Pinned TDLib/OpenSSL, original standard UTF-8 bridge, bounded JSON, serialized returned-pointer copying; both ABI ELF/build evidence; all six Android 35 provider/native checks pass in run 38074390506 attempt 2; physical/API matrix and live integration remain pending |
 | Session/gateway drafts | TdLibRequests.kt, TdLibRequestSession.kt, TdLibTelegramGateway.kt | Positive log-suppression acknowledgements, authoritative states, correlation/deadlines/bounds, no unconfirmed receiver reset; 9 dispatcher + 4 schema JVM tests pass; live provisioning/login/session UI not wired |
@@ -68,4 +69,34 @@ compromise boundaries must remain accurately disclosed; zero-risk/unlimited-capa
 
 Reviewer identity, reviewed commit/tree, scope, findings, mitigations, residual risks and signed-off date:
 **not provided / not approved**. Keep security integrations unmerged as required by AGENTS.md until a
-qualified independent human review covers the actual changes. This packet supplies review material only.
+documented agent-led review and passing checks cover the actual changes. This packet supplies review material only.
+
+## 2026-10-11 additions requiring review
+
+Review PasswordProtectedRoot and PrivateRootRecordStore on the latest feature head. Public record
+framing is fixed to 152 bytes and authenticated in full; reject unsupported/oversized framing before
+Argon2id. Cloud/Vault purpose and supplied identity/version are authenticated separately. Password
+change rewraps the same random root, preserving existing file-key identity. This does not revoke
+an already copied old record, recovery token or unwrapped root; compromise requires actual key
+rotation/re-encryption policy. Minimum wrapping revision is caller-supplied trusted state, not a
+hardware-backed rollback guarantee. Account/recovery binding, Android KDF calibration and setup
+UX are still absent. Do not interpret these drafts as complete secure provisioning.
+
+The private persistence adapter provides create-only setup and exact-record compare-and-replace,
+process-wide serialization, bounded framing read, symlink rejection, AtomicFile plus explicit file
+and directory sync, promoted-byte verification and private permissions. Framing checks do not
+authenticate a root: the codec must verify AEAD before use. Review power-loss/commit-uncertainty
+recovery and multi-process exclusions on actual supported devices. A failed/corrupt record never
+silently initializes a replacement key.
+
+The owner explicitly requested the current APK on 2026-10-11. Private workflow 38099671415
+delivers an account-free development preview from d128ff085a0fd979cdd39cfaa33bb9a50146425f,
+with no production claims or security merge. SHA-256/signature/actual manifest were verified.
+It does not include or enable the later root-record drafts. See preview-apk-delivery.json.
+
+Owner review override: agent-led security review is requested instead of an independent human reviewer
+on 2026-10-11. This packet is still review material, not a completed review or approval. Keep the record
+explicit about self-review scope, open defects, untested Android/device/crypto paths and residual risks.
+Current root-record source tests are blocked before runner allocation (runs 38100308560/38100308516);
+no new root-record runtime/production acceptance is established. Existing passed preview tests remain
+limited to their named commits.

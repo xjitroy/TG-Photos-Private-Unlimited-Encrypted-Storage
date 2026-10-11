@@ -18,7 +18,7 @@ The repository identifier is the owner's existing name; application branding rem
 
 `main` holds the Phase 1 foundation. Continued, unmerged security work is on
 `feature/phase-2-security-foundation`. Fetch/switch to this branch before continuing the latest work.
-Do not merge its crypto/session/transport changes without independent human security review.
+The owner now requests agent-led security review (2026-10-11); document its actual scope/findings and complete tests before merging security integrations. Do not claim independent third-party audit.
 Do not overwrite an existing remote head; fetch/compare and use a fast-forward or a reviewed merge.
 
 ## Resume work
@@ -89,3 +89,24 @@ workflow builds and privately retains a labelled debug preview plus actual manif
 SHA-256 evidence for owner delivery. No owner credentials/native runtime fixture/user files are included.
 The signing certificate is a runner-generated development identity, not the future stable release key.
 App source remains the tested preview; live functionality and production security gates are unchanged.
+
+Latest owner instructions on 2026-10-11: complete all actual features for production, retain editable
+source/build documentation and APKs privately, target Android8/API26 onward including Android16, and
+perform agent-led security review. APKs are updated by rebuilding source with a stable signing identity;
+the preview debug identity is ephemeral, not the future production identity. No unverified future-OS
+guarantee or automatic publication is authorized.
+
+Current next-source root drafts: d9eaca5b61d2d411531bb54b13a59099e4cb6f65. Runs 38100308560
+and 38100308516 fail before runner steps start, with one check annotation and no logs. Reason is not
+retrievable through the available annotation endpoint; do not assume billing or report tests as passed.
+A local public-download network check was canceled by the user; do not repeat that permission request.
+No local Android SDK/KVM is available. Six new JVM/two new Android root tests remain unverified.
+The earlier O_DIRECTORY compile failure was corrected with public fstat/S_ISDIR validation; corrected
+root source still needs compilation/runtime proof. Existing source tests and APK evidence remain
+bound to their earlier named commits; do not transfer acceptance to the new drafts.
+
+Owner APK artifact: run 38099671415, artifact 11686539050 (private, expires 2026-11-10).
+Direct download: https://github.com/xjitroy/TG-Photos-Private-Unlimited-Encrypted-Storage/actions/runs/38099671415/artifacts/11686539050
+APK SHA256: 006b1fccca31426acf358538ebbd1850f0a968e75bb652ae4958b27c43b378aa
+Local delivery: /workspace/deliverables/TGPhotos-preview/TG-Photos-0.1.0-preview.apk
+No permanent GitHub Release asset has been created; raw workflow artifact retention is finite.

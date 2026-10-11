@@ -339,3 +339,19 @@ Private password-record replacement additionally requires unchanged root UUID/ve
 one wrapping-revision increment, refusing rollback or accidental identity replacement before writing.
 These are structural guards, not a substitute for AEAD validation or a trusted rollback anchor.
 The Android rotation test now asserts rollback/identity rejection as well as stale-writer rejection.
+
+### Current test infrastructure blocker and owner scope
+
+Root draft d9eaca5b61d2d411531bb54b13a59099e4cb6f65 runs 38100308560/38100308516 fail
+before any job steps start; no logs exist, and the check exposes one annotation whose text is not
+accessible through the available endpoint. No confirmed reason (including billing) is asserted.
+A requested local public-download network check was canceled by the user. Local Android SDK/KVM is
+absent. Six new JVM/two Android root checks are pending, not passing. Continue diagnosing permitted
+CI access and retain a testable handoff; do not waive tests or weaken encryption.
+
+Owner explicitly requests agent-led security review rather than independent human review, Android8
+through Android16 and future compatibility maintenance, plus private resumable code/APK retention.
+AGENTS/HANDOFF reflect these overrides. Actual setup/login/recovery/backup/media/Vault integration
+remains incomplete, and no production-ready claim or Play publication is authorized. Preview APK
+from run 38099671415 is downloaded, hash/signature/structure and private-registration exclusion
+verified; preview-apk-delivery.json records it. The GitHub artifact link was supplied to the owner.
