@@ -98,8 +98,11 @@ class PrivateRootRecordStore private constructor(context: Context, directory: St
     }
 
     private fun syncDirectory(directory: File) {
-        val fd = Os.open(directory.absolutePath, OsConstants.O_RDONLY or OsConstants.O_DIRECTORY or OsConstants.O_NOFOLLOW, 0)
-        try { Os.fsync(fd) } finally { Os.close(fd) }
+        val fd = Os.open(directory.absolutePath, OsConstants.O_RDONLY or OsConstants.O_NOFOLLOW, 0)
+        try {
+            check(OsConstants.S_ISDIR(Os.fstat(fd).st_mode)) { "Private root sync path is not a directory" }
+            Os.fsync(fd)
+        } finally { Os.close(fd) }
     }
 
     private fun validate(record: ByteArray, purpose: Purpose) {

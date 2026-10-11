@@ -328,3 +328,9 @@ framing checks are not cryptographic verification. No multi-process writer/rollb
 Two isolated Android tests exercise real Argon2id/AES-GCM + fresh-store reload/password rotation,
 stale-writer rejection, corruption rejection and no silent setup reset. They are prepared, not yet
 reported as passing. BC/root codec is androidTest-only; no actual setup UI or live keys are enabled.
+
+Root persistence source 5bbf2879 failed Android compilation in run 38100009984 because O_DIRECTORY
+is not exposed by the Android public SDK. No tests/runtime acceptance claimed for that source.
+Directory sync now uses public O_RDONLY/O_NOFOLLOW and validates the opened descriptor with
+fstat/S_ISDIR before fsync, retaining directory/symlink checks without hardcoded native flag values.
+The corrected source requires its own CI/runtime results.
