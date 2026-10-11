@@ -296,3 +296,23 @@ matches the downloaded archive. Named results and screenshot hashes are retained
 No account/media/production key/API registration is used; QA APKs are removed, not distributed.
 Full live feature integration, supported-device/accessibility/performance/network/fault testing,
 recovery, independent human review and production signed APK gates remain open.
+
+## 2026-10-11: owner-requested preview delivery and next encryption setup step
+
+The owner explicitly requested the APK. A separate private preview build workflow now packages the
+unchanged tested application, checks its actual manifest and debug signature, and retains APK/SHA-256/
+build metadata for delivery. This is an honestly labelled development preview, not production acceptance.
+No owner registration, account, keys or user files are included; no Play publication or security merge.
+
+The owner also requests completion of unfinished functionality. The next P2 draft adds
+PasswordProtectedRoot.kt: a fixed-length versioned record containing fresh-salt Argon2id parameters
+and an AES-256-GCM protected random root. All framing (cloud/Vault purpose, root identity/version,
+wrapping revision, KDF version/parameters/salt) is authenticated. Password change preserves the actual
+root and file-key identity, increments wrapping revision and uses a fresh salt/nonce. Trusted minimum
+revision rejects old records; retaining/anchoring that value is an app policy still to implement.
+Six prepared JVM tests cover fresh-backend unlock, wrong password/ciphertext/header mutation, identity/
+purpose/version binding, password-change/no-key-loss/stale-record rejection, malformed or huge KDF
+framing rejection before derivation, and wiping both credentials after failed rotation. Their results
+are not yet known. This codec is not app-wired or durably persisted; it is not a completed recovery,
+Vault-auth or login feature. Secure private record persistence, Android calibration, provisioning and
+full authoritative login remain next P2 work; independent review remains required before security merge.
