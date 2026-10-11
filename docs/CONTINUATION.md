@@ -1,6 +1,6 @@
 # Latest TG Photos development
 
-Main retains the historical Phase 1 foundation. Switch to `feature/phase-2-security-foundation` before continuing implementation and read its AGENTS.md, docs/HANDOFF.md, PROGRESS.md, PRODUCTION_READINESS.md, REQUIREMENTS.md and MASTER_PLAN_RECONCILIATION.md. Security source remains unmerged pending independent human review.
+Main retains the historical Phase 1 foundation. Switch to `feature/phase-2-security-foundation` before continuing implementation and read its AGENTS.md, docs/HANDOFF.md, PROGRESS.md, PRODUCTION_READINESS.md, REQUIREMENTS.md and MASTER_PLAN_RECONCILIATION.md. Security source remains unmerged pending documented security review and actual tests; the owner requests agent-led review as of 2026-10-11.
 
 The owner authorized eventual APK creation/delivery on 2026-10-10 after requirements/design and production gates. Play publication is not authorized. App branding remains TG Photos. No production APK has been delivered; real login/backup/gallery/player/Vault integration remains incomplete.
 
@@ -9,3 +9,11 @@ At this update the feature head is bb4aab0de815cda46de591be565e6f5841891bda; fet
 The source now includes public-dependency download caching and complete-range CI classification; documentation-only updates retain privacy/source/ZIP checks without Android recompilation. Read actual latest run results, retained evidence and the six remaining production phases on the feature branch.
 
 Original ZIP/PDF/DOCX/Markdown and all 14 design references are preserved. Selected public source/license snapshots from all 14 reference repositories are reproducible using the feature-branch manifest. Private API registration/screenshots, credentials, OTPs, passphrases, signing/encryption keys and user files are excluded from source/archive; a clone does not contain private configuration.
+
+## 2026-10-11 continuation
+
+Latest feature head at this update: c0540fdc54e29091943d28dea81f1cac8f067472. Owner requested current APK and then completion of all real features for production. Private preview APK artifact: https://github.com/xjitroy/TG-Photos-Private-Unlimited-Encrypted-Storage/actions/runs/38099671415/artifacts/11686539050 (expires 2026-11-10). This is the tested preview from d128ff085a0fd979cdd39cfaa33bb9a50146425f, not production. See preview-apk-delivery.json.
+
+New PasswordProtectedRoot/PrivateRootRecordStore drafts implement authenticated framing/password rewrap and private guarded atomic persistence. Six JVM/two Android checks are prepared but unverified: latest runs 38100308560/38100308516 fail before runner steps and expose no logs; reason is unconfirmed. Do not transfer earlier preview acceptance to these drafts. Owner canceled a local public-download network permission check; do not repeat it. Local Android SDK/KVM is absent.
+
+Owner targets Android8 onward including Android16 and future compatibility maintenance, asks agent-led security review instead of independent human review, and requires editable source/build/test documentation plus APKs retained privately. APK updates require rebuilding source with a stable production signing identity; the preview debug identity is ephemeral. Never upload private registrations, OTPs, passwords, production encryption/signing keys as ordinary source/artifacts. No Play publication or production-ready claim is authorized without actual implementation/acceptance.
