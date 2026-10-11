@@ -1,0 +1,83 @@
+name: Owner-requested preview APK
+
+on:
+  push:
+    branches: ['feature/**']
+    paths: ['.github/workflows/android-preview-apk.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: preview-apk-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  preview-apk:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      GRADLE_USER_HOME: ${{ github.workspace }}/.toolchain/gradle
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Reuse public dependency downloads only
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
+        with:
+          path: |
+            .toolchain/gradle/caches/modules-2
+            .toolchain/gradle/wrapper/dists
+          key: ${{ runner.os }}-tgphotos-public-gradle-v1-${{ hashFiles('**/*.gradle.kts', 'gradle/libs.versions.toml', 'gradle/wrapper/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-tgphotos-public-gradle-v1-
+      - name: Build explicitly requested development preview
+        run: |
+          python3 scripts/check_source.py
+          python3 scripts/check_secrets.py
+          python3 scripts/bootstrap_wrapper.py
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" 'platforms;android-36' 'build-tools;36.0.0'
+          ./gradlew --no-daemon :app:assembleDebug -PapkBuildApproved=true
+          mkdir -p .toolchain/preview-delivery
+          cp app/build/outputs/apk/debug/app-debug.apk .toolchain/preview-delivery/TG-Photos-0.1.0-preview.apk
+          "$ANDROID_HOME/cmdline-tools/latest/bin/apkanalyzer" manifest print .toolchain/preview-delivery/TG-Photos-0.1.0-preview.apk > .toolchain/preview-delivery/merged-manifest.xml
+          python3 scripts/check_apk_manifest.py .toolchain/preview-delivery/merged-manifest.xml
+          "$ANDROID_HOME/build-tools/36.0.0/apksigner" verify --verbose --print-certs .toolchain/preview-delivery/TG-Photos-0.1.0-preview.apk > .toolchain/preview-delivery/signature-verification.txt
+          python3 - <<'PY'
+          import hashlib, json, os
+          from pathlib import Path
+          root = Path('.toolchain/preview-delivery')
+          apk = root / 'TG-Photos-0.1.0-preview.apk'
+          report = {
+              'app': 'TG Photos', 'package': 'app.tgphotos.android',
+              'version': '0.1.0', 'min_android_api': 26,
+              'source_commit': os.environ['GITHUB_SHA'], 'workflow_run': os.environ['GITHUB_RUN_ID'],
+              'apk_sha256': hashlib.sha256(apk.read_bytes()).hexdigest(), 'apk_bytes': apk.stat().st_size,
+              'scope': 'Owner-requested labelled development preview; NOT production-ready',
+              'signing': 'Runner-generated development debug certificate; not a stable release identity',
+              'limits': ['No live Telegram login or encrypted backup', 'No real personal gallery/file manager/player/Vault authentication', 'No owner credentials, production keys or user files included'],
+              'previous_runtime_evidence': 'docs/evidence/android-preview-runtime.json',
+          }
+          (root / 'build-info.json').write_text(json.dumps(report, indent=2) + '\n')
+          (root / 'SHA256SUMS').write_text(report['apk_sha256'] + '  ' + apk.name + '\n')
+          PY
+      - name: Retain APK and verification in the owner private repository
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        with:
+          name: tgphotos-owner-preview-apk
+          path: .toolchain/preview-delivery/
+          if-no-files-found: error
+          retention-days: 30
+      - name: Remove runner packages and ephemeral debug signing key
+        if: always()
+        run: |
+          rm -rf .toolchain/preview-delivery app/build/outputs/apk
+          rm -f "$HOME/.android/debug.keystore"
+
+# Explicit owner request on 2026-10-11 authorizes delivery of this honest preview.
+# No Play publication, stable release signing, security merge or production claim.

@@ -83,3 +83,9 @@ Android 35 emulator by UI-tree coordinates and uploads only account-free screens
 not deliver an APK or prove live functionality. Read actual run conclusions and inspect screenshots.
 AuthenticatedRangeReader/EncryptedMediaDataSource are drafts; close readers on locks and review trusted
 manifest/range/transport/provider boundaries before connecting ExoPlayer.
+
+On 2026-10-11 the owner explicitly requested the current APK. The separate android-preview-apk.yml
+workflow builds and privately retains a labelled debug preview plus actual manifest, signature and
+SHA-256 evidence for owner delivery. No owner credentials/native runtime fixture/user files are included.
+The signing certificate is a runner-generated development identity, not the future stable release key.
+App source remains the tested preview; live functionality and production security gates are unchanged.

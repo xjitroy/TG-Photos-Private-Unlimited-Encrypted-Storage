@@ -5,6 +5,8 @@ Preserve applicationId app.tgphotos.android. The owner authorized eventual APK c
 2026-10-10 after original requirements/design and production gates pass. This is not permission to
 publish to Play or externally deploy. Compile, lint, JVM tests and development toward that APK are allowed.
 No credentials, passphrases, OTPs or production keys in source, logs, saved state or fixtures.
+On 2026-10-11 the owner explicitly requested the current APK. Delivery of an honestly labelled
+development preview is authorized; this does not waive production gates or authorize Play publication.
 Phase 1 is a clearly labelled design preview with unavailable transport/crypto adapters.
 Never report an unavailable adapter as successful authentication, backup, restore or unlock.
 Use original assets and Compose implementations. Check licenses before copying source.
