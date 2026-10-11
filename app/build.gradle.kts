@@ -46,6 +46,7 @@ dependencies {
     androidTestImplementation(libs.android.test.runner)
     androidTestImplementation(libs.android.test.junit)
     androidTestImplementation(project(":core:telegram"))
+    androidTestImplementation(project(":core:crypto"))
     androidTestImplementation(libs.coroutines.core)
     androidTestImplementation(libs.serialization.json)
 }

@@ -316,3 +316,15 @@ framing rejection before derivation, and wiping both credentials after failed ro
 are not yet known. This codec is not app-wired or durably persisted; it is not a completed recovery,
 Vault-auth or login feature. Secure private record persistence, Android calibration, provisioning and
 full authoritative login remain next P2 work; independent review remains required before security merge.
+
+### Private root record persistence draft
+
+PrivateRootRecordStore stores only the fixed versioned encrypted record under noBackupFilesDir.
+Create-only setup never replaces a missing/corrupt-key failure with a new root. Password change uses
+exact-record compare-and-replace, a process-wide writer lock, AtomicFile, explicit file sync, promoted
+byte verification, directory sync and private 0700/0600 modes. Symlinked or non-file paths and oversized/
+truncated framing are rejected. Unlock authentication is still the codec's responsibility; storage
+framing checks are not cryptographic verification. No multi-process writer/rollback-anchor claim.
+Two isolated Android tests exercise real Argon2id/AES-GCM + fresh-store reload/password rotation,
+stale-writer rejection, corruption rejection and no silent setup reset. They are prepared, not yet
+reported as passing. BC/root codec is androidTest-only; no actual setup UI or live keys are enabled.
